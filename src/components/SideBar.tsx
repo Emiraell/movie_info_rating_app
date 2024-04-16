@@ -21,13 +21,20 @@ export default function SideBar({
   return (
     <nav>
       <Drawer
+        PaperProps={{ sx: { backgroundColor: "black" } }}
         variant="temporary"
         sx={{ display: { sm: "none" } }}
         open={openDrawer}
         onClose={toggleDrawer}
         ModalProps={{ keepMounted: true }}
       >
-        <Box sx={{ textAlign: "center", my: 3, paddingX: 5 }}>
+        <Box
+          sx={{
+            textAlign: "center",
+            my: 3,
+            width: 240,
+          }}
+        >
           <Typography fontWeight="bold" color="red" variant="h6">
             Emiflix
           </Typography>
@@ -35,7 +42,10 @@ export default function SideBar({
           <List sx={{ marginTop: 3 }}>
             {navItems.map((item) => (
               <ListItem key={item.name}>
-                <ListItemText primary={item.name} />
+                <ListItemText
+                  primary={item.name}
+                  sx={{ textAlign: "center", color: "wheat" }}
+                />
               </ListItem>
             ))}
           </List>

@@ -24,16 +24,8 @@ export default function Header() {
 
   return (
     <Box>
-      <AppBar elevation={0} component={"nav"}>
+      <AppBar elevation={0} component={"nav"} sx={{ backgroundColor: "black" }}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            size="large"
-            sx={{ display: { sm: "none" } }}
-            onClick={toggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography component="div" sx={{ flexGrow: 1 }}>
             Emifix
           </Typography>
@@ -44,6 +36,14 @@ export default function Header() {
               </Button>
             ))}
           </Box>
+          <IconButton
+            color="inherit"
+            size="large"
+            sx={{ display: { sm: "none" } }}
+            onClick={toggleDrawer}
+          >
+            {!openDrawer && <MenuIcon />}
+          </IconButton>
         </Toolbar>
       </AppBar>
       <SideBar
