@@ -1,4 +1,4 @@
-import { Box, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Toolbar, Typography } from "@mui/material";
 import Header from "../../components/Header";
 import movie from "../../assets/Images/movie_1.jpg";
 
@@ -8,7 +8,6 @@ export default function Main() {
       <Box sx={{}}>
         <Header />
         <Toolbar />
-        {/* <Box> */}
         <div
           className=" h-[40vh] md:h-[50vh] bg-gray-700 bg-cover bg-no-repeat bg-blend-multiply"
           style={{ backgroundImage: `url(${movie})` }}
@@ -31,7 +30,6 @@ export default function Main() {
             </div>
           </div>
         </div>
-        {/* </Box> */}
       </Box>
     </>
   );

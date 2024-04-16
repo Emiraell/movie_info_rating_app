@@ -24,9 +24,16 @@ export default function Header() {
 
   return (
     <Box>
-      <AppBar elevation={0} component={"nav"} sx={{ backgroundColor: "black" }}>
+      <AppBar
+        elevation={0}
+        component={"nav"}
+        sx={{ backgroundColor: "#051124" }}
+      >
         <Toolbar>
-          <Typography component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            component="div"
+            sx={{ flexGrow: 1, letterSpacing: 2, color: "yellow" }}
+          >
             Emifix
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
