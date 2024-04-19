@@ -6,13 +6,16 @@ export const AuthUserSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(getAuth.fulfilled, (state) => {
-      state.userIn = true;
+    builder.addCase(getAuth.fulfilled, (state, action) => {
+      action.payload.result.success === true
+        ? (state.userIn = true)
+        : (state.userIn = false);
+      // state.userIn = true;
     });
   },
 });
 
-export const getAuth = createAsyncThunk("getAuth", async () => {
+export const getAuth = createAsyncThunk("getAuth", async (name) => {
   const options = {
     method: "GET",
     headers: {
@@ -28,8 +31,9 @@ export const getAuth = createAsyncThunk("getAuth", async () => {
   );
 
   const result = res.json();
+  console.log(result);
 
-  return result;
+  return { ...result, name: name };
 });
 
 export default AuthUserSlice.reducer;
