@@ -23,8 +23,8 @@ export default function Header() {
 
   const toggleDrawer = () => setOpenDrawer(!openDrawer);
 
-  const userLoggedIn: boolean = useAppSelector(
-    (state) => state.userAuth.userIn
+  const userLoggedIn: null | string = useAppSelector(
+    (state) => state.userAuth.guestId
   );
 
   return (

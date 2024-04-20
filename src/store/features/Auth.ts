@@ -1,21 +1,32 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const initialState = { name: "", userIn: false, guestId: null };
+interface User {
+  name: string;
+  guestId: string | null;
+}
+
+const storedUser = localStorage.getItem("guest");
+let guestInfo;
+try {
+  guestInfo = storedUser && (JSON.parse(storedUser) as User);
+} catch (err) {
+  console.log(err);
+}
+
+const initialState: User = guestInfo || { name: "", guestId: null };
 export const AuthUserSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    Loginn: (state, action) => {
-      // const dispatch = useAppDispatch();
-      // dispatch(getAuth());
+    LoginUser: (state, action) => {
       state.guestId && (state.name = action.payload);
+      localStorage.setItem("guest", JSON.stringify(state));
     },
   },
   extraReducers(builder) {
     builder.addCase(getAuth.fulfilled, (state, action) => {
       state.guestId = action.payload.guest_session_id;
-      state.guestId &&
-        (localStorage.setItem("guest", state.guestId), (state.userIn = true));
+      state.guestId && localStorage.setItem("guest", JSON.stringify(state));
     });
   },
 });
@@ -38,5 +49,5 @@ export const getAuth = createAsyncThunk("getAuth", async () => {
   return result;
 });
 
-export const { Loginn } = AuthUserSlice.actions;
+export const { LoginUser } = AuthUserSlice.actions;
 export default AuthUserSlice.reducer;
