@@ -10,6 +10,12 @@ export default function Main() {
         <Header />
         <Toolbar />
         <Hero />
+        <div
+          className="text-center m-auto text-gray-50 text-lg md:text-2xl mt-5
+           font-bold tracking-wider w-fit border-b-4 pb-2 border-dashed border-yellow-500"
+        >
+          Popular
+        </div>
         <NavButtons />
       </Box>
     </>

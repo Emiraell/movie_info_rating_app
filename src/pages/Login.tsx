@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
-import { useAppDispatch } from "../store/features/store";
+import { useAppDispatch } from "../store/store";
 import { getAuth, LoginUser } from "../store/features/Auth";
 import Header from "../components/Header";
 import { motion } from "framer-motion";

@@ -10,7 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import SideBar from "./SideBar";
-import { useAppSelector } from "../store/features/store";
+import { useAppSelector } from "../store/store";
 
 export default function Header() {
   const navItems: { name: string; path: string }[] = [

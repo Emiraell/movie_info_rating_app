@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from "./pages/Home/Main";
-import { useAppSelector } from "./store/features/store";
+import { useAppSelector } from "./store/store";
 import Login from "./pages/Login";
 
 function App() {
