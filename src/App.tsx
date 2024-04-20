@@ -7,16 +7,18 @@ import { useAppDispatch, useAppSelector } from "./store/features/store";
 import Login from "./pages/Login";
 
 function App() {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getAuth());
-  }, []);
-  const { userIn } = useAppSelector((state) => state.userAuth);
+  const { guestId, userIn, name } = useAppSelector((state) => state.userAuth);
+  // const dispatch = useAppDispatch();
+  // useEffect(() => {
+  //   dispatch(getAuth());
+  // console.log(guestId, userIn, name);
+  // }, []);
+  // const { guestId } = useAppSelector((state) => state.userAuth);
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={userIn ? <Main /> : <Login />} />
+          <Route path="/" element={guestId ? <Main /> : <Login />} />
         </Routes>
       </Router>
     </>

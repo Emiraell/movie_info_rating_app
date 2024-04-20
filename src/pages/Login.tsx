@@ -1,17 +1,18 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { useAppDispatch } from "../store/features/store";
-import { getAuth } from "../store/features/Auth";
+import { useAppDispatch, useAppSelector } from "../store/features/store";
+import { getAuth, Loginn } from "../store/features/Auth";
+import Header from "../components/Header";
 
 export default function Login() {
-  const [name, setName] = useState<string>("");
+  const [namee, setName] = useState<string>("");
   const dispatch = useAppDispatch();
 
-  const Login = async () => {
-    await dispatch(getAuth());
-  };
+  const { guestId, userIn, name } = useAppSelector((state) => state.userAuth);
+
   return (
     <>
+      <Header />
       <Box
         sx={{
           textAlign: "center",
@@ -41,8 +42,14 @@ export default function Login() {
             onChange={(e) => setName(e.target.value)}
             required
           ></TextField>
-          {name !== "" && (
+          {namee !== "" && (
             <Button
+              onClick={async (e) => {
+                e.preventDefault();
+                await dispatch(getAuth());
+                dispatch(Loginn(namee));
+                console.log(guestId, name, userIn);
+              }}
               sx={{
                 my: 3,
                 color: "#1d4689",

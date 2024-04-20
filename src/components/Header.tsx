@@ -10,6 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import SideBar from "./SideBar";
+import { useAppSelector } from "../store/features/store";
 
 export default function Header() {
   const navItems: { name: string; path: string }[] = [
@@ -21,6 +22,10 @@ export default function Header() {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
   const toggleDrawer = () => setOpenDrawer(!openDrawer);
+
+  const userLoggedIn: boolean = useAppSelector(
+    (state) => state.userAuth.userIn
+  );
 
   return (
     <Box>
@@ -36,23 +41,28 @@ export default function Header() {
           >
             Emifix
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item.name} sx={{ color: "red" }}>
-                <Link to={item.path}>{item.name}</Link>
-              </Button>
-            ))}
-          </Box>
-          <IconButton
-            color="inherit"
-            size="large"
-            sx={{ display: { sm: "none" } }}
-            onClick={toggleDrawer}
-          >
-            {!openDrawer && <MenuIcon />}
-          </IconButton>
+          {userLoggedIn && (
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              {navItems.map((item) => (
+                <Button key={item.name} sx={{ color: "red" }}>
+                  <Link to={item.path}>{item.name}</Link>
+                </Button>
+              ))}
+            </Box>
+          )}{" "}
+          {userLoggedIn && (
+            <IconButton
+              color="inherit"
+              size="large"
+              sx={{ display: { sm: "none" } }}
+              onClick={toggleDrawer}
+            >
+              {!openDrawer && <MenuIcon />}
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
+
       <SideBar
         openDrawer={openDrawer}
         toggleDrawer={toggleDrawer}

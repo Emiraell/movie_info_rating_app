@@ -1,21 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const initialState = { name: "", userIn: false };
+const initialState = { name: "", userIn: false, guestId: null };
 export const AuthUserSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    Loginn: (state, action) => {
+      // const dispatch = useAppDispatch();
+      // dispatch(getAuth());
+      state.guestId && (state.name = action.payload);
+    },
+  },
   extraReducers(builder) {
     builder.addCase(getAuth.fulfilled, (state, action) => {
-      action.payload.result.success === true
-        ? (state.userIn = true)
-        : (state.userIn = false);
-      // state.userIn = true;
+      state.guestId = action.payload.guest_session_id;
+      state.guestId &&
+        (localStorage.setItem("guest", state.guestId), (state.userIn = true));
     });
   },
 });
 
-export const getAuth = createAsyncThunk("getAuth", async (name) => {
+export const getAuth = createAsyncThunk("getAuth", async () => {
   const options = {
     method: "GET",
     headers: {
@@ -29,11 +34,9 @@ export const getAuth = createAsyncThunk("getAuth", async (name) => {
     "https://api.themoviedb.org/3/authentication/guest_session/new",
     options
   );
-
   const result = res.json();
-  console.log(result);
-
-  return { ...result, name: name };
+  return result;
 });
 
+export const { Loginn } = AuthUserSlice.actions;
 export default AuthUserSlice.reducer;
