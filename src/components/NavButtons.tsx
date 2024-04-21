@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../store/store";
-import { fetchPopularMovies } from "../store/features/Movies";
+import { fetchPopularMovies } from "../store/features/movies/Popular";
 
 export default function NavButtons() {
   const buttons: string[] = ["Movies", "Tv Shows"];
@@ -13,7 +13,7 @@ export default function NavButtons() {
         <Button
           onClick={() => {
             button === "Movies"
-              ? dispatch(fetchPopularMovies(button.toLowerCase()))
+              ? dispatch(fetchPopularMovies("movie"))
               : dispatch(fetchPopularMovies("tv"));
           }}
           variant="outlined"

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const MovieSlice = createSlice({
+const initialState = { popularMovies: [], popularTv: [] };
+export const PopularSlice = createSlice({
   name: "movies",
   initialState: "",
   reducers: {},
@@ -26,11 +27,11 @@ export const fetchPopularMovies = createAsyncThunk(
       options
     );
 
-    const data = res.json();
+    const data = await res.json();
     console.log(data);
 
-    return data;
+    return data.result;
   }
 );
 
-export default MovieSlice.reducer;
+export default PopularSlice.reducer;
