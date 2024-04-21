@@ -1,12 +1,54 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const initialState = { popularMovies: [], popularTv: [] };
+interface Movies {
+  id: number;
+  original_language: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  vote_average: number;
+}
+interface TvShows {
+  first_air_date: string;
+  id: number;
+  original_language: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  name: string;
+  vote_average: number;
+}
+
+interface Data {
+  popularMovies: Movies[];
+  popularTv: TvShows[];
+}
+const storedMovies = localStorage.getItem("movies");
+
+let movieData;
+
+try {
+  movieData = storedMovies && (JSON.parse(storedMovies) as Data);
+} catch (err) {
+  console.log(err);
+}
+const initialState: Data = movieData || { popularMovies: [], popularTv: [] };
 export const PopularSlice = createSlice({
   name: "movies",
-  initialState: "",
+  initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchPopularMovies.fulfilled, (state, action) => {});
+    builder.addCase(fetchPopularMovies.fulfilled, (state, action) => {
+      const data = action.payload;
+      data.name === "movie"
+        ? (state.popularMovies = data.results)
+        : (state.popularTv = data.results);
+
+      localStorage.setItem("movies", JSON.stringify(state));
+    });
   },
 });
 
@@ -28,9 +70,10 @@ export const fetchPopularMovies = createAsyncThunk(
     );
 
     const data = await res.json();
-    console.log(data);
+    const returenedData = { ...data, name };
+    console.log(returenedData);
 
-    return data.result;
+    return returenedData;
   }
 );
 
