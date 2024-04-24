@@ -52,7 +52,7 @@ interface TvShows {
   vote_count: number;
 }
 
-interface Data {
+export interface Data {
   popularMovies: Movies[];
   popularTv: TvShows[];
 }
