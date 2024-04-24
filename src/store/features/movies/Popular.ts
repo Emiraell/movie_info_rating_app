@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-interface Movies {
+export interface Movies {
   // id: number;
   // original_language: string;
   // overview: string;
@@ -25,7 +25,7 @@ interface Movies {
   vote_average: number;
   vote_count: number;
 }
-interface TvShows {
+export interface TvShows {
   // first_air_date: string;
   // id: number;
   // original_language: string;

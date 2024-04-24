@@ -4,6 +4,8 @@ import {
   CardActionArea,
   CardMedia,
   Container,
+  Icon,
+  Rating,
   Toolbar,
   // Typography,
 } from "@mui/material";
@@ -12,16 +14,36 @@ import Hero from "./Hero";
 import NavButtons from "../../components/NavButtons";
 import { useAppSelector } from "../../store/store";
 import { Data } from "../../store/features/movies/Popular";
-import { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import MovieTemplate from "../../components/MovieTemplate";
 
+interface Settings {
+  autoplay: boolean;
+  autoplaySpeed: number;
+  cssEase: string;
+  draggable: boolean;
+  pauseOnHover: boolean;
+  pauseOnFocus: boolean;
+  speed: number;
+  swipe: boolean;
+  dots: boolean;
+  slidesToShow: number;
+  slidesToScroll: number;
+  responsive: {
+    breakpoint: number;
+    settings: {
+      slidesToShow: number;
+      slidesToScroll: number;
+    };
+  }[];
+}
 export default function Main() {
   const { popularMovies: movies, popularTv: tvshows }: Data = useAppSelector(
     (state) => state.movieReducer
   );
-  const settings = {
+  const settings: Settings = {
     autoplay: true,
     autoplaySpeed: 8000,
     cssEase: "ease",
@@ -48,10 +70,6 @@ export default function Main() {
           slidesToShow: 1,
         },
       },
-      {
-        breakpoint: 300,
-        settings: "unslick",
-      },
     ],
   };
   return (
@@ -70,27 +88,10 @@ export default function Main() {
         <div className="text-gray-50 text-right pr-10 py-5 text-lg">
           see all
         </div>
-        <div className="bg-gray-800 px-5">
+        <div className=" px-5">
           <Slider {...settings}>
             {movies.map((movie) => (
-              <Card key={movie.id} sx={{ maxHeight: "fit-content" }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                    alt={`${movie.poster_path} image`}
-                    sx={{ height: "60vh", objectFit: "fill" }}
-                  ></CardMedia>{" "}
-                  <div className="p-3 tracking-wide">
-                    <p className="text-xl  font-bold text-center pb-3">
-                      {movie.title}
-                    </p>
-                    <p className="text-lg">
-                      {movie.overview.substring(0, 90)} ....
-                    </p>
-                  </div>
-                </CardActionArea>
-              </Card>
+              <MovieTemplate data={movie} key={movie.id} />
             ))}
           </Slider>
         </div>
