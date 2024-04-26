@@ -3,18 +3,23 @@ import { useAppDispatch } from "../store/store";
 import { fetchPopularMovies } from "../store/features/movies/Popular";
 import { Dispatch, SetStateAction } from "react";
 import { fetchTopRated } from "../store/features/movies/TopRated";
+import { fetchTrending } from "../store/features/movies/Trending";
 
 interface IProps {
   setPopular: Dispatch<SetStateAction<boolean>>;
   setTopRated: Dispatch<SetStateAction<boolean>>;
+  setTrending: Dispatch<SetStateAction<boolean>>;
   popular: boolean;
   topRated: boolean;
+  trending: boolean;
 }
 export default function NavButtons({
   setPopular,
   setTopRated,
+  setTrending,
   popular,
   topRated,
+  trending,
 }: IProps) {
   const buttons: string[] = ["Movies", "Tv Shows"];
 
@@ -43,6 +48,14 @@ export default function NavButtons({
               } else {
                 dispatch(fetchTopRated("tv"));
                 setTopRated(false);
+              }
+            } else if (trending) {
+              if (button === "Movies") {
+                dispatch(fetchTrending("movie"));
+                setTrending(true);
+              } else {
+                dispatch(fetchTrending("tv"));
+                setTrending(false);
               }
             }
           }}
