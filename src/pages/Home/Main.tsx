@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MovieTemplate from "../../components/MovieTemplate";
 import { useEffect, useState } from "react";
+import { TopRated } from "../../store/features/movies/TopRated";
 
 interface Settings {
   autoplay: boolean;
@@ -30,9 +31,13 @@ interface Settings {
     };
   }[];
 }
+
 export default function Main() {
-  const { popularMovies: movies, popularTv: tvshows }: Data = useAppSelector(
-    (state) => state.movieReducer
+  const { popularMovies, popularTv }: Data = useAppSelector(
+    (state) => state.popularMovie
+  );
+  const { topRatedMovies, topRatedTvshows }: TopRated = useAppSelector(
+    (state) => state.topRated
   );
   const settings: Settings = {
     autoplay: true,
@@ -66,6 +71,9 @@ export default function Main() {
   const [showingPopularMovie, setShowingPopularMovie] =
     useState<boolean>(false);
 
+  const [showingTopRatedMovie, setShowingTopRatedMovie] =
+    useState<boolean>(false);
+
   useEffect(() => {
     setShowingPopularMovie(true);
   }, []);
@@ -81,7 +89,12 @@ export default function Main() {
         >
           Popular
         </div>
-        <NavButtons setPopular={setShowingPopularMovie} />
+        <NavButtons
+          setPopular={setShowingPopularMovie}
+          setTopRated={setShowingTopRatedMovie}
+          popular={true}
+          topRated={false}
+        />
         <>
           <div className="text-gray-50 text-right pr-10 py-5 text-lg">
             see all
@@ -90,7 +103,7 @@ export default function Main() {
             <div className=" px-5">
               <p className="text-white">MOVIES</p>
               <Slider {...settings}>
-                {movies?.map((movie) => (
+                {popularMovies?.map((movie) => (
                   <MovieTemplate data={movie} key={movie.id} genre={"movie"} />
                 ))}
               </Slider>
@@ -99,7 +112,46 @@ export default function Main() {
             <div className=" px-5">
               <p className="text-white">TV</p>
               <Slider {...settings}>
-                {tvshows?.map((show) => (
+                {popularTv?.map((show) => (
+                  <MovieTemplate data={show} key={show.id} genre={"tvshow"} />
+                ))}
+              </Slider>
+            </div>
+          )}
+        </>
+
+        {/* top rated */}
+        <div
+          className="text-center m-auto text-gray-50 text-lg md:text-2xl mt-5
+           font-bold tracking-wider w-fit border-b-4 pb-2 border-dashed border-yellow-500"
+        >
+          Top Rated
+        </div>
+        <NavButtons
+          setPopular={setShowingPopularMovie}
+          setTopRated={setShowingTopRatedMovie}
+          topRated={true}
+          popular={false}
+        />
+        <></>
+        <>
+          <div className="text-gray-50 text-right pr-10 py-5 text-lg">
+            see all
+          </div>
+          {showingTopRatedMovie ? (
+            <div className=" px-5">
+              <p className="text-white">MOVIES</p>
+              <Slider {...settings}>
+                {topRatedMovies?.map((movie) => (
+                  <MovieTemplate data={movie} key={movie.id} genre={"movie"} />
+                ))}
+              </Slider>
+            </div>
+          ) : (
+            <div className=" px-5">
+              <p className="text-white">TV</p>
+              <Slider {...settings}>
+                {topRatedTvshows?.map((show) => (
                   <MovieTemplate data={show} key={show.id} genre={"tvshow"} />
                 ))}
               </Slider>

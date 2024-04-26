@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AuthUserSlice } from "./features/Auth";
 import { PopularSlice } from "./features/movies/Popular";
+import { TopRatedSlice } from "./features/movies/TopRated";
 
 export const store = configureStore({
   reducer: {
     userAuth: AuthUserSlice.reducer,
-    movieReducer: PopularSlice.reducer,
+    popularMovie: PopularSlice.reducer,
+    topRated: TopRatedSlice.reducer,
   },
 });
 

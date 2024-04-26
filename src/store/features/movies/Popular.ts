@@ -43,7 +43,7 @@ export interface Data {
   popularMovies: Movies[];
   popularTv: TvShows[];
 }
-const storedMovies = localStorage.getItem("movies");
+const storedMovies = localStorage.getItem("popular");
 
 let movieData;
 
@@ -64,7 +64,7 @@ export const PopularSlice = createSlice({
         ? (state.popularMovies = data.results)
         : (state.popularTv = data.results);
 
-      localStorage.setItem("movies", JSON.stringify(state));
+      localStorage.setItem("popular", JSON.stringify(state));
     });
   },
 });

@@ -2,11 +2,20 @@ import { Button } from "@mui/material";
 import { useAppDispatch } from "../store/store";
 import { fetchPopularMovies } from "../store/features/movies/Popular";
 import { Dispatch, SetStateAction } from "react";
+import { fetchTopRated } from "../store/features/movies/TopRated";
 
 interface IProps {
   setPopular: Dispatch<SetStateAction<boolean>>;
+  setTopRated: Dispatch<SetStateAction<boolean>>;
+  popular: boolean;
+  topRated: boolean;
 }
-export default function NavButtons({ setPopular }: IProps) {
+export default function NavButtons({
+  setPopular,
+  setTopRated,
+  popular,
+  topRated,
+}: IProps) {
   const buttons: string[] = ["Movies", "Tv Shows"];
 
   const dispatch = useAppDispatch();
@@ -19,12 +28,22 @@ export default function NavButtons({ setPopular }: IProps) {
       {buttons.map((button) => (
         <Button
           onClick={() => {
-            if (button === "Movies") {
-              dispatch(fetchPopularMovies("movie"));
-              setPopular(true);
-            } else {
-              dispatch(fetchPopularMovies("tv"));
-              setPopular(false);
+            if (popular) {
+              if (button === "Movies") {
+                dispatch(fetchPopularMovies("movie"));
+                setPopular(true);
+              } else {
+                dispatch(fetchPopularMovies("tv"));
+                setPopular(false);
+              }
+            } else if (topRated) {
+              if (button === "Movies") {
+                dispatch(fetchTopRated("movie"));
+                setTopRated(true);
+              } else {
+                dispatch(fetchTopRated("tv"));
+                setTopRated(false);
+              }
             }
           }}
           variant="outlined"
