@@ -1,14 +1,4 @@
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardMedia,
-  Container,
-  Icon,
-  Rating,
-  Toolbar,
-  // Typography,
-} from "@mui/material";
+import { Box, Toolbar } from "@mui/material";
 import Header from "../../components/Header";
 import Hero from "./Hero";
 import NavButtons from "../../components/NavButtons";
@@ -85,30 +75,31 @@ export default function Main() {
           Popular
         </div>
         <NavButtons />
-        <div className="text-gray-50 text-right pr-10 py-5 text-lg">
-          see all
-        </div>
-        <div className=" px-5">
-          <Slider {...settings}>
-            {movies.map((movie) => (
-              <MovieTemplate data={movie} key={movie.id} />
-            ))}
-          </Slider>
-        </div>
+        <>
+          <div className="text-gray-50 text-right pr-10 py-5 text-lg">
+            see all
+          </div>
+          <div className=" px-5">
+            <Slider {...settings}>
+              {movies?.map((movie) => (
+                <MovieTemplate data={movie} key={movie.id} genre={"movie"} />
+              ))}
+            </Slider>
+          </div>
+        </>
 
-        {/* <Container>
-          {tvshows.map((show) => (
-            <Card key={show.id}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  image={`https://image.tmdb.org/t/p/original/${show.poster_path}`}
-                  alt={`${show.poster_path} image`}
-                ></CardMedia>
-              </CardActionArea>
-            </Card>
-          ))}
-        </Container> */}
+        <>
+          <div className="text-gray-50 text-right pr-10 py-5 text-lg">
+            see all
+          </div>
+          <div className=" px-5">
+            <Slider {...settings}>
+              {tvshows?.map((show) => (
+                <MovieTemplate data={show} key={show.id} genre={"tvshow"} />
+              ))}
+            </Slider>
+          </div>
+        </>
       </Box>
     </>
   );

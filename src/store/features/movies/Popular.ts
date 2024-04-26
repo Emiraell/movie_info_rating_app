@@ -1,55 +1,42 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface Movies {
-  // id: number;
-  // original_language: string;
-  // overview: string;
-  // popularity: number;
-  // poster_path: string;
-  // release_date: string;
-  // title: string;
-  // vote_average: number;
-
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
+  first_air_date: string;
+  // adult: boolean;
+  // backdrop_path: string;
+  // genre_ids: number[];
   id: number;
-  original_language: string;
+  // original_language: string;
   original_title: string;
   overview: string;
-  popularity: number;
+  name: string;
+  // popularity: number;
   poster_path: string;
   release_date: string;
   title: string;
-  video: boolean;
+  // video: boolean;
   vote_average: number;
-  vote_count: number;
+  // vote_count: number;
+  // genre: string;
 }
 export interface TvShows {
-  // first_air_date: string;
-  // id: number;
-  // original_language: string;
-  // overview: string;
-  // popularity: number;
-  // poster_path: string;
-  // release_date: string;
-  // name: string;
-  // vote_average: number;
-
-  adult: boolean;
-  backdrop_path: string;
+  // adult: boolean;
+  // backdrop_path: string;
   first_air_date: string;
-  genre_ids: number[];
+  // genre_ids: number[];
   id: number;
   name: string;
-  origin_country: string[];
-  original_language: string;
+  // origin_country: string[];
+  // original_language: string;
   original_name: string;
   overview: string;
-  popularity: number;
+  release_date: string;
+  title: string;
+  // popularity: number;
   poster_path: string;
   vote_average: number;
-  vote_count: number;
+  // vote_count: number;
+  // genre: string;
 }
 
 export interface Data {
@@ -73,7 +60,7 @@ export const PopularSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(fetchPopularMovies.fulfilled, (state, action) => {
       const data = action.payload;
-      data.name === "movie"
+      data.genre === "movie"
         ? (state.popularMovies = data.results)
         : (state.popularTv = data.results);
 
@@ -84,7 +71,7 @@ export const PopularSlice = createSlice({
 
 export const fetchPopularMovies = createAsyncThunk(
   "getMovies",
-  async (name: string) => {
+  async (genre: string) => {
     const options = {
       method: "GET",
       headers: {
@@ -95,12 +82,12 @@ export const fetchPopularMovies = createAsyncThunk(
     };
 
     const res = await fetch(
-      `https://api.themoviedb.org/3/${name}/popular?language=en-US&page=1`,
+      `https://api.themoviedb.org/3/${genre}/popular?language=en-US&page=1`,
       options
     );
 
     const data = await res.json();
-    const returenedData = { ...data, name };
+    const returenedData = { ...data, genre };
     console.log(returenedData);
 
     return returenedData;

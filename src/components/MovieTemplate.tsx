@@ -2,12 +2,23 @@ import { Card, CardActionArea, CardMedia, Rating } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CalendarMonthSharpIcon from "@mui/icons-material/CalendarMonthSharp";
-import { Movies, TvShows } from "../store/features/movies/Popular";
+
+interface Movie {
+  first_air_date: string;
+  id: number;
+  name: string;
+  title: string;
+  overview: string;
+  release_date: string;
+  poster_path: string;
+  vote_average: number;
+}
 
 interface IProps {
-  data: Movies | TvShows;
+  data: Movie;
+  genre: string;
 }
-export default function MovieTemplate({ data: movie }: IProps) {
+export default function MovieTemplate({ data: movie, genre }: IProps) {
   return (
     <>
       <Card key={movie.id} sx={{ maxHeight: "fit-content" }}>
@@ -20,7 +31,9 @@ export default function MovieTemplate({ data: movie }: IProps) {
           ></CardMedia>
           <div className="p-3 tracking-wide bg-gray-950 text-gray-300">
             <div>
-              <p className="text-xl font-bold text-center">{movie.title}</p>
+              <p className="text-xl font-bold text-center">
+                {genre === "movie" ? movie.title : movie.name}
+              </p>
             </div>
             <div className=" flex text-sm justify-between py-3">
               <div className="">
@@ -28,7 +41,11 @@ export default function MovieTemplate({ data: movie }: IProps) {
                   Release Date
                   <CalendarMonthSharpIcon fontSize="inherit" />:
                 </span>
-                <p>{movie.release_date}</p>
+                <p>
+                  {genre === "movie"
+                    ? movie.release_date
+                    : movie.first_air_date}
+                </p>
               </div>
 
               <div>
