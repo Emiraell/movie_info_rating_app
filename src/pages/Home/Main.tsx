@@ -8,6 +8,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MovieTemplate from "../../components/MovieTemplate";
+import { useEffect, useState } from "react";
 
 interface Settings {
   autoplay: boolean;
@@ -62,6 +63,12 @@ export default function Main() {
       },
     ],
   };
+  const [showingPopularMovie, setShowingPopularMovie] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    setShowingPopularMovie(true);
+  }, []);
   return (
     <>
       <Box sx={{}}>
@@ -74,31 +81,30 @@ export default function Main() {
         >
           Popular
         </div>
-        <NavButtons />
+        <NavButtons setPopular={setShowingPopularMovie} />
         <>
           <div className="text-gray-50 text-right pr-10 py-5 text-lg">
             see all
           </div>
-          <div className=" px-5">
-            <Slider {...settings}>
-              {movies?.map((movie) => (
-                <MovieTemplate data={movie} key={movie.id} genre={"movie"} />
-              ))}
-            </Slider>
-          </div>
-        </>
-
-        <>
-          <div className="text-gray-50 text-right pr-10 py-5 text-lg">
-            see all
-          </div>
-          <div className=" px-5">
-            <Slider {...settings}>
-              {tvshows?.map((show) => (
-                <MovieTemplate data={show} key={show.id} genre={"tvshow"} />
-              ))}
-            </Slider>
-          </div>
+          {showingPopularMovie ? (
+            <div className=" px-5">
+              <p className="text-white">MOVIES</p>
+              <Slider {...settings}>
+                {movies?.map((movie) => (
+                  <MovieTemplate data={movie} key={movie.id} genre={"movie"} />
+                ))}
+              </Slider>
+            </div>
+          ) : (
+            <div className=" px-5">
+              <p className="text-white">TV</p>
+              <Slider {...settings}>
+                {tvshows?.map((show) => (
+                  <MovieTemplate data={show} key={show.id} genre={"tvshow"} />
+                ))}
+              </Slider>
+            </div>
+          )}
         </>
       </Box>
     </>
