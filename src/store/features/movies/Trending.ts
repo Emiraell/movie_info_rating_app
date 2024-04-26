@@ -1,40 +1,40 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Movies } from "./Popular";
 
-export interface TopRated {
-  topRatedMovies: Movies[];
-  topRatedTvshows: Movies[];
+export interface Trending {
+  trendingMovies: Movies[];
+  trendingTvshows: Movies[];
 }
-const storedMovies = localStorage.getItem("topRated");
+const storedMovies = localStorage.getItem("trending");
 
 let movieData;
 
 try {
-  movieData = storedMovies && (JSON.parse(storedMovies) as TopRated);
+  movieData = storedMovies && (JSON.parse(storedMovies) as Trending);
 } catch (err) {
   console.log(err);
 }
-const initialState: TopRated = movieData || {
-  topRatedMovies: [],
-  topRatedTvshows: [],
+const initialState: Trending = movieData || {
+  trendingMovies: [],
+  trendingTvshows: [],
 };
-export const TopRatedSlice = createSlice({
+export const TrendingSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchTopRated.fulfilled, (state, action) => {
+    builder.addCase(fetchTrending.fulfilled, (state, action) => {
       const data = action.payload;
       data.genre === "movie"
-        ? (state.topRatedMovies = data.results)
-        : (state.topRatedTvshows = data.results);
+        ? (state.trendingMovies = data.results)
+        : (state.trendingTvshows = data.results);
 
-      localStorage.setItem("topRated", JSON.stringify(state));
+      localStorage.setItem("trending", JSON.stringify(state));
     });
   },
 });
 
-export const fetchTopRated = createAsyncThunk(
+export const fetchTrending = createAsyncThunk(
   "getMovies",
   async (genre: string) => {
     const options = {
@@ -47,7 +47,7 @@ export const fetchTopRated = createAsyncThunk(
     };
 
     const res = await fetch(
-      `https://api.themoviedb.org/3/${genre}/top_rated?language=en-US&page=1`,
+      `https://api.themoviedb.org/3/${genre}/trending/day?language=en-US`,
       options
     );
 
@@ -59,4 +59,4 @@ export const fetchTopRated = createAsyncThunk(
   }
 );
 
-export default TopRatedSlice.reducer;
+export default TrendingSlice.reducer;

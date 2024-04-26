@@ -2,46 +2,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface Movies {
   first_air_date: string;
-  // adult: boolean;
-  // backdrop_path: string;
-  // genre_ids: number[];
   id: number;
-  // original_language: string;
   original_title: string;
   overview: string;
   name: string;
-  // popularity: number;
   poster_path: string;
   release_date: string;
   title: string;
-  // video: boolean;
   vote_average: number;
-  // vote_count: number;
-  // genre: string;
-}
-export interface TvShows {
-  // adult: boolean;
-  // backdrop_path: string;
-  first_air_date: string;
-  // genre_ids: number[];
-  id: number;
-  name: string;
-  // origin_country: string[];
-  // original_language: string;
-  original_name: string;
-  overview: string;
-  release_date: string;
-  title: string;
-  // popularity: number;
-  poster_path: string;
-  vote_average: number;
-  // vote_count: number;
-  // genre: string;
 }
 
 export interface Data {
   popularMovies: Movies[];
-  popularTv: TvShows[];
+  popularTv: Movies[];
 }
 const storedMovies = localStorage.getItem("popular");
 

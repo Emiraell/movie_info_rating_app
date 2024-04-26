@@ -39,6 +39,9 @@ export default function Main() {
   const { topRatedMovies, topRatedTvshows }: TopRated = useAppSelector(
     (state) => state.topRated
   );
+  const { trendingMovies, trendingTvshows }: TopRated = useAppSelector(
+    (state) => state.topRated
+  );
   const settings: Settings = {
     autoplay: true,
     autoplaySpeed: 8000,
