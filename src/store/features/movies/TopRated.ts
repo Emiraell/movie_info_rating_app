@@ -1,23 +1,41 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Movies } from "./Popular";
+// import { TopRatedMovies } from "./Popular";
 
-export interface TopRated {
-  topRatedMovies: Movies[];
-  topRatedTvshows: Movies[];
+export interface TopRatedMovies {
+  first_air_date: string;
+  id: number;
+  original_title: string;
+  overview: string;
+  name: string;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  vote_average: number;
 }
-const storedMovies = localStorage.getItem("topRated");
+export interface TopRated {
+  topRatedMovies: TopRatedMovies[];
+  topRatedTvshows: TopRatedMovies[];
+}
+export interface Rated {
+  rated: TopRated;
+}
+const storedTopRated = localStorage.getItem("topRated");
 
-let movieData;
+let topRatedData;
 
 try {
-  movieData = storedMovies && (JSON.parse(storedMovies) as TopRated);
+  topRatedData = storedTopRated && (JSON.parse(storedTopRated) as TopRated);
 } catch (err) {
   console.log(err);
 }
-const initialState: TopRated = movieData || {
-  topRatedMovies: [],
-  topRatedTvshows: [],
-};
+const initialState: Rated =
+  // topRatedData ||
+  {
+    rated: {
+      topRatedMovies: [],
+      topRatedTvshows: [],
+    },
+  };
 export const TopRatedSlice = createSlice({
   name: "movies",
   initialState,
@@ -26,10 +44,10 @@ export const TopRatedSlice = createSlice({
     builder.addCase(fetchTopRated.fulfilled, (state, action) => {
       const data = action.payload;
       data.genre === "movie"
-        ? (state.topRatedMovies = data.results)
-        : (state.topRatedTvshows = data.results);
+        ? (state.rated.topRatedMovies = data.results)
+        : (state.rated.topRatedTvshows = data.results);
 
-      localStorage.setItem("topRated", JSON.stringify(state));
+      localStorage.setItem("topRated", JSON.stringify(state.rated));
     });
   },
 });
@@ -53,7 +71,7 @@ export const fetchTopRated = createAsyncThunk(
 
     const data = await res.json();
     const returenedData = { ...data, genre };
-    console.log(returenedData);
+    console.log(returenedData, "topRated");
 
     return returenedData;
   }

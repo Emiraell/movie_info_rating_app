@@ -1,23 +1,42 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Movies } from "./Popular";
+// import { TrendingMovies } from "./Popular";
+
+export interface TrendingMovies {
+  first_air_date: string;
+  id: number;
+  original_title: string;
+  overview: string;
+  name: string;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  vote_average: number;
+}
 
 export interface Trending {
-  trendingMovies: Movies[];
-  trendingTvshows: Movies[];
+  trendingMovies: TrendingMovies[];
+  trendingTvshows: TrendingMovies[];
 }
-const storedMovies = localStorage.getItem("trending");
+export interface State {
+  trending: Trending;
+}
+const storedTrending = localStorage.getItem("trending");
 
 let movieData;
 
 try {
-  movieData = storedMovies && (JSON.parse(storedMovies) as Trending);
+  movieData = storedTrending && (JSON.parse(storedTrending) as Trending);
 } catch (err) {
   console.log(err);
 }
-const initialState: Trending = movieData || {
-  trendingMovies: [],
-  trendingTvshows: [],
-};
+const initialState: State =
+  // movieData ||
+  {
+    trending: {
+      trendingMovies: [],
+      trendingTvshows: [],
+    },
+  };
 export const TrendingSlice = createSlice({
   name: "movies",
   initialState,
@@ -26,10 +45,10 @@ export const TrendingSlice = createSlice({
     builder.addCase(fetchTrending.fulfilled, (state, action) => {
       const data = action.payload;
       data.genre === "movie"
-        ? (state.trendingMovies = data.results)
-        : (state.trendingTvshows = data.results);
+        ? (state.trending.trendingMovies = data.results)
+        : (state.trending.trendingTvshows = data.results);
 
-      localStorage.setItem("trending", JSON.stringify(state));
+      localStorage.setItem("trending", JSON.stringify(state.trending));
     });
   },
 });
@@ -47,13 +66,13 @@ export const fetchTrending = createAsyncThunk(
     };
 
     const res = await fetch(
-      `https://api.themoviedb.org/3/${genre}/trending/day?language=en-US`,
+      `https://api.themoviedb.org/3/trending/${genre}/day?language=en-US`,
       options
     );
 
     const data = await res.json();
     const returenedData = { ...data, genre };
-    console.log(returenedData);
+    console.log(returenedData, "trending");
 
     return returenedData;
   }

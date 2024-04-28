@@ -2,15 +2,15 @@ import { Box, Toolbar } from "@mui/material";
 import Header from "../../components/Header";
 import Hero from "./Hero";
 import NavButtons from "../../components/NavButtons";
-import { useAppSelector } from "../../store/store";
-import { Data } from "../../store/features/movies/Popular";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { Data, fetchPopularMovies } from "../../store/features/movies/Popular";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MovieTemplate from "../../components/MovieTemplate";
 import { useEffect, useState } from "react";
-import { TopRated } from "../../store/features/movies/TopRated";
-import { Trending } from "../../store/features/movies/Trending";
+import { fetchTopRated, TopRated } from "../../store/features/movies/TopRated";
+import { fetchTrending, Trending } from "../../store/features/movies/Trending";
 
 interface Settings {
   autoplay: boolean;
@@ -35,14 +35,17 @@ interface Settings {
 
 export default function Main() {
   const { popularMovies, popularTv }: Data = useAppSelector(
-    (state) => state.popularMovie
+    (state) => state.popularMovie.popular
   );
   const { topRatedMovies, topRatedTvshows }: TopRated = useAppSelector(
-    (state) => state.topRated
+    (state) => state.topRated.rated
   );
   const { trendingMovies, trendingTvshows }: Trending = useAppSelector(
-    (state) => state.trending
+    (state) => state.trending.trending
   );
+
+  // const buttons: string[] = ["Movies", "Tv Shows"];
+  const dispatch = useAppDispatch();
   const settings: Settings = {
     autoplay: true,
     autoplaySpeed: 8000,
@@ -72,20 +75,19 @@ export default function Main() {
       },
     ],
   };
-  const [showingPopularMovie, setShowingPopularMovie] =
-    useState<boolean>(false);
+  const [showingPopularMovie, setShowingPopularMovie] = useState<boolean>(true);
 
   const [showingTopRatedMovie, setShowingTopRatedMovie] =
-    useState<boolean>(false);
+    useState<boolean>(true);
 
   const [showingTrendingMovie, setShowingTrendingMovie] =
-    useState<boolean>(false);
+    useState<boolean>(true);
 
-  useEffect(() => {
-    setShowingPopularMovie(true);
-    setShowingTopRatedMovie(true);
-    setShowingTrendingMovie(true);
-  }, []);
+  // useEffect(() => {
+  //   setShowingPopularMovie(true);
+  //   setShowingTopRatedMovie(true);
+  //   setShowingTrendingMovie(true);
+  // }, []);
   return (
     <>
       <Box sx={{}}>
@@ -98,14 +100,32 @@ export default function Main() {
         >
           Popular
         </div>
-        <NavButtons
+        {/* <NavButtons
           setPopular={setShowingPopularMovie}
           setTopRated={setShowingTopRatedMovie}
           setTrending={setShowingTrendingMovie}
           popular={true}
           topRated={false}
           trending={false}
-        />
+        /> */}
+        <div className="flex text-gray-50 gap-2 justify-center my-2">
+          <button
+            onClick={() => {
+              dispatch(fetchPopularMovies("movie"));
+              setShowingPopularMovie(true);
+            }}
+          >
+            movie
+          </button>
+          <button
+            onClick={() => {
+              dispatch(fetchPopularMovies("tv"));
+              setShowingPopularMovie(false);
+            }}
+          >
+            Tvshow
+          </button>
+        </div>
         <>
           <div className="text-gray-50 text-right pr-10 py-5 text-lg">
             see all
@@ -130,7 +150,6 @@ export default function Main() {
             </div>
           )}
         </>
-
         {/* top rated */}
         <div
           className="text-center m-auto text-gray-50 text-lg md:text-2xl mt-5
@@ -138,14 +157,32 @@ export default function Main() {
         >
           Top Rated
         </div>
-        <NavButtons
+        {/* <NavButtons
           setPopular={setShowingPopularMovie}
           setTopRated={setShowingTopRatedMovie}
           setTrending={setShowingTrendingMovie}
           topRated={true}
           popular={false}
           trending={false}
-        />
+        /> */}
+        <div className="flex text-gray-50 gap-2 justify-center my-2">
+          <button
+            onClick={() => {
+              dispatch(fetchTopRated("movie"));
+              setShowingTopRatedMovie(true);
+            }}
+          >
+            movie
+          </button>
+          <button
+            onClick={() => {
+              dispatch(fetchTopRated("tv"));
+              setShowingTopRatedMovie(false);
+            }}
+          >
+            Tvshow
+          </button>
+        </div>
         <></>
         <>
           <div className="text-gray-50 text-right pr-10 py-5 text-lg">
@@ -171,22 +208,39 @@ export default function Main() {
             </div>
           )}
         </>
-
         {/* trending */}
         <div
           className="text-center m-auto text-gray-50 text-lg md:text-2xl mt-5
            font-bold tracking-wider w-fit border-b-4 pb-2 border-dashed border-yellow-500"
         >
           Trending
+        </div>{" "}
+        <div className="flex text-gray-50 gap-2 justify-center my-2">
+          <button
+            onClick={() => {
+              dispatch(fetchTrending("movie"));
+              setShowingTrendingMovie(true);
+            }}
+          >
+            movie
+          </button>
+          <button
+            onClick={() => {
+              dispatch(fetchTrending("tv"));
+              setShowingTrendingMovie(false);
+            }}
+          >
+            Tvshow
+          </button>
         </div>
-        <NavButtons
+        {/* <NavButtons
           setPopular={setShowingPopularMovie}
           setTopRated={setShowingTopRatedMovie}
           setTrending={setShowingTrendingMovie}
           topRated={false}
           popular={false}
           trending={true}
-        />
+        /> */}
         <></>
         <>
           <div className="text-gray-50 text-right pr-10 py-5 text-lg">

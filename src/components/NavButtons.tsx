@@ -31,46 +31,53 @@ export default function NavButtons({
     <div className="text-gray-50 py-7 text-center">
       {/* <ButtonGroup> */}
       {buttons.map((button) => (
-        <Button
+        <button
+          className="mx-3"
           onClick={() => {
             if (popular) {
               if (button === "Movies") {
                 dispatch(fetchPopularMovies("movie"));
                 setPopular(true);
+                console.log("popularMovie");
               } else {
                 dispatch(fetchPopularMovies("tv"));
                 setPopular(false);
+                console.log("popularTv");
               }
             } else if (topRated) {
               if (button === "Movies") {
                 dispatch(fetchTopRated("movie"));
                 setTopRated(true);
+                console.log("topMovie");
               } else {
                 dispatch(fetchTopRated("tv"));
                 setTopRated(false);
+                console.log("toptv");
               }
             } else if (trending) {
               if (button === "Movies") {
                 dispatch(fetchTrending("movie"));
                 setTrending(true);
+                console.log("trendingMovie");
               } else {
                 dispatch(fetchTrending("tv"));
                 setTrending(false);
+                console.log("trendingtv");
               }
             }
           }}
-          variant="outlined"
-          sx={{
-            mx: 1,
-            letterSpacing: 2,
-            backgroundColor: "transparent",
-            border: "1px solid yellow",
-            borderRadius: 10,
-          }}
+          // variant="outlined"
+          // sx={{
+          //   mx: 1,
+          //   letterSpacing: 2,
+          //   backgroundColor: "transparent",
+          //   border: "1px solid yellow",
+          //   borderRadius: 10,
+          // }}
           key={button}
         >
           {button}
-        </Button>
+        </button>
       ))}
       {/* </ButtonGroup> */}
     </div>
