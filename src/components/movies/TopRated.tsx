@@ -18,7 +18,7 @@ export default function TopRated() {
     movie: Movies[];
     tvshows: Movies[];
   }>({ movie: [], tvshows: [] });
-  const fetchPopularMovies = async (genre: string) => {
+  const fetchTopRated = async (genre: string) => {
     const options = {
       method: "GET",
       headers: {
@@ -29,7 +29,7 @@ export default function TopRated() {
     };
 
     const res = await fetch(
-      `https://api.themoviedb.org/3/${genre}/topRated?language=en-US&page=1`,
+      `https://api.themoviedb.org/3/${genre}/top_rated?language=en-US&page=1`,
       options
     );
 
@@ -38,7 +38,7 @@ export default function TopRated() {
     genre === "movie"
       ? setTopRated({ ...topRated, movie: data.results })
       : setTopRated({ ...topRated, tvshows: data.results });
-    console.log(topRated, genre, "popularmovies");
+    console.log(data, genre, "toprated");
 
     // return returenedData;
   };
@@ -76,17 +76,19 @@ export default function TopRated() {
     <div>
       <button
         onClick={() => {
-          fetchPopularMovies("movie");
+          fetchTopRated("movie");
           setShowingMovie(true);
         }}
+        className=" text-white mx-3"
       >
         Movie
       </button>
       <button
         onClick={() => {
-          fetchPopularMovies("tv");
+          fetchTopRated("tv");
           setShowingMovie(false);
         }}
+        className=" text-white mx-3"
       >
         Tvshows
       </button>

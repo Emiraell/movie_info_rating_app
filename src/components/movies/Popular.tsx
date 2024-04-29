@@ -38,7 +38,7 @@ export default function Popular() {
     genre === "movie"
       ? setPopular({ ...popular, movie: data.results })
       : setPopular({ ...popular, tvshows: data.results });
-    console.log(popular, genre, "popularmovies");
+    console.log(data, genre, "popularmovies");
 
     // return returenedData;
   };
@@ -73,12 +73,13 @@ export default function Popular() {
     ],
   };
   return (
-    <div>
+    <div className="white">
       <button
         onClick={() => {
           fetchPopularMovies("movie");
           setShowingMovie(true);
         }}
+        className=" text-white"
       >
         Movie
       </button>
@@ -87,6 +88,7 @@ export default function Popular() {
           fetchPopularMovies("tv");
           setShowingMovie(false);
         }}
+        className=" text-white mx-3"
       >
         Tvshows
       </button>
