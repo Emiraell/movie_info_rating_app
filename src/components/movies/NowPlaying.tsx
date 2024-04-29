@@ -13,23 +13,26 @@ interface Movies {
   title: string;
   vote_average: number;
 }
-interface PopularData {
+
+interface NowPlayingData {
   movie: Movies[];
   tvshows: Movies[];
 }
-export default function Popular() {
-  const popularData = localStorage.getItem("popularData");
+export default function NowPlaying() {
+  const nowPlaying = localStorage.getItem("nowPlaying");
 
-  let allPopular;
+  let nowPlayingData;
   try {
-    allPopular = popularData && (JSON.parse(popularData) as PopularData);
+    nowPlayingData = nowPlaying && (JSON.parse(nowPlaying) as NowPlayingData);
   } catch (err) {
     console.log(err);
   }
-  const [popular, setPopular] = useState<PopularData>(
-    allPopular || { movie: [], tvshows: [] }
+  const [playing, setPlaying] = useState<NowPlayingData>(
+    // movie: Movies[];
+    // tvshows: Movies[];
+    nowPlayingData || { movie: [], tvshows: [] }
   );
-  const fetchPopularMovies = async (genre: string) => {
+  const fetchNowPlaying = async (genre: string) => {
     const options = {
       method: "GET",
       headers: {
@@ -39,18 +42,24 @@ export default function Popular() {
       },
     };
 
-    const res = await fetch(
-      `https://api.themoviedb.org/3/${genre}/popular?language=en-US&page=1`,
-      options
-    );
+    const res =
+      genre === "movie"
+        ? await fetch(
+            `https://api.themoviedb.org/3/${genre}/now_playing?language=en-US&page=1`,
+            options
+          )
+        : await fetch(
+            `https://api.themoviedb.org/3/${genre}/on_the_air?language=en-US&page=1`,
+            options
+          );
 
     const data = await res.json();
     // const returenedData = { ...data, genre };
     genre === "movie"
-      ? setPopular({ ...popular, movie: data.results })
-      : setPopular({ ...popular, tvshows: data.results });
-    localStorage.setItem("popularData", JSON.stringify(popular));
-    console.log(data, genre, "popularmovies");
+      ? setPlaying({ ...playing, movie: data.results })
+      : setPlaying({ ...playing, tvshows: data.results });
+    localStorage.setItem("nowPlating", JSON.stringify(playing));
+    console.log(data, genre, "toprated");
 
     // return returenedData;
   };
@@ -85,20 +94,20 @@ export default function Popular() {
     ],
   };
   return (
-    <div className="white my-14">
-      <p>popular</p>
+    <div className="my-12 text-white">
+      <p>now Playing</p>
       <button
         onClick={() => {
-          fetchPopularMovies("movie");
+          fetchNowPlaying("movie");
           setShowingMovie(true);
         }}
-        className=" text-white"
+        className=" text-white mx-3"
       >
         Movie
       </button>
       <button
         onClick={() => {
-          fetchPopularMovies("tv");
+          fetchNowPlaying("tv");
           setShowingMovie(false);
         }}
         className=" text-white mx-3"
@@ -114,7 +123,7 @@ export default function Popular() {
           <div className=" px-5">
             <p className="text-white">MOVIES</p>
             <Slider {...settings}>
-              {popular.movie?.map((movie) => (
+              {playing.movie?.map((movie) => (
                 <MovieTemplate data={movie} key={movie.id} genre={"movie"} />
               ))}
             </Slider>
@@ -123,7 +132,7 @@ export default function Popular() {
           <div className=" px-5">
             <p className="text-white">TV</p>
             <Slider {...settings}>
-              {popular.tvshows?.map((show) => (
+              {playing.tvshows?.map((show) => (
                 <MovieTemplate data={show} key={show.id} genre={"tvshow"} />
               ))}
             </Slider>

@@ -12,6 +12,7 @@ export const store = configureStore({
     topRated: TopRatedSlice.reducer,
     trending: TrendingSlice.reducer,
   },
+  // middleware:(getDefaultMiddleware) =>
 });
 
 export const useAppDispatch: () => typeof store.dispatch = useDispatch;

@@ -14,28 +14,29 @@ import "slick-carousel/slick/slick-theme.css";
 import Popular from "../../components/movies/Popular";
 import Trending from "../../components/movies/Trending";
 import TopRated from "../../components/movies/TopRated";
+import NowPlaying from "../../components/movies/NowPlaying";
 // import TopRated from "../../components/movies/TopRated";
 
-interface Settings {
-  autoplay: boolean;
-  autoplaySpeed: number;
-  cssEase: string;
-  draggable: boolean;
-  pauseOnHover: boolean;
-  pauseOnFocus: boolean;
-  speed: number;
-  swipe: boolean;
-  dots: boolean;
-  slidesToShow: number;
-  slidesToScroll: number;
-  responsive: {
-    breakpoint: number;
-    settings: {
-      slidesToShow: number;
-      slidesToScroll: number;
-    };
-  }[];
-}
+// interface Settings {
+//   autoplay: boolean;
+//   autoplaySpeed: number;
+//   cssEase: string;
+//   draggable: boolean;
+//   pauseOnHover: boolean;
+//   pauseOnFocus: boolean;
+//   speed: number;
+//   swipe: boolean;
+//   dots: boolean;
+//   slidesToShow: number;
+//   slidesToScroll: number;
+//   responsive: {
+//     breakpoint: number;
+//     settings: {
+//       slidesToShow: number;
+//       slidesToScroll: number;
+//     };
+//   }[];
+// }
 
 export default function Main() {
   // const { popularMovies, popularTv }: Data = useAppSelector(
@@ -275,6 +276,7 @@ export default function Main() {
           <Trending />
         </>
         <TopRated />
+        <NowPlaying />
       </Box>
     </>
   );

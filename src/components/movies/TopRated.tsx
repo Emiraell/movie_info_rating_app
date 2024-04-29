@@ -13,11 +13,22 @@ interface Movies {
   title: string;
   vote_average: number;
 }
+interface TopRating {
+  movie: Movies[];
+  tvshows: Movies[];
+}
 export default function TopRated() {
-  const [topRated, setTopRated] = useState<{
-    movie: Movies[];
-    tvshows: Movies[];
-  }>({ movie: [], tvshows: [] });
+  const topRatedData = localStorage.getItem("top_rated");
+
+  let topRatedInfos;
+  try {
+    topRatedInfos = topRatedData && (JSON.parse(topRatedData) as TopRating);
+  } catch (err) {
+    console.log(err);
+  }
+  const [topRated, setTopRated] = useState<TopRating>(
+    topRatedInfos || { movie: [], tvshows: [] }
+  );
   const fetchTopRated = async (genre: string) => {
     const options = {
       method: "GET",
@@ -38,6 +49,7 @@ export default function TopRated() {
     genre === "movie"
       ? setTopRated({ ...topRated, movie: data.results })
       : setTopRated({ ...topRated, tvshows: data.results });
+    localStorage.setItem("top_rated", JSON.stringify(topRated));
     console.log(data, genre, "toprated");
 
     // return returenedData;
@@ -73,7 +85,8 @@ export default function TopRated() {
     ],
   };
   return (
-    <div>
+    <div className=" text-white my-12">
+      <p>Top rated</p>
       <button
         onClick={() => {
           fetchTopRated("movie");

@@ -13,11 +13,27 @@ interface Movies {
   title: string;
   vote_average: number;
 }
+
+interface TrendingData {
+  movie: Movies[];
+  tvshows: Movies[];
+}
 export default function Trending() {
-  const [trending, setTrending] = useState<{
-    movie: Movies[];
-    tvshows: Movies[];
-  }>({ movie: [], tvshows: [] });
+  const storedTrendingData = localStorage.getItem("trending_movies");
+
+  let allTrending;
+  try {
+    allTrending =
+      storedTrendingData && (JSON.parse(storedTrendingData) as TrendingData);
+  } catch (err) {
+    console.log(err);
+  }
+  const [trending, setTrending] = useState<TrendingData>(
+    allTrending || {
+      movie: [],
+      tvshows: [],
+    }
+  );
   const fetchTrending = async (genre: string) => {
     const options = {
       method: "GET",
@@ -38,6 +54,7 @@ export default function Trending() {
     genre === "movie"
       ? setTrending({ ...trending, movie: data.results })
       : setTrending({ ...trending, tvshows: data.results });
+    localStorage.setItem("trending_movies", JSON.stringify(trending));
     console.log(data, genre, "trending");
 
     // return returenedData;
@@ -73,7 +90,8 @@ export default function Trending() {
     ],
   };
   return (
-    <div>
+    <div className="text-white my-10">
+      <p>Trending</p>
       <button
         onClick={() => {
           fetchTrending("movie");
