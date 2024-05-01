@@ -272,10 +272,8 @@ export default function Main() {
           )}
         </> */}
         <Popular />
-        <>
-          <Trending />
-        </>
-        <TopRated />
+        <>{/* <Trending /> */}</>
+        {/* <TopRated /> */}
         <NowPlaying />
       </Box>
     </>

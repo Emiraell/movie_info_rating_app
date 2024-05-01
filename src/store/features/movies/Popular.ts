@@ -39,11 +39,13 @@ export const PopularSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(fetchPopularMovies.fulfilled, (state, action) => {
       const data = action.payload;
-      data.genre === "movie"
-        ? (state.popular.popularMovies = data.results)
-        : (state.popular.popularTv = data.results);
-
-      localStorage.setItem("popular", JSON.stringify(state.popular));
+      if (data.genre === "movie") {
+        state.popular.popularMovies = data.results;
+        localStorage.setItem("popular", JSON.stringify(state.popular));
+      } else {
+        state.popular.popularTv = data.results;
+        localStorage.setItem("popular", JSON.stringify(state.popular));
+      }
     });
   },
 });
@@ -66,10 +68,11 @@ export const fetchPopularMovies = createAsyncThunk(
     );
 
     const data = await res.json();
-    const returenedData = { ...data, genre };
-    console.log(returenedData, "popularmovies");
+    console.log(data);
+    return { ...data, genre };
+    // console.log(returenedData, "popularmovies");
 
-    return returenedData;
+    // return returenedData;
   }
 );
 

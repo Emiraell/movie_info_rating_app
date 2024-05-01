@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import MovieTemplate from "../MovieTemplate";
+import usefetch from "../hooks/useFetch";
 
 interface Movies {
   first_air_date: string;
@@ -18,42 +19,60 @@ interface PopularData {
   tvshows: Movies[];
 }
 export default function Popular() {
-  const popularData = localStorage.getItem("popularData");
+  // const popularData = localStorage.getItem("popularData");
 
-  let allPopular;
-  try {
-    allPopular = popularData && (JSON.parse(popularData) as PopularData);
-  } catch (err) {
-    console.log(err);
-  }
-  const [popular, setPopular] = useState<PopularData>(
-    allPopular || { movie: [], tvshows: [] }
-  );
-  const fetchPopularMovies = async (genre: string) => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjc1YzEyYjhlYTI4ODFkODRhODA4ZDZiOTgwODA0ZSIsInN1YiI6IjY2MTk5YWZjOTBjZjUxMDE3Y2EyNmYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.A4OG4SnjnTSJY4f6Kiy1HMCN5qxlVn2pa6xJImqLXvc",
-      },
-    };
+  // let allPopular;
+  // try {
+  //   allPopular = popularData && (JSON.parse(popularData) as PopularData);
+  // } catch (err) {
+  //   console.log(err);
+  // }
+  // const [popular, setPopular] = useState<PopularData>(
+  //   allPopular || { movie: [], tvshows: [] }
+  // );
+  // const fetchPopularMovies = async (genre: string) => {
+  //   const options = {
+  //     method: "GET",
+  //     headers: {
+  //       accept: "application/json",
+  //       Authorization:
+  //         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjc1YzEyYjhlYTI4ODFkODRhODA4ZDZiOTgwODA0ZSIsInN1YiI6IjY2MTk5YWZjOTBjZjUxMDE3Y2EyNmYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.A4OG4SnjnTSJY4f6Kiy1HMCN5qxlVn2pa6xJImqLXvc",
+  //     },
+  //   };
 
-    const res = await fetch(
-      `https://api.themoviedb.org/3/${genre}/popular?language=en-US&page=1`,
-      options
-    );
+  //   const res = await fetch(
+  //     `https://api.themoviedb.org/3/${genre}/popular?language=en-US&page=1`,
+  //     options
+  //   );
 
-    const data = await res.json();
-    // const returenedData = { ...data, genre };
+  //   const data = await res.json();
+  //   // const returenedData = { ...data, genre };
+  //   genre === "movie"
+  //     ? setPopular({ ...popular, movie: data.results })
+  //     : setPopular({ ...popular, tvshows: data.results });
+  //   localStorage.setItem("popularData", JSON.stringify(popular));
+  //   console.log(data, genre, "popularmovies");
+
+  //   // return returenedData;
+  // };
+  let genre = "movie";
+  const { ...data } = usefetch(
     genre === "movie"
-      ? setPopular({ ...popular, movie: data.results })
-      : setPopular({ ...popular, tvshows: data.results });
-    localStorage.setItem("popularData", JSON.stringify(popular));
-    console.log(data, genre, "popularmovies");
+      ? {
+          url: "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+          genre,
+          storageName: "popular",
+        }
+      : {
+          url: "https://api.themoviedb.org/3/tv/popular?language=en-US&page=1",
+          genre: "tv",
+          storageName: "popular",
+        }
+  );
 
-    // return returenedData;
-  };
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   const [showingMovie, setShowingMovie] = useState<boolean>(true);
   const settings = {
     autoplay: true,
@@ -89,7 +108,7 @@ export default function Popular() {
       <p>popular</p>
       <button
         onClick={() => {
-          fetchPopularMovies("movie");
+          // fetchPopularMovies("movie");
           setShowingMovie(true);
         }}
         className=" text-white"
@@ -98,7 +117,7 @@ export default function Popular() {
       </button>
       <button
         onClick={() => {
-          fetchPopularMovies("tv");
+          // fetchPopularMovies("tv");
           setShowingMovie(false);
         }}
         className=" text-white mx-3"
@@ -114,7 +133,7 @@ export default function Popular() {
           <div className=" px-5">
             <p className="text-white">MOVIES</p>
             <Slider {...settings}>
-              {popular.movie?.map((movie) => (
+              {data.movies?.map((movie) => (
                 <MovieTemplate data={movie} key={movie.id} genre={"movie"} />
               ))}
             </Slider>
@@ -123,7 +142,7 @@ export default function Popular() {
           <div className=" px-5">
             <p className="text-white">TV</p>
             <Slider {...settings}>
-              {popular.tvshows?.map((show) => (
+              {data.tvshows?.map((show) => (
                 <MovieTemplate data={show} key={show.id} genre={"tvshow"} />
               ))}
             </Slider>
