@@ -1,21 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { TrendingMovies } from "./Popular";
-
-export interface TrendingMovies {
-  first_air_date: string;
-  id: number;
-  original_title: string;
-  overview: string;
-  name: string;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  vote_average: number;
-}
+import { Movies } from "./Popular";
 
 export interface Trending {
-  trendingMovies: TrendingMovies[];
-  trendingTvshows: TrendingMovies[];
+  trendingMovies: Movies[];
+  trendingTvshows: Movies[];
 }
 export interface State {
   trending: Trending;
@@ -48,7 +36,7 @@ export const TrendingSlice = createSlice({
         ? (state.trending.trendingMovies = data.results)
         : (state.trending.trendingTvshows = data.results);
 
-      localStorage.setItem("trending", JSON.stringify(state.trending));
+      sessionStorage.setItem("trending", JSON.stringify(state.trending));
     });
   },
 });
@@ -72,10 +60,8 @@ export const fetchTrending = createAsyncThunk(
 
     const data = await res.json();
     const returenedData = { ...data, genre };
-    console.log(returenedData, "trending");
 
     return returenedData;
   }
 );
-
 export default TrendingSlice.reducer;

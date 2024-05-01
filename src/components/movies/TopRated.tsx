@@ -1,96 +1,41 @@
-import { useState } from "react";
-import Slider from "react-slick";
-import MovieTemplate from "../MovieTemplate";
+import { useEffect, useState } from "react";
+import usefetch, { Data } from "../hooks/useFetch";
+import SliderCarousel from "../Slider";
 
-interface Movies {
-  first_air_date: string;
-  id: number;
-  original_title: string;
-  overview: string;
-  name: string;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  vote_average: number;
-}
-interface TopRating {
-  movie: Movies[];
-  tvshows: Movies[];
-}
 export default function TopRated() {
-  const topRatedData = localStorage.getItem("top_rated");
+  const storedTopRated = localStorage.getItem("top_rated");
 
-  let topRatedInfos;
+  let topRatedData;
   try {
-    topRatedInfos = topRatedData && (JSON.parse(topRatedData) as TopRating);
+    topRatedData = storedTopRated && (JSON.parse(storedTopRated) as Data);
   } catch (err) {
     console.log(err);
   }
-  const [topRated, setTopRated] = useState<TopRating>(
-    topRatedInfos || { movie: [], tvshows: [] }
+
+  const [genre, setGenre] = useState<string>("movie");
+  const { movies, tvshows } = usefetch({
+    url: `https://api.themoviedb.org/3/${genre}/top_rated?language=en-US&page=1`,
+    genre,
+    storageName: "top_rated",
+  });
+
+  const [top_rated, setTopRated] = useState<Data>(
+    topRatedData || { movies: [], tvshows: [] }
   );
-  const fetchTopRated = async (genre: string) => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjc1YzEyYjhlYTI4ODFkODRhODA4ZDZiOTgwODA0ZSIsInN1YiI6IjY2MTk5YWZjOTBjZjUxMDE3Y2EyNmYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.A4OG4SnjnTSJY4f6Kiy1HMCN5qxlVn2pa6xJImqLXvc",
-      },
-    };
+  useEffect(() => {
+    movies && setTopRated({ ...top_rated, movies });
+    tvshows && setTopRated({ ...top_rated, tvshows });
+  }, [genre]);
 
-    const res = await fetch(
-      `https://api.themoviedb.org/3/${genre}/top_rated?language=en-US&page=1`,
-      options
-    );
+  const [showingTopRatedMovie, setShowingTopRatedMovie] =
+    useState<boolean>(true);
 
-    const data = await res.json();
-    // const returenedData = { ...data, genre };
-    genre === "movie"
-      ? setTopRated({ ...topRated, movie: data.results })
-      : setTopRated({ ...topRated, tvshows: data.results });
-    localStorage.setItem("top_rated", JSON.stringify(topRated));
-    console.log(data, genre, "toprated");
-
-    // return returenedData;
-  };
-  const [showingMovie, setShowingMovie] = useState<boolean>(true);
-  const settings = {
-    autoplay: true,
-    autoplaySpeed: 8000,
-    cssEase: "ease",
-    draggable: true,
-    pauseOnHover: true,
-    pauseOnFocus: true,
-    speed: 1500,
-    swipe: true,
-    dots: true,
-    slidesToShow: 3,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 1040,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToScroll: 1,
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
   return (
-    <div className=" text-white my-12">
-      <p>Top rated</p>
+    <div className="my-12 text-white">
       <button
         onClick={() => {
-          fetchTopRated("movie");
-          setShowingMovie(true);
+          setGenre("movie");
+          setShowingTopRatedMovie(true);
         }}
         className=" text-white mx-3"
       >
@@ -98,8 +43,8 @@ export default function TopRated() {
       </button>
       <button
         onClick={() => {
-          fetchTopRated("tv");
-          setShowingMovie(false);
+          setGenre("tv");
+          setShowingTopRatedMovie(false);
         }}
         className=" text-white mx-3"
       >
@@ -110,23 +55,15 @@ export default function TopRated() {
         <div className="text-gray-50 text-right pr-10 py-5 text-lg">
           see all
         </div>
-        {showingMovie ? (
+        {showingTopRatedMovie ? (
           <div className=" px-5">
             <p className="text-white">MOVIES</p>
-            <Slider {...settings}>
-              {topRated.movie?.map((movie) => (
-                <MovieTemplate data={movie} key={movie.id} genre={"movie"} />
-              ))}
-            </Slider>
+            <SliderCarousel data={movies} />
           </div>
         ) : (
           <div className=" px-5">
             <p className="text-white">TV</p>
-            <Slider {...settings}>
-              {topRated.tvshows?.map((show) => (
-                <MovieTemplate data={show} key={show.id} genre={"tvshow"} />
-              ))}
-            </Slider>
+            <SliderCarousel data={tvshows} />
           </div>
         )}
       </>

@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from "./pages/Home/Main";
 import { useAppSelector } from "./store/store";
 import Login from "./pages/Login";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import usefetch from "./components/hooks/useFetch";
 
 interface Movies {
   first_air_date: string;
@@ -53,6 +54,10 @@ function App() {
     movies: Movies[];
     tvshows: Movies[];
   }>({ movies: [], tvshows: [] });
+
+  useEffect(() => {
+    // const { ...data } = usefetch({ url: "", genre: "movie", storageName: "" });
+  }, []);
   return (
     <>
       <MoviesContext.Provider value={{ popular, trending, topRated, playing }}>

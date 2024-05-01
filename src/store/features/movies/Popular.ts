@@ -21,7 +21,6 @@ export interface Popular {
   popular: Data;
 }
 const storedPopularMovies = localStorage.getItem("popular");
-
 let movieData;
 
 try {
@@ -51,7 +50,7 @@ export const PopularSlice = createSlice({
 });
 
 export const fetchPopularMovies = createAsyncThunk(
-  "getMovies",
+  "getPopularMovies",
   async (genre: string) => {
     const options = {
       method: "GET",
@@ -70,10 +69,6 @@ export const fetchPopularMovies = createAsyncThunk(
     const data = await res.json();
     console.log(data);
     return { ...data, genre };
-    // console.log(returenedData, "popularmovies");
-
-    // return returenedData;
   }
 );
-
 export default PopularSlice.reducer;

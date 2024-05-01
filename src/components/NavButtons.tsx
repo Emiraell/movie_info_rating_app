@@ -24,9 +24,6 @@ export default function NavButtons({
   const buttons: string[] = ["Movies", "Tv Shows"];
 
   const dispatch = useAppDispatch();
-  // const displayPopularMovies = (name) => {
-  // 	dispatch(fetchPopularMovies("movie"))
-  // }
   return (
     <div className="text-gray-50 py-7 text-center">
       {/* <ButtonGroup> */}

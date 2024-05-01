@@ -12,7 +12,8 @@ export const store = configureStore({
     topRated: TopRatedSlice.reducer,
     trending: TrendingSlice.reducer,
   },
-  // middleware:(getDefaultMiddleware) =>
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export const useAppDispatch: () => typeof store.dispatch = useDispatch;
