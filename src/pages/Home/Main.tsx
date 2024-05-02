@@ -18,6 +18,7 @@ export const MovieContext = createContext<ContextProps>({
   setSearchMovie: () => "",
   // setShowingSearch: () => false,
 });
+
 export default function Main() {
   const [searchedMovie, setSearchMovie] = useState<string>("");
   // const [showingSearched, setShowingSearch] = useState<boolean>(false);

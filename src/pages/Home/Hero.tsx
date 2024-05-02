@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import movie from "../../assets/Images/movie_1.jpg";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { useContext } from "react";
 import { MovieContext } from "./Main";
 
 interface HeroProps {

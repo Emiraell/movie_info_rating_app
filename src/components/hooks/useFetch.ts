@@ -32,30 +32,18 @@ const usefetch = ({ url, genre, storageName }: fetchProps): Data => {
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjc1YzEyYjhlYTI4ODFkODRhODA4ZDZiOTgwODA0ZSIsInN1YiI6IjY2MTk5YWZjOTBjZjUxMDE3Y2EyNmYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.A4OG4SnjnTSJY4f6Kiy1HMCN5qxlVn2pa6xJImqLXvc",
     },
   };
+
+  const fetchData = async () => {
+    const res = await fetch(url, options);
+
+    const result = await res.json();
+
+    genre === "movie"
+      ? setData({ ...data, movies: result.results })
+      : setData({ ...data, tvshows: result.results });
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(url, options);
-
-      const result = await res.json();
-
-      if (genre === "movie") {
-        setData({ ...data, movies: result.results });
-
-        await localStorage.setItem(
-          `${storageName}`,
-          JSON.stringify({ ...data })
-        );
-      } else {
-        setData({ ...data, tvshows: result.results });
-
-        await localStorage.setItem(
-          `${storageName}`,
-          JSON.stringify({ ...data })
-        );
-      }
-      console.log(result, "fetched", storageName);
-    };
-
     console.log(storageName);
     fetchData();
   }, [url]);
