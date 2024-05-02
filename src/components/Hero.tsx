@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
-import movie from "../../assets/Images/movie_1.jpg";
+import movie from "../assets/Images/movie_1.jpg";
 import { useContext } from "react";
-import { MovieContext } from "./Main";
+import { MovieContext } from "../pages/Home/Main";
 
 interface HeroProps {
   // setShowingSearch: Dispatch<SetStateAction<boolean>>;
@@ -13,7 +13,7 @@ export default function Hero({ homePage, pageName }: HeroProps) {
   const { searchedMovie, setSearchMovie } = useContext(MovieContext);
   return (
     <div
-      className=" h-[60vh] flex justify-center items-center md:h-[75vh] bg-gray-700 bg-cover bg-no-repeat bg-blend-multiply"
+      className=" h-[60vh] text-gray-100 flex justify-center items-center md:h-[75vh] bg-gray-700 bg-cover bg-no-repeat bg-blend-multiply"
       style={{ backgroundImage: `url(${movie})` }}
     >
       {homePage ? (
@@ -22,7 +22,7 @@ export default function Hero({ homePage, pageName }: HeroProps) {
             <p className=" text-yellow-300 py-2 italic">Emiflix</p>
 
             <p className=" text-gray-200">
-              Unlimited <span className=" text-yellow-300">Movies</span> <br />{" "}
+              Unlimited <span className=" text-yellow-300">Movies</span> <br />
               TVs Shows, & More.
             </p>
           </div>

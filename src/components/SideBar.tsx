@@ -7,17 +7,18 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 
 interface IProps {
   openDrawer: boolean;
-  toggleDrawer: () => void;
+  setOpenDrawer: Dispatch<SetStateAction<boolean>>;
   navItems: { name: string; path: string }[];
 }
 
 export default function SideBar({
   openDrawer,
-  toggleDrawer,
+  setOpenDrawer,
   navItems,
 }: IProps) {
   return (
@@ -27,7 +28,7 @@ export default function SideBar({
         variant="temporary"
         sx={{ display: { sm: "none" } }}
         open={openDrawer}
-        onClose={toggleDrawer}
+        onClose={() => setOpenDrawer(!openDrawer)}
         ModalProps={{ keepMounted: true }}
       >
         <Box

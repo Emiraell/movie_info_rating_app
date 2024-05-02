@@ -1,6 +1,6 @@
 import { Box, Toolbar } from "@mui/material";
 import Header from "../../components/Header";
-import Hero from "./Hero";
+import Hero from "../../components/Hero";
 import PopularMovies from "./Movies/Popular";
 import TrendingMovies from "./Movies/Trending";
 import TopRatedMovies from "./Movies/TopRated";

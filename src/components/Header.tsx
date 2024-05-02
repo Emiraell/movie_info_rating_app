@@ -21,7 +21,7 @@ export default function Header() {
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
-  const toggleDrawer = () => setOpenDrawer(!openDrawer);
+  // const toggleDrawer = () => setOpenDrawer(!openDrawer);
 
   const userLoggedIn: null | string = useAppSelector(
     (state) => state.userAuth.guestId
@@ -55,7 +55,7 @@ export default function Header() {
               color="inherit"
               size="large"
               sx={{ display: { sm: "none" } }}
-              onClick={toggleDrawer}
+              onClick={() => setOpenDrawer(!openDrawer)}
             >
               {!openDrawer && <MenuIcon />}
             </IconButton>
@@ -65,7 +65,8 @@ export default function Header() {
 
       <SideBar
         openDrawer={openDrawer}
-        toggleDrawer={toggleDrawer}
+        // toggleDrawer={toggleDrawer}
+        setOpenDrawer={setOpenDrawer}
         navItems={navItems}
       />
     </Box>
