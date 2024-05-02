@@ -4,6 +4,7 @@ import Hero from "./Hero";
 import PopularMovies from "./Movies/Popular";
 import TrendingMovies from "./Movies/Trending";
 import TopRatedMovies from "./Movies/TopRated";
+import NowPlayingMovies from "./Movies/NowPlaying";
 
 export default function Main() {
   return (
@@ -16,6 +17,7 @@ export default function Main() {
           <PopularMovies />
           <TrendingMovies />
           <TopRatedMovies />
+          <NowPlayingMovies />
         </>
         {/* <>
           <div

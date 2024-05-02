@@ -4,6 +4,7 @@ import { AuthUserSlice } from "./features/Auth";
 import { PopularSlice } from "./features/movies/Popular";
 import { TopRatedSlice } from "./features/movies/TopRated";
 import { TrendingSlice } from "./features/movies/Trending";
+import { NowPlayingSlice } from "./features/movies/NowPlaying";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     popular: PopularSlice.reducer,
     topRated: TopRatedSlice.reducer,
     trending: TrendingSlice.reducer,
+    nowPlaying: NowPlayingSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
