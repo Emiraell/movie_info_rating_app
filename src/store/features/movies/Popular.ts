@@ -13,43 +13,44 @@ export interface Movies {
 }
 
 export interface Data {
-  popularMovies: Movies[];
-  popularTv: Movies[];
+  movies: Movies[];
+  tvshows: Movies[];
 }
 
 export interface Popular {
   popular: Data;
 }
 const storedPopularMovies = localStorage.getItem("popular");
-let movieData;
+let popularMovies;
 
 try {
-  movieData = storedPopularMovies && (JSON.parse(storedPopularMovies) as Data);
+  popularMovies =
+    storedPopularMovies && (JSON.parse(storedPopularMovies) as Data);
 } catch (err) {
   console.log(err);
 }
-const initialState: Popular =
-  // movieData ||
-  { popular: { popularMovies: [], popularTv: [] } };
+const initialState: Popular = {
+  popular: popularMovies || { movies: [], tvshows: [] },
+};
 export const PopularSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchPopularMovies.fulfilled, (state, action) => {
+    builder.addCase(fetchPopular.fulfilled, (state, action) => {
       const data = action.payload;
       if (data.genre === "movie") {
-        state.popular.popularMovies = data.results;
+        state.popular.movies = data.results;
         localStorage.setItem("popular", JSON.stringify(state.popular));
       } else {
-        state.popular.popularTv = data.results;
+        state.popular.tvshows = data.results;
         localStorage.setItem("popular", JSON.stringify(state.popular));
       }
     });
   },
 });
 
-export const fetchPopularMovies = createAsyncThunk(
+export const fetchPopular = createAsyncThunk(
   "getPopularMovies",
   async (genre: string) => {
     const options = {

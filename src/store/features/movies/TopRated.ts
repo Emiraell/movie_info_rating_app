@@ -1,41 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { TopRatedMovies } from "./Popular";
+import { Data } from "./Popular";
 
-export interface TopRatedMovies {
-  first_air_date: string;
-  id: number;
-  original_title: string;
-  overview: string;
-  name: string;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  vote_average: number;
-}
-export interface TopRated {
-  topRatedMovies: TopRatedMovies[];
-  topRatedTvshows: TopRatedMovies[];
-}
 export interface Rated {
-  rated: TopRated;
+  topRated: Data;
 }
 const storedTopRated = localStorage.getItem("topRated");
 
-let topRatedData;
+let topRatedMovies;
 
 try {
-  topRatedData = storedTopRated && (JSON.parse(storedTopRated) as TopRated);
+  topRatedMovies = storedTopRated && (JSON.parse(storedTopRated) as Data);
 } catch (err) {
   console.log(err);
 }
-const initialState: Rated =
-  // topRatedData ||
-  {
-    rated: {
-      topRatedMovies: [],
-      topRatedTvshows: [],
-    },
-  };
+const initialState: Rated = {
+  topRated: topRatedMovies || {
+    movies: [],
+    tvshows: [],
+  },
+};
 export const TopRatedSlice = createSlice({
   name: "movies",
   initialState,
@@ -44,16 +27,16 @@ export const TopRatedSlice = createSlice({
     builder.addCase(fetchTopRated.fulfilled, (state, action) => {
       const data = action.payload;
       data.genre === "movie"
-        ? (state.rated.topRatedMovies = data.results)
-        : (state.rated.topRatedTvshows = data.results);
+        ? (state.topRated.movies = data.results)
+        : (state.topRated.tvshows = data.results);
 
-      localStorage.setItem("topRated", JSON.stringify(state.rated));
+      localStorage.setItem("topRated", JSON.stringify(state.topRated));
     });
   },
 });
 
 export const fetchTopRated = createAsyncThunk(
-  "getMovies",
+  "getTopRatedMovies",
   async (genre: string) => {
     const options = {
       method: "GET",

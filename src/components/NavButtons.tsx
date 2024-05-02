@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../store/store";
-import { fetchPopularMovies } from "../store/features/movies/Popular";
+import { fetchPopular } from "../store/features/movies/Popular";
 import { Dispatch, SetStateAction } from "react";
 import { fetchTopRated } from "../store/features/movies/TopRated";
 import { fetchTrending } from "../store/features/movies/Trending";
@@ -33,11 +33,11 @@ export default function NavButtons({
           onClick={() => {
             if (popular) {
               if (button === "Movies") {
-                dispatch(fetchPopularMovies("movie"));
+                dispatch(fetchPopular("movie"));
                 setPopular(true);
                 console.log("popularMovie");
               } else {
-                dispatch(fetchPopularMovies("tv"));
+                dispatch(fetchPopular("tv"));
                 setPopular(false);
                 console.log("popularTv");
               }

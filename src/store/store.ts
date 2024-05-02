@@ -8,7 +8,7 @@ import { TrendingSlice } from "./features/movies/Trending";
 export const store = configureStore({
   reducer: {
     userAuth: AuthUserSlice.reducer,
-    popularMovie: PopularSlice.reducer,
+    popular: PopularSlice.reducer,
     topRated: TopRatedSlice.reducer,
     trending: TrendingSlice.reducer,
   },

@@ -1,30 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Movies } from "./Popular";
+import { Data } from "./Popular";
 
-export interface Trending {
-  trendingMovies: Movies[];
-  trendingTvshows: Movies[];
-}
 export interface State {
-  trending: Trending;
+  trending: Data;
 }
-const storedTrending = localStorage.getItem("trending");
+const storedTrendingMovies = localStorage.getItem("trending");
 
-let movieData;
+let trendingMovies;
 
 try {
-  movieData = storedTrending && (JSON.parse(storedTrending) as Trending);
+  trendingMovies =
+    storedTrendingMovies && (JSON.parse(storedTrendingMovies) as Data);
 } catch (err) {
   console.log(err);
 }
-const initialState: State =
-  // movieData ||
-  {
-    trending: {
-      trendingMovies: [],
-      trendingTvshows: [],
-    },
-  };
+const initialState: State = {
+  trending: trendingMovies || {
+    movies: [],
+    tvshows: [],
+  },
+};
 export const TrendingSlice = createSlice({
   name: "movies",
   initialState,
@@ -33,8 +28,8 @@ export const TrendingSlice = createSlice({
     builder.addCase(fetchTrending.fulfilled, (state, action) => {
       const data = action.payload;
       data.genre === "movie"
-        ? (state.trending.trendingMovies = data.results)
-        : (state.trending.trendingTvshows = data.results);
+        ? (state.trending.movies = data.results)
+        : (state.trending.tvshows = data.results);
 
       sessionStorage.setItem("trending", JSON.stringify(state.trending));
     });
@@ -42,7 +37,7 @@ export const TrendingSlice = createSlice({
 });
 
 export const fetchTrending = createAsyncThunk(
-  "getMovies",
+  "getTrendingMovies",
   async (genre: string) => {
     const options = {
       method: "GET",
