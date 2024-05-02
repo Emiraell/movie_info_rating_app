@@ -49,7 +49,7 @@ export default function Header() {
                 </Button>
               ))}
             </Box>
-          )}{" "}
+          )}
           {userLoggedIn && (
             <IconButton
               color="inherit"

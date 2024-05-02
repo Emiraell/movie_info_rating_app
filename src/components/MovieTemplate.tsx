@@ -31,11 +31,11 @@ export default function MovieTemplate({ data: movie, genre }: IProps) {
           ></CardMedia>
           <div className="p-3 tracking-wide bg-gray-950 text-gray-300">
             <div>
-              <p className="text-xl font-bold text-center">
+              <p className="text-xl font-bold text-center h-12 py-1">
                 {genre === "movie" ? movie.title : movie.name}
               </p>
             </div>
-            <div className=" flex text-sm justify-between py-3">
+            <div className=" flex text-sm justify-between py-3 text-start text-yellow-100">
               <div className="">
                 <span className="flex items-center">
                   Release Date
@@ -49,7 +49,7 @@ export default function MovieTemplate({ data: movie, genre }: IProps) {
               </div>
 
               <div>
-                <p>Rating: </p>
+                <p>Rating: {movie.vote_average.toFixed(1)}</p>
                 <Rating
                   defaultValue={movie.vote_average / 2}
                   precision={0.1}
@@ -60,7 +60,9 @@ export default function MovieTemplate({ data: movie, genre }: IProps) {
               </div>
             </div>
 
-            <p className="text-lg">{movie.overview.substring(0, 90)} ....</p>
+            <p className="text-lg h-24">
+              {movie.overview.substring(0, 90)} ....
+            </p>
           </div>
         </CardActionArea>
       </Card>
