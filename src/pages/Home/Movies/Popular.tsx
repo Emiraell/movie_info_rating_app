@@ -39,12 +39,12 @@ export default function PopularMovies() {
       {displayMovies ? (
         <>
           <p className="py-4 text-lg">Popular Movies</p>
-          <SliderCarousel data={movies} />
+          <SliderCarousel data={movies} genre={"movie"} />
         </>
       ) : (
         <>
           <p className="py-4 text-lg">Popular Tv shows</p>
-          <SliderCarousel data={tvshows} />
+          <SliderCarousel data={tvshows} genre={"tv"} />
         </>
       )}
     </div>

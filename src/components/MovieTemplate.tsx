@@ -21,7 +21,7 @@ interface IProps {
 export default function MovieTemplate({ data: movie, genre }: IProps) {
   return (
     <>
-      <Card key={movie.id} sx={{ maxHeight: "fit-content" }}>
+      <Card key={movie.id} sx={{ maxHeight: "fit-content", mx: 1 }}>
         <CardActionArea>
           <CardMedia
             component="img"

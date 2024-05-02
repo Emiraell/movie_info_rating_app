@@ -27,8 +27,9 @@ interface Settings {
 
 interface IProps {
   data: Movies[] | null;
+  genre: string;
 }
-export default function SliderCarousel({ data }: IProps) {
+export default function SliderCarousel({ data, genre }: IProps) {
   const settings: Settings = {
     autoplay: true,
     autoplaySpeed: 8000,
@@ -62,7 +63,7 @@ export default function SliderCarousel({ data }: IProps) {
     <>
       <Slider {...settings}>
         {data?.map((movie: any) => (
-          <MovieTemplate data={movie} key={movie.id} genre={"movie"} />
+          <MovieTemplate data={movie} key={movie.id} genre={genre} />
         ))}
       </Slider>
     </>

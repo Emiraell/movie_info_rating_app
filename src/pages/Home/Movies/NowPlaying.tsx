@@ -40,12 +40,12 @@ export default function NowPlayingMovies() {
       {displayMovies ? (
         <>
           <p className="py-4 text-lg">Now Playing Movies</p>
-          <SliderCarousel data={movies} />
+          <SliderCarousel data={movies} genre={"movie"} />
         </>
       ) : (
         <>
           <p className="py-4 text-lg">On the air Tv shows</p>
-          <SliderCarousel data={tvshows} />
+          <SliderCarousel data={tvshows} genre={"tv"} />
         </>
       )}
     </div>

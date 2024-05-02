@@ -40,12 +40,12 @@ export default function TrendingMovies() {
       {displayMovies ? (
         <>
           <p className="py-4 text-lg">Trending Movies</p>
-          <SliderCarousel data={movies} />
+          <SliderCarousel data={movies} genre={"movie"} />
         </>
       ) : (
         <>
           <p className="py-4 text-lg">Trending Tv shows</p>
-          <SliderCarousel data={tvshows} />
+          <SliderCarousel data={tvshows} genre={"tv"} />
         </>
       )}
     </div>
