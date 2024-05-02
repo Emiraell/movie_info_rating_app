@@ -5,6 +5,7 @@ import PopularMovies from "./Movies/Popular";
 import TrendingMovies from "./Movies/Trending";
 import TopRatedMovies from "./Movies/TopRated";
 import NowPlayingMovies from "./Movies/NowPlaying";
+import Footer from "../../components/Footer";
 
 export default function Main() {
   return (
@@ -19,6 +20,7 @@ export default function Main() {
           <TopRatedMovies />
           <NowPlayingMovies />
         </>
+        <Footer />
         {/* <>
           <div
             className="text-center m-auto text-gray-50 text-lg md:text-2xl mt-5
