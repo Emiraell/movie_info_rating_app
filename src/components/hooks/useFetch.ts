@@ -1,21 +1,9 @@
 import { useEffect, useState } from "react";
-// import { NowPlayingData } from "../movies/NowPlaying";
-
-export interface Movies {
-  first_air_date: string;
-  id: number;
-  original_title: string;
-  overview: string;
-  name: string;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  vote_average: number;
-}
+import { Movie } from "../../store/features/movies/Popular";
 
 export interface Data {
-  movies: Movies[] | null;
-  tvshows: Movies[] | null;
+  movies: Movie[] | null;
+  tvshows: Movie[] | null;
 }
 interface fetchProps {
   url: string;

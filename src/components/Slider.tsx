@@ -2,7 +2,7 @@ import MovieTemplate from "./MovieTemplate";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Movies } from "./hooks/useFetch";
+import { Movie } from "../store/features/movies/Popular";
 
 interface Settings {
   autoplay: boolean;
@@ -26,7 +26,7 @@ interface Settings {
 }
 
 interface IProps {
-  data: Movies[] | null;
+  data: Movie[] | null;
   genre: string;
 }
 export default function SliderCarousel({ data, genre }: IProps) {

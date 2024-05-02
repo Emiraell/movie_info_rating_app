@@ -15,8 +15,8 @@ try {
 }
 const initialState: NowPlaying = {
   nowPlaying: NowPlayingData || {
-    movies: [],
-    tvshows: [],
+    movies: null,
+    tvshows: null,
   },
 };
 export const NowPlayingSlice = createSlice({

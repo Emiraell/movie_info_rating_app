@@ -8,19 +8,19 @@ import { useEffect } from "react";
 import { fetchNowPlaying } from "../store/features/movies/NowPlaying";
 import { fetchTrending } from "../store/features/movies/Trending";
 import { fetchTopRated } from "../store/features/movies/TopRated";
-import { fetchPopular, Movies } from "../store/features/movies/Popular";
+import { fetchPopular, Movie } from "../store/features/movies/Popular";
 
 export default function Tvshows() {
-  const popularTvshows: Movies[] = useAppSelector(
+  const popularTvshows: Movie[] | null = useAppSelector(
     (state) => state.popular.popular.tvshows
   );
-  const trendingTvshows: Movies[] = useAppSelector(
+  const trendingTvshows: Movie[] | null = useAppSelector(
     (state) => state.trending.trending.tvshows
   );
-  const topRatedTvshows: Movies[] = useAppSelector(
+  const topRatedTvshows: Movie[] | null = useAppSelector(
     (state) => state.topRated.topRated.tvshows
   );
-  const nowPlayingTvshows: Movies[] = useAppSelector(
+  const nowPlayingTvshows: Movie[] | null = useAppSelector(
     (state) => state.nowPlaying.nowPlaying.tvshows
   );
 

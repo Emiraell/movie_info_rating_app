@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export interface Movies {
+export interface Movie {
   first_air_date: string;
   id: number;
   original_title: string;
@@ -13,8 +13,8 @@ export interface Movies {
 }
 
 export interface Data {
-  movies: Movies[];
-  tvshows: Movies[];
+  movies: Movie[] | null;
+  tvshows: Movie[] | null;
 }
 
 export interface Popular {
@@ -30,7 +30,7 @@ try {
   console.log(err);
 }
 const initialState: Popular = {
-  popular: popularMovies || { movies: [], tvshows: [] },
+  popular: popularMovies || { movies: null, tvshows: null },
 };
 export const PopularSlice = createSlice({
   name: "movies",

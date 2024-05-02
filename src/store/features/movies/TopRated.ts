@@ -15,8 +15,8 @@ try {
 }
 const initialState: Rated = {
   topRated: topRatedMovies || {
-    movies: [],
-    tvshows: [],
+    movies: null,
+    tvshows: null,
   },
 };
 export const TopRatedSlice = createSlice({

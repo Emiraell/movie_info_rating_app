@@ -16,8 +16,8 @@ try {
 }
 const initialState: State = {
   trending: trendingMovies || {
-    movies: [],
-    tvshows: [],
+    movies: null,
+    tvshows: null,
   },
 };
 export const TrendingSlice = createSlice({
