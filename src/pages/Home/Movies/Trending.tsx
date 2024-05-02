@@ -19,7 +19,7 @@ export default function TrendingMovies() {
       <p className="movieTitle">Trending</p>
       <div className="flex gap-6 justify-center py-10">
         <button
-          className={`movieBtn ${!displayMovies && "bg-yellow-500 "}`}
+          className={`movieBtn ${displayMovies && "bg-yellow-500 "}`}
           onClick={() => {
             dispatch(fetchTrending("movie"));
             setDisplayMovies(true);

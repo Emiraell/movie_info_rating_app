@@ -31,7 +31,7 @@ export const TrendingSlice = createSlice({
         ? (state.trending.movies = data.results)
         : (state.trending.tvshows = data.results);
 
-      sessionStorage.setItem("trending", JSON.stringify(state.trending));
+      localStorage.setItem("trending", JSON.stringify(state.trending));
     });
   },
 });
