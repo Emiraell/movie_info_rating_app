@@ -1,17 +1,16 @@
 import { Typography } from "@mui/material";
 import movie from "../../assets/Images/movie_1.jpg";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { MovieContext } from "./Main";
 
 interface HeroProps {
-  setShowingSearch: Dispatch<SetStateAction<undefined>>;
+  // setShowingSearch: Dispatch<SetStateAction<boolean>>;
   homePage: boolean;
   pageName: string;
 }
-export default function Hero({
-  setShowingSearch,
-  homePage,
-  pageName,
-}: HeroProps) {
+
+export default function Hero({ homePage, pageName }: HeroProps) {
+  const { searchedMovie, setSearchMovie } = useContext(MovieContext);
   return (
     <div
       className=" h-[60vh] flex justify-center items-center md:h-[75vh] bg-gray-700 bg-cover bg-no-repeat bg-blend-multiply"
@@ -32,6 +31,11 @@ export default function Hero({
             <input
               type="text"
               className=" outline-none bg-gray-300 rounded w-full p-1"
+              value={searchedMovie}
+              onChange={(e) => {
+                e.preventDefault();
+                setSearchMovie(e.target.value);
+              }}
             />
           </div>
         </div>
