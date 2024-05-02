@@ -1,26 +1,27 @@
 import { useEffect, useState } from "react";
 import SliderCarousel from "../../../components/Slider";
-import { Data, fetchPopular } from "../../../store/features/movies/Popular";
+import { Data } from "../../../store/features/movies/Popular";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { fetchTopRated } from "../../../store/features/movies/TopRated";
 
-export default function PopularMovies() {
+export default function TopRatedMovies() {
   const { movies, tvshows }: Data = useAppSelector(
-    (state) => state.popular.popular
+    (state) => state.topRated.topRated
   );
   const [displayMovies, setDisplayMovies] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchPopular("movie"));
+    dispatch(fetchTopRated("movie"));
     return () => {};
   }, []);
   return (
     <div className="text-gray-100 text-center w-[95%] m-auto my-10">
-      <p className="movieTitle">popular</p>
+      <p className="movieTitle">Top Rated</p>
       <div className="flex gap-6 justify-center pt-8 pb-4">
         <button
           className={`movieBtn ${displayMovies && "bg-yellow-500 "}`}
           onClick={() => {
-            dispatch(fetchPopular("movie"));
+            dispatch(fetchTopRated("movie"));
             setDisplayMovies(true);
           }}
         >
@@ -29,7 +30,7 @@ export default function PopularMovies() {
         <button
           className={`movieBtn ${!displayMovies && "bg-yellow-500 "}`}
           onClick={() => {
-            dispatch(fetchPopular("tv"));
+            dispatch(fetchTopRated("tv"));
             setDisplayMovies(false);
           }}
         >
@@ -38,12 +39,12 @@ export default function PopularMovies() {
       </div>
       {displayMovies ? (
         <>
-          <p className="py-4 text-lg">Popular Movies</p>
+          <p className="py-4 text-lg">Top Rated Movies</p>
           <SliderCarousel data={movies} />
         </>
       ) : (
         <>
-          <p className="py-4 text-lg">Popular Tv shows</p>
+          <p className="py-4 text-lg">Top Rated Tv shows</p>
           <SliderCarousel data={tvshows} />
         </>
       )}

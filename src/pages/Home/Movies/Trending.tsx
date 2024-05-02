@@ -1,26 +1,27 @@
 import { useEffect, useState } from "react";
 import SliderCarousel from "../../../components/Slider";
-import { Data, fetchPopular } from "../../../store/features/movies/Popular";
+import { Data } from "../../../store/features/movies/Popular";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { fetchTrending } from "../../../store/features/movies/Trending";
 
-export default function PopularMovies() {
+export default function TrendingMovies() {
   const { movies, tvshows }: Data = useAppSelector(
-    (state) => state.popular.popular
+    (state) => state.trending.trending
   );
   const [displayMovies, setDisplayMovies] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchPopular("movie"));
+    dispatch(fetchTrending("movie"));
     return () => {};
   }, []);
   return (
     <div className="text-gray-100 text-center w-[95%] m-auto my-10">
-      <p className="movieTitle">popular</p>
-      <div className="flex gap-6 justify-center pt-8 pb-4">
+      <p className="movieTitle">Trending</p>
+      <div className="flex gap-6 justify-center py-10">
         <button
-          className={`movieBtn ${displayMovies && "bg-yellow-500 "}`}
+          className={`movieBtn ${!displayMovies && "bg-yellow-500 "}`}
           onClick={() => {
-            dispatch(fetchPopular("movie"));
+            dispatch(fetchTrending("movie"));
             setDisplayMovies(true);
           }}
         >
@@ -29,7 +30,7 @@ export default function PopularMovies() {
         <button
           className={`movieBtn ${!displayMovies && "bg-yellow-500 "}`}
           onClick={() => {
-            dispatch(fetchPopular("tv"));
+            dispatch(fetchTrending("tv"));
             setDisplayMovies(false);
           }}
         >
@@ -38,12 +39,12 @@ export default function PopularMovies() {
       </div>
       {displayMovies ? (
         <>
-          <p className="py-4 text-lg">Popular Movies</p>
+          <p className="py-4 text-lg">Trending Movies</p>
           <SliderCarousel data={movies} />
         </>
       ) : (
         <>
-          <p className="py-4 text-lg">Popular Tv shows</p>
+          <p className="py-4 text-lg">Trending Tv shows</p>
           <SliderCarousel data={tvshows} />
         </>
       )}
