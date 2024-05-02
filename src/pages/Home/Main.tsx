@@ -9,23 +9,21 @@ import Footer from "../../components/Footer";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 
 interface ContextProps {
-  setShowingSearch: Dispatch<SetStateAction<boolean>>;
+  // setShowingSearch: Dispatch<SetStateAction<boolean>>;
   searchedMovie: string;
   setSearchMovie: Dispatch<SetStateAction<string>>;
 }
 export const MovieContext = createContext<ContextProps>({
   searchedMovie: "",
   setSearchMovie: () => "",
-  setShowingSearch: () => false,
+  // setShowingSearch: () => false,
 });
 export default function Main() {
   const [searchedMovie, setSearchMovie] = useState<string>("");
-  const [showingSearched, setShowingSearch] = useState<boolean>(false);
+  // const [showingSearched, setShowingSearch] = useState<boolean>(false);
   return (
     <>
-      <MovieContext.Provider
-        value={{ setShowingSearch, searchedMovie, setSearchMovie }}
-      >
+      <MovieContext.Provider value={{ searchedMovie, setSearchMovie }}>
         <Box sx={{}}>
           <Header />
           <Toolbar />
@@ -35,10 +33,16 @@ export default function Main() {
             pageName="home"
           />
           <>
-            <PopularMovies />
-            <TrendingMovies />
-            <TopRatedMovies />
-            <NowPlayingMovies />
+            {searchedMovie === "" ? (
+              <>
+                <PopularMovies />
+                <TrendingMovies />
+                <TopRatedMovies />
+                <NowPlayingMovies />
+              </>
+            ) : (
+              <div>movie</div>
+            )}
           </>
           <Footer />
         </Box>
