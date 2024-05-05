@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-import { Movie } from "../../store/features/movies/Popular";
 
-export interface Data {
-  movies: Movie[] | null;
-  tvshows: Movie[] | null;
-}
 interface fetchProps {
   url: string;
-  genre: string;
-  storageName: string;
+  detail: boolean;
 }
-const usefetch = ({ url, genre, storageName }: fetchProps): Data => {
-  const [data, setData] = useState<Data>({ movies: null, tvshows: null });
+const usefetch = ({ url, detail }: fetchProps) => {
+  const [data, setData] = useState([]);
+  const [details, setDetails] = useState({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const options = {
     method: "GET",
     headers: {
@@ -23,19 +20,22 @@ const usefetch = ({ url, genre, storageName }: fetchProps): Data => {
 
   const fetchData = async () => {
     const res = await fetch(url, options);
-
     const result = await res.json();
-
-    genre === "movie"
-      ? setData({ ...data, movies: result.results })
-      : setData({ ...data, tvshows: result.results });
+    try {
+      !detail === true ? setData(result.results) : setDetails(result);
+      setIsLoading(false);
+      setError(false);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setError(false);
+    }
   };
 
   useEffect(() => {
-    console.log(storageName);
     fetchData();
   }, [url]);
-  return { ...data };
+  return { data, details, isLoading, error };
 };
 
 export default usefetch;

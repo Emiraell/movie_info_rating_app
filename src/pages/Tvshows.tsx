@@ -26,10 +26,10 @@ export default function Tvshows() {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchNowPlaying("tv"));
-    dispatch(fetchTrending("tv"));
-    dispatch(fetchTopRated("tv"));
-    dispatch(fetchPopular("tv"));
+    // dispatch(fetchNowPlaying("tv"));
+    // dispatch(fetchTrending("tv"));
+    // dispatch(fetchTopRated("tv"));
+    // dispatch(fetchPopular("tv"));
   }, []);
   return (
     <>

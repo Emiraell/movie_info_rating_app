@@ -11,7 +11,7 @@ export default function TrendingMovies() {
   const [displayMovies, setDisplayMovies] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchTrending("movie"));
+    // dispatch(fetchTrending("movie"));
     return () => {};
   }, []);
   return (

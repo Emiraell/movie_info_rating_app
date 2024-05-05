@@ -29,7 +29,7 @@ export default function PopularMovies() {
         <button
           className={`movieBtn ${!displayMovies && "bg-yellow-500 "}`}
           onClick={() => {
-            dispatch(fetchPopular("tv"));
+            // dispatch(fetchPopular("tv"));
             setDisplayMovies(false);
           }}
         >

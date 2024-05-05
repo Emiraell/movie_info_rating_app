@@ -11,7 +11,7 @@ export default function NowPlayingMovies() {
   const [displayMovies, setDisplayMovies] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchNowPlaying("movie"));
+    // dispatch(fetchNowPlaying("movie"));
     return () => {};
   }, []);
   return (

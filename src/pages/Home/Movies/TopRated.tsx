@@ -30,7 +30,7 @@ export default function TopRatedMovies() {
         <button
           className={`movieBtn ${!displayMovies && "bg-yellow-500 "}`}
           onClick={() => {
-            dispatch(fetchTopRated("tv"));
+            // dispatch(fetchTopRated("tv"));
             setDisplayMovies(false);
           }}
         >

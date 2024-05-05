@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <div className="text-gray-200 bg-blue-950 text-center py-2 tracking-wider md:text-lg">
+    <div className="text-gray-200 bg-gradient-to-br from-blue-950 to-emerald-950 text-center py-2 tracking-wider md:text-lg">
       <Typography
         component="div"
         sx={{ letterSpacing: 2, color: "yellow", fontSize: 20 }}

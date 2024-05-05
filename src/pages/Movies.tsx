@@ -26,10 +26,10 @@ export default function Movies() {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchNowPlaying("movie"));
-    dispatch(fetchTrending("movie"));
-    dispatch(fetchTopRated("movie"));
-    dispatch(fetchPopular("movie"));
+    // dispatch(fetchNowPlaying("movie"));
+    // dispatch(fetchTrending("movie"));
+    // dispatch(fetchTopRated("movie"));
+    // dispatch(fetchPopular("movie"));
   }, []);
   return (
     <>
