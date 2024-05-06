@@ -6,23 +6,23 @@ import Hero from "../../../components/Hero";
 import Footer from "../../../components/Footer";
 import Details from "./Details";
 
-export default function MovieDetail() {
+export default function TvshowDetail() {
   const { id } = useParams();
   const { details, isLoading, error } = usefetch({
-    url: `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+    url: `https://api.themoviedb.org/3/tv/${id}?language=en-US`,
     detail: true,
   });
-
+  console.log(details);
   return (
     <>
       <Header />
       <Toolbar />
-      <Hero homePage={false} pageName="movie" />
+      <Hero homePage={false} pageName="Tv Show" />
       <div className="mt-20 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
-        {isLoading && <div>Loading......</div>}
+        {isLoading && <div className="">Loading......</div>}
         {error && (
-          <div>
-            Error in fetching movie detial <br /> please refresh the page
+          <div className="">
+            Error in fetching movie detail <br /> please refresh the page
           </div>
         )}
       </div>

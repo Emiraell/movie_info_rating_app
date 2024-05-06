@@ -20,6 +20,13 @@ export interface Countries {
   iso_3166_1: string;
   name: string;
 }
+interface Seasons {
+  air_date: string;
+  episode_count: string;
+  id: number;
+  name: string;
+  season_number: string;
+}
 export interface MovieDetails {
   adult: boolean;
   title: string;
@@ -34,13 +41,20 @@ export interface MovieDetails {
   runtime: number;
   vote_average: number;
   vote_count: number;
+  episode_run_time: number[];
+  first_air_date: string;
+  last_air_date: string;
+  name: string;
+  seasons: Seasons[];
+  status: string;
+  type: string;
 }
 
 const usefetch = ({ url, detail }: fetchProps) => {
   const [data, setData] = useState([]);
   const [details, setDetails] = useState<MovieDetails>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
   const options = {
     method: "GET",
     headers: {

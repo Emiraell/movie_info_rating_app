@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Movies from "./pages/Movies";
 import Tvshows from "./pages/Tvshows";
 import MovieDetail from "./pages/movieDetails/movie/Movie";
+import TvshowDetail from "./pages/movieDetails/tv/Tvshows";
 
 function App() {
   const guestId: string | null = useAppSelector(
@@ -19,6 +20,7 @@ function App() {
           <Route path="/movies" element={<Movies />} />
           <Route path="/tvshows" element={<Tvshows />} />
           <Route path="/movie/:id" element={<MovieDetail />} />
+          <Route path="/tvshows/:id" element={<TvshowDetail />} />
         </Routes>
       </Router>
     </>
