@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Avatar,
   Box,
   List,
@@ -7,11 +10,14 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Companies,
   Countries,
   Genres,
+  Languages,
   MovieDetails,
+  Seasons,
 } from "../../../hooks/useFetch";
 
 interface MovieProps {
@@ -21,16 +27,14 @@ export default function Details({ details }: MovieProps) {
   return (
     <div
       className="text-gray-100 text-center tracking-wide md:w-[90%] m-auto 
-  border mb-40 mt-20 border-blue-950 shadow-lg"
+  border mb-48 mt-20 border-blue-950 shadow-lg"
     >
-      {/* <Box sx={{ my: 5 }}> */}
-      <Typography
-        variant="h4"
-        component="div"
-        sx={{ fontWeight: "bold", my: 4 }}
-      >
-        {details?.title}
-      </Typography>
+      <Box sx={{ my: 5 }}>
+        <Typography variant="h4" component="div" sx={{ fontWeight: "bold" }}>
+          {details?.name}
+        </Typography>
+        <p className=" italic text-lg">{details?.tagline}</p>
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -42,14 +46,9 @@ export default function Details({ details }: MovieProps) {
           <img
             className="pb-5 rounded-sm"
             src={`https://image.tmdb.org/t/p/original/${details?.poster_path}`}
-            alt={`${details?.title} image`}
+            alt={`${details?.name} image`}
           />
-          <Typography
-            sx={{ display: { sm: "none" } }}
-            variant="h6"
-            component="div"
-            mx={2}
-          >
+          <Typography variant="h6" component="div" mx={2}>
             {details?.overview}
           </Typography>
         </Box>
@@ -64,25 +63,39 @@ export default function Details({ details }: MovieProps) {
                   mr: 3,
                 }}
               >
-                {details?.adult && (
+                {details?.adult ||
+                  (!details?.adult && (
+                    <Box>
+                      <Typography variant="h6" className="typography">
+                        Adult
+                      </Typography>
+                      <Typography>{details?.adult ? "Yes" : "No"}</Typography>
+                    </Box>
+                  ))}
+                {details?.vote_count && (
                   <Box>
-                    <Typography variant="h6" className="typography">
-                      Adult
-                    </Typography>
-                    <Typography>{details?.adult ? "Yes" : "No"}</Typography>
+                    <p className="typography">Vote count</p>
+                    <Typography>{details?.vote_count}</Typography>
                   </Box>
                 )}
 
                 <Box>
-                  <Typography className="typography">Release Date</Typography>
-                  <Typography>{details?.release_date}</Typography>
+                  <Typography className="typography">
+                    Number of Seasons
+                  </Typography>
+                  <Typography>{details?.number_of_seasons} Seasons</Typography>
                 </Box>
 
-                <Box>
-                  <Typography className="typography">Revenue</Typography>
-                  <Typography>{details?.revenue}</Typography>
-                </Box>
+                {details?.first_air_date && (
+                  <Box>
+                    <Typography className="typography">
+                      First air date
+                    </Typography>
+                    <Typography>{details?.first_air_date}</Typography>
+                  </Box>
+                )}
               </Box>
+
               <Box
                 sx={{
                   display: "flex",
@@ -91,25 +104,73 @@ export default function Details({ details }: MovieProps) {
                   ml: 3,
                 }}
               >
-                {details?.runtime && (
+                {details?.spoken_languages && (
                   <Box>
-                    <p className="typography">Runtime</p>
-                    <Typography>{details?.runtime} Minutes</Typography>
+                    <Typography className="typography">
+                      Spoken Languages
+                    </Typography>
+                    <div>
+                      {details?.spoken_languages.map((language: Languages) => (
+                        <Typography component="div" key={language.iso_639_1}>
+                          {language.name}
+                        </Typography>
+                      ))}
+                    </div>
                   </Box>
                 )}
                 {details?.popularity && (
                   <Box>
                     <p className="typography">Popularity</p>
-                    <p>{details?.popularity}</p>
+                    <Typography>{details?.popularity}</Typography>
                   </Box>
                 )}
-                {details?.vote_count && (
+
+                <Box>
+                  <p className="typography">Number of Episodes</p>
+                  <Typography>
+                    {details?.number_of_episodes} Episodes
+                  </Typography>
+                </Box>
+                {details?.last_air_date && (
                   <Box>
-                    <p className="typography">Vote count</p>
-                    <p>{details?.vote_count}</p>
+                    <Typography className="typography">
+                      Last air date
+                    </Typography>
+                    <Typography>{details?.last_air_date}</Typography>
                   </Box>
                 )}
-              </Box>{" "}
+              </Box>
+            </Box>
+
+            <p className="typography my-4">Seasons</p>
+            <Box sx={{ height: 200, overflowY: "scroll" }}>
+              {details?.seasons.map((season: Seasons) => (
+                <Accordion
+                  className=""
+                  key={season.id}
+                  sx={{
+                    backgroundColor: "blue",
+                    color: "white",
+                    overflowY: "scroll",
+                  }}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                  >
+                    Season {season.season_number}
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography sx={{ letterSpacing: 1, opacity: 0.9 }}>
+                      Air Date: {season.air_date}
+                    </Typography>
+                    <Typography sx={{ letterSpacing: 1, opacity: 0.9 }}>
+                      {season.episode_count} episodes
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              ))}
             </Box>
 
             {details?.genres && (
@@ -164,14 +225,6 @@ export default function Details({ details }: MovieProps) {
           </Box>
         </Box>
       </Box>
-      <Typography
-        sx={{ display: { xs: "none", sm: "block" } }}
-        variant="h6"
-        component="div"
-        m={3}
-      >
-        {details?.overview}
-      </Typography>
     </div>
   );
 }

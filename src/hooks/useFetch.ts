@@ -20,18 +20,28 @@ export interface Countries {
   iso_3166_1: string;
   name: string;
 }
-interface Seasons {
+export interface Seasons {
   air_date: string;
   episode_count: string;
   id: number;
   name: string;
   season_number: string;
 }
+export interface CreatedBy {
+  id: number;
+  name: string;
+}
+
+export interface Languages {
+  iso_639_1: string;
+  name: string;
+}
 export interface MovieDetails {
   adult: boolean;
   title: string;
   poster_path: string;
   genres: Genres[];
+  spoken_languages: Languages[];
   overview: string;
   popularity: number;
   production_companies: Companies[];
@@ -45,8 +55,11 @@ export interface MovieDetails {
   first_air_date: string;
   last_air_date: string;
   name: string;
+  number_of_episodes: number;
+  number_of_seasons: number;
   seasons: Seasons[];
   status: string;
+  tagline: string;
   type: string;
 }
 
