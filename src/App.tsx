@@ -5,7 +5,7 @@ import { useAppSelector } from "./store/store";
 import Login from "./pages/Login";
 import Movies from "./pages/Movies";
 import Tvshows from "./pages/Tvshows";
-import MovieDetail from "./pages/movieDetails/Movie";
+import MovieDetail from "./pages/movieDetails/movie/Movie";
 
 function App() {
   const guestId: string | null = useAppSelector(

@@ -20,7 +20,7 @@ export interface Countries {
   iso_3166_1: string;
   name: string;
 }
-interface Details {
+export interface MovieDetails {
   adult: boolean;
   title: string;
   poster_path: string;
@@ -38,9 +38,9 @@ interface Details {
 
 const usefetch = ({ url, detail }: fetchProps) => {
   const [data, setData] = useState([]);
-  const [details, setDetails] = useState<Details>();
+  const [details, setDetails] = useState<MovieDetails>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(true);
   const options = {
     method: "GET",
     headers: {
@@ -60,8 +60,6 @@ const usefetch = ({ url, detail }: fetchProps) => {
       setError(false);
     } catch (err) {
       setError(true);
-    } finally {
-      setError(false);
     }
   };
 
