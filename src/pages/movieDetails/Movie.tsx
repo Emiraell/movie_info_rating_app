@@ -6,6 +6,7 @@ import {
   Avatar,
   Box,
   Divider,
+  Grid,
   List,
   ListItem,
   ListItemAvatar,
@@ -31,29 +32,10 @@ interface Countries {
   iso_3166_1: string;
   name: string;
 }
-interface Details {
-  adult: boolean;
-  title: string;
-  poster_path: string;
-  genres: Genres[];
-  overview: string;
-  popularity: number;
-  production_companies: Companies[];
-  production_countries: Countries[];
-  revenue: number;
-  release_date: string;
-  runtime: number;
-  vote_average: number;
-  vote_count: number;
-}
-type FetchProps = {
-  details: Details | any;
-  isLoading: boolean;
-  error: boolean;
-};
+
 export default function MovieDetail() {
   const { id } = useParams();
-  const { details, isLoading, error }: FetchProps = usefetch({
+  const { details, isLoading, error } = usefetch({
     url: `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
     detail: true,
   });
@@ -65,99 +47,166 @@ export default function MovieDetail() {
       <Header />
       <Toolbar />
       <Hero homePage={false} pageName="movie" />
-      <div className="text-gray-100 text-center tracking-wide w-[90%] m-auto border my-5 border-blue-950 shadow-lg">
-        <Box sx={{ my: 5 }}>
-          <Typography variant="h4" component="div" sx={{ fontWeight: "bold" }}>
-            {details?.title}
-          </Typography>
-          <Box
-            sx={{
-              display: { sm: "flex", gap: 20 },
-              m: 5,
-            }}
-          >
-            <Box>
-              <img src={details.poster_path} alt={`${details.title} image`} />
-              <Typography variant="h6" component="div">
-                {details.overview}
-              </Typography>
-            </Box>
-            <Divider />
-            <Box sx={{ textAlign: "start" }}>
-              <Box sx={{ display: "flex", gap: 10 }}>
-                <Box>
-                  <Typography>Adult</Typography>
-                  <Typography>{details.adult ? "Yes" : "No"}</Typography>
+      <div className="text-gray-100 text-center tracking-wide md:w-[90%] m-auto border my-5 border-blue-950 shadow-lg">
+        {/* <Box sx={{ my: 5 }}> */}
+        <Typography
+          variant="h4"
+          component="div"
+          sx={{ fontWeight: "bold", my: 4 }}
+        >
+          {details?.title}
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            gap: { xs: 3, sm: 5 },
+          }}
+        >
+          <Box sx={{ flex: 1, p: 2 }}>
+            <img
+              className="pb-5 rounded-sm"
+              src={`https://image.tmdb.org/t/p/original/${details?.poster_path}`}
+              alt={`${details?.title} image`}
+            />
+            <Typography
+              sx={{ display: { sm: "none" } }}
+              variant="h6"
+              component="div"
+              mx={2}
+            >
+              {details?.overview}
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: "start", flex: 1.5 }}>
+            <Box mx={5}>
+              <Box
+                sx={{ display: "flex", justifyContent: "flex-start", mb: 4 }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 3,
+                    mr: 3,
+                  }}
+                >
+                  {details?.adult ||
+                    (!details?.adult && (
+                      <Box>
+                        <Typography variant="h6" className="typography">
+                          Adult
+                        </Typography>
+                        <Typography>{details?.adult ? "Yes" : "No"}</Typography>
+                      </Box>
+                    ))}
+                  {details?.release_date && (
+                    <Box>
+                      <Typography className="typography">
+                        Release Date
+                      </Typography>
+                      <Typography>{details?.release_date}</Typography>
+                    </Box>
+                  )}
+                  {details?.revenue ||
+                    (!details?.revenue && (
+                      <Box>
+                        <Typography className="typography">Revenue</Typography>
+                        <Typography>{details?.revenue}</Typography>
+                      </Box>
+                    ))}
                 </Box>
-                <Box>
-                  <Typography>Runtime</Typography>
-                  <Typography>{details.runtime} Minutes</Typography>
-                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 3,
+                    ml: 3,
+                  }}
+                >
+                  {details?.runtime && (
+                    <Box>
+                      <p className="typography">Runtime</p>
+                      <Typography>{details?.runtime} Minutes</Typography>
+                    </Box>
+                  )}
+                  {details?.popularity && (
+                    <Box>
+                      <p className="typography">Popularity</p>
+                      <p>{details?.popularity}</p>
+                    </Box>
+                  )}
+                  {details?.vote_count && (
+                    <Box>
+                      <p className="typography">Vote count</p>
+                      <p>{details?.vote_count}</p>
+                    </Box>
+                  )}
+                </Box>{" "}
               </Box>
 
-              <Box sx={{ display: "flex", gap: 10 }}>
+              {details?.genres && (
                 <Box>
-                  <Typography>Release Date</Typography>
-                  <Typography>{details?.release_date}</Typography>
+                  <p className="typography">Genres</p>
+                  <List sx={{ display: "flex" }}>
+                    {details?.genres.map((genre: Genres) => (
+                      <ListItem key={genre.id}>
+                        <ListItemText primary={genre.name} sx={{}} />
+                      </ListItem>
+                    ))}
+                  </List>
                 </Box>
+              )}
+
+              {details?.production_companies && (
                 <Box>
-                  <Typography>Popularity</Typography>
-                  <Typography>{details?.popularity}</Typography>
+                  <p className="typography">Production companies</p>
+                  <List>
+                    {details?.production_companies.map((company: Companies) => (
+                      <ListItem key={company.id}>
+                        <ListItemAvatar>
+                          {company.logo_path ? (
+                            <Avatar
+                              src={`https://image.tmdb.org/t/p/original/${company.logo_path}`}
+                            />
+                          ) : (
+                            <Avatar sx={{ backgroundColor: "blue" }}>
+                              {company.name.substring(0, 2)}
+                            </Avatar>
+                          )}
+                        </ListItemAvatar>
+                        <ListItemText primary={company.name} />
+                      </ListItem>
+                    ))}
+                  </List>
                 </Box>
-              </Box>
+              )}
 
-              <Box sx={{ display: "flex", gap: 10 }}>
+              {details?.production_countries && (
                 <Box>
-                  <Typography>Revenue</Typography>
-                  <Typography>{details?.revenue}</Typography>
+                  <p className="typography">Production countries</p>
+                  <List>
+                    {details?.production_countries.map((country: Countries) => (
+                      <ListItem key={country.iso_3166_1}>
+                        <ListItemText primary={country.name} />
+                      </ListItem>
+                    ))}
+                  </List>
                 </Box>
-                <Box>
-                  <Typography>Vote count</Typography>
-                  <Typography>{details?.vote_count}</Typography>
-                </Box>
-              </Box>
-
-              <Box>
-                <Typography>Genres</Typography>
-                <List sx={{ display: "flex" }}>
-                  {details?.genres.map((genre: Genres) => (
-                    <ListItem key={genre.id} sx={{ verticalAlign: "text-top" }}>
-                      <ListItemText
-                        primary={genre.name}
-                        sx={{ display: "inline" }}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-
-              <Box>
-                <Typography>Production companies</Typography>
-                <List>
-                  {details?.production_companies.map((company: Companies) => (
-                    <ListItem key={company.id}>
-                      <ListItemAvatar>
-                        <Avatar src={company.logo_path} />
-                      </ListItemAvatar>
-                      <ListItemText primary={company.name} />
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-
-              <Box>
-                <Typography>Production countries</Typography>
-                <List>
-                  {details?.production_countries.map((country: Countries) => (
-                    <ListItem key={country.iso_3166_1}>
-                      <ListItemText primary={country.name} />
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
+              )}
             </Box>
           </Box>
         </Box>
+        <Typography
+          sx={{ display: { xs: "none", sm: "block" } }}
+          variant="h6"
+          component="div"
+          m={3}
+        >
+          {details?.overview}
+        </Typography>
+
+        {/* </Box> */}
       </div>
     </>
   );
