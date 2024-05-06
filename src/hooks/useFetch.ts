@@ -23,6 +23,7 @@ const usefetch = ({ url, detail }: fetchProps) => {
     const result = await res.json();
     try {
       !detail === true ? setData(result.results) : setDetails(result);
+      localStorage.setItem("detail", JSON.stringify(details));
       setIsLoading(false);
       setError(false);
     } catch (err) {
