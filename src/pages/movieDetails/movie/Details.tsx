@@ -19,100 +19,104 @@ interface MovieProps {
 }
 export default function Details({ details }: MovieProps) {
   return (
-    <div
-      className="text-gray-100 text-center tracking-wide md:w-[90%] m-auto 
-border mb-40 mt-20 border-blue-950 shadow-lg"
-    >
-      {/* <Box sx={{ my: 5 }}> */}
-      <Typography
-        variant="h4"
-        component="div"
-        sx={{ fontWeight: "bold", my: 4 }}
+    <div className="mb-40 mt-20 relative md:w-[90%] m-auto text-gray-100 text-center tracking-wide ">
+      <form
+        action=""
+        className="absolute right-10 -top-12 border border-blue-500 py-1 px-6"
       >
-        {details?.title}
-      </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          gap: { xs: 3, sm: 5 },
-        }}
-      >
-        <Box sx={{ flex: 1, p: 2 }}>
-          <img
-            className="pb-5 rounded-sm"
-            src={`https://image.tmdb.org/t/p/original/${details?.poster_path}`}
-            alt={`${details?.title} image`}
-          />
-          <Typography
-            sx={{ display: { sm: "none" } }}
-            variant="h6"
-            component="div"
-            mx={2}
-          >
-            {details?.overview}
-          </Typography>
-        </Box>
-        <Box sx={{ textAlign: "start", flex: 1.5 }}>
-          <Box mx={5}>
-            <Box sx={{ display: "flex", justifyContent: "flex-start", mb: 4 }}>
+        <input
+          type="text"
+          className="w-10 bg-transparent outline-none pl-2"
+          placeholder="0"
+        />
+        <button className="border-l pl-5">Rate</button>
+      </form>
+      <div className=" border  border-blue-950 shadow-lg">
+        {/* <Box sx={{ my: 5 }}> */}
+        <Typography
+          variant="h4"
+          component="div"
+          sx={{ fontWeight: "bold", my: 4 }}
+        >
+          {details?.title}
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            gap: { xs: 3, sm: 5 },
+          }}
+        >
+          <Box sx={{ flex: 1, p: 2 }}>
+            <img
+              className="pb-5 rounded-sm"
+              src={`https://image.tmdb.org/t/p/original/${details?.poster_path}`}
+              alt={`${details?.title} image`}
+            />
+            <Typography
+              sx={{ display: { sm: "none" } }}
+              variant="h6"
+              component="div"
+              mx={2}
+            >
+              {details?.overview}
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: "start", flex: 1.5 }}>
+            <Box mx={5}>
               <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 3,
-                  mr: 3,
-                }}
+                sx={{ display: "flex", justifyContent: "flex-start", mb: 4 }}
               >
-                {details?.adult && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 3,
+                    mr: 3,
+                  }}
+                >
                   <Box>
                     <Typography variant="h6" className="typography">
                       Adult
                     </Typography>
                     <Typography>{details?.adult ? "Yes" : "No"}</Typography>
                   </Box>
-                )}
 
-                <Box>
-                  <Typography className="typography">Release Date</Typography>
-                  <Typography>{details?.release_date}</Typography>
-                </Box>
+                  <Box>
+                    <Typography className="typography">Release Date</Typography>
+                    <Typography>{details?.release_date}</Typography>
+                  </Box>
 
-                <Box>
-                  <Typography className="typography">Revenue</Typography>
-                  <Typography>{details?.revenue}</Typography>
+                  <Box>
+                    <Typography className="typography">Revenue</Typography>
+                    <Typography>{details?.revenue}</Typography>
+                  </Box>
                 </Box>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 3,
-                  ml: 3,
-                }}
-              >
-                {details?.runtime && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 3,
+                    ml: 3,
+                  }}
+                >
                   <Box>
                     <p className="typography">Runtime</p>
                     <Typography>{details?.runtime} Minutes</Typography>
                   </Box>
-                )}
-                {details?.popularity && (
+
                   <Box>
                     <p className="typography">Popularity</p>
                     <p>{details?.popularity}</p>
                   </Box>
-                )}
-                {details?.vote_count && (
+
                   <Box>
                     <p className="typography">Vote count</p>
                     <p>{details?.vote_count}</p>
                   </Box>
-                )}
-              </Box>{" "}
-            </Box>
+                </Box>
+              </Box>
 
-            {details?.genres && (
               <Box mt={5}>
                 <p className="typography">Genres</p>
                 <List sx={{ display: "flex" }}>
@@ -123,9 +127,7 @@ border mb-40 mt-20 border-blue-950 shadow-lg"
                   ))}
                 </List>
               </Box>
-            )}
 
-            {details?.production_companies && (
               <Box mt={4}>
                 <p className="typography">Production companies</p>
                 <List>
@@ -147,9 +149,7 @@ border mb-40 mt-20 border-blue-950 shadow-lg"
                   ))}
                 </List>
               </Box>
-            )}
 
-            {details?.production_countries && (
               <Box mt={5}>
                 <p className="typography">Production countries</p>
                 <List sx={{ display: "flex" }}>
@@ -160,18 +160,18 @@ border mb-40 mt-20 border-blue-950 shadow-lg"
                   ))}
                 </List>
               </Box>
-            )}
+            </Box>
           </Box>
         </Box>
-      </Box>
-      <Typography
-        sx={{ display: { xs: "none", sm: "block" } }}
-        variant="h6"
-        component="div"
-        m={3}
-      >
-        {details?.overview}
-      </Typography>
+        <Typography
+          sx={{ display: { xs: "none", sm: "block" } }}
+          variant="h6"
+          component="div"
+          m={3}
+        >
+          {details?.overview}
+        </Typography>
+      </div>
     </div>
   );
 }

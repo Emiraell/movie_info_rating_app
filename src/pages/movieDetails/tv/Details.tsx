@@ -27,7 +27,7 @@ export default function Details({ details }: MovieProps) {
   return (
     <div
       className="text-gray-100 text-center tracking-wide md:w-[90%] m-auto 
-  border mb-48 mt-20 border-blue-950 shadow-lg"
+  border mb-48 mt-10 border-blue-950 shadow-lg"
     >
       <Box sx={{ my: 5 }}>
         <Typography variant="h4" component="div" sx={{ fontWeight: "bold" }}>
@@ -63,21 +63,17 @@ export default function Details({ details }: MovieProps) {
                   mr: 3,
                 }}
               >
-                {details?.adult ||
-                  (!details?.adult && (
-                    <Box>
-                      <Typography variant="h6" className="typography">
-                        Adult
-                      </Typography>
-                      <Typography>{details?.adult ? "Yes" : "No"}</Typography>
-                    </Box>
-                  ))}
-                {details?.vote_count && (
-                  <Box>
-                    <p className="typography">Vote count</p>
-                    <Typography>{details?.vote_count}</Typography>
-                  </Box>
-                )}
+                <Box>
+                  <Typography variant="h6" className="typography">
+                    Adult
+                  </Typography>
+                  <Typography>{details?.adult ? "Yes" : "No"}</Typography>
+                </Box>
+
+                <Box>
+                  <p className="typography">Vote count</p>
+                  <Typography>{details?.vote_count}</Typography>
+                </Box>
 
                 <Box>
                   <Typography className="typography">
@@ -86,14 +82,10 @@ export default function Details({ details }: MovieProps) {
                   <Typography>{details?.number_of_seasons} Seasons</Typography>
                 </Box>
 
-                {details?.first_air_date && (
-                  <Box>
-                    <Typography className="typography">
-                      First air date
-                    </Typography>
-                    <Typography>{details?.first_air_date}</Typography>
-                  </Box>
-                )}
+                <Box>
+                  <Typography className="typography">First air date</Typography>
+                  <Typography>{details?.first_air_date}</Typography>
+                </Box>
               </Box>
 
               <Box
@@ -104,26 +96,23 @@ export default function Details({ details }: MovieProps) {
                   ml: 3,
                 }}
               >
-                {details?.spoken_languages && (
-                  <Box>
-                    <Typography className="typography">
-                      Spoken Languages
-                    </Typography>
-                    <div>
-                      {details?.spoken_languages.map((language: Languages) => (
-                        <Typography component="div" key={language.iso_639_1}>
-                          {language.name}
-                        </Typography>
-                      ))}
-                    </div>
-                  </Box>
-                )}
-                {details?.popularity && (
-                  <Box>
-                    <p className="typography">Popularity</p>
-                    <Typography>{details?.popularity}</Typography>
-                  </Box>
-                )}
+                <Box>
+                  <Typography className="typography">
+                    Spoken Languages
+                  </Typography>
+                  <div>
+                    {details?.spoken_languages.map((language: Languages) => (
+                      <Typography component="div" key={language.iso_639_1}>
+                        {language.name}
+                      </Typography>
+                    ))}
+                  </div>
+                </Box>
+
+                <Box>
+                  <p className="typography">Popularity</p>
+                  <Typography>{details?.popularity}</Typography>
+                </Box>
 
                 <Box>
                   <p className="typography">Number of Episodes</p>
@@ -173,55 +162,49 @@ export default function Details({ details }: MovieProps) {
               ))}
             </Box>
 
-            {details?.genres && (
-              <Box mt={5}>
-                <p className="typography">Genres</p>
-                <List sx={{ display: "flex" }}>
-                  {details?.genres.map((genre: Genres) => (
-                    <ListItem key={genre.id}>
-                      <ListItemText primary={genre.name} sx={{}} />
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-            )}
+            <Box mt={5}>
+              <p className="typography">Genres</p>
+              <List sx={{ display: "flex" }}>
+                {details?.genres.map((genre: Genres) => (
+                  <ListItem key={genre.id}>
+                    <ListItemText primary={genre.name} sx={{}} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
 
-            {details?.production_companies && (
-              <Box mt={4}>
-                <p className="typography">Production companies</p>
-                <List>
-                  {details?.production_companies.map((company: Companies) => (
-                    <ListItem key={company.id}>
-                      <ListItemAvatar>
-                        {company.logo_path ? (
-                          <Avatar
-                            src={`https://image.tmdb.org/t/p/original/${company.logo_path}`}
-                          />
-                        ) : (
-                          <Avatar sx={{ backgroundColor: "blue" }}>
-                            {company.name[0]}
-                          </Avatar>
-                        )}
-                      </ListItemAvatar>
-                      <ListItemText primary={company.name} />
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-            )}
+            <Box mt={4}>
+              <p className="typography">Production companies</p>
+              <List>
+                {details?.production_companies.map((company: Companies) => (
+                  <ListItem key={company.id}>
+                    <ListItemAvatar>
+                      {company.logo_path ? (
+                        <Avatar
+                          src={`https://image.tmdb.org/t/p/original/${company.logo_path}`}
+                        />
+                      ) : (
+                        <Avatar sx={{ backgroundColor: "blue" }}>
+                          {company.name[0]}
+                        </Avatar>
+                      )}
+                    </ListItemAvatar>
+                    <ListItemText primary={company.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
 
-            {details?.production_countries && (
-              <Box mt={5}>
-                <p className="typography">Production countries</p>
-                <List sx={{ display: "flex" }}>
-                  {details?.production_countries.map((country: Countries) => (
-                    <ListItem key={country.iso_3166_1}>
-                      <ListItemText primary={country.name} />
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-            )}
+            <Box mt={5}>
+              <p className="typography">Production countries</p>
+              <List sx={{ display: "flex" }}>
+                {details?.production_countries.map((country: Countries) => (
+                  <ListItem key={country.iso_3166_1}>
+                    <ListItemText primary={country.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
           </Box>
         </Box>
       </Box>

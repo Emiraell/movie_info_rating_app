@@ -3,6 +3,7 @@ import SliderCarousel from "../../../components/Slider";
 import { Data } from "../../../store/features/movies/Popular";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { fetchNowPlaying } from "../../../store/features/movies/NowPlaying";
+import { Button, ButtonGroup } from "@mui/material";
 
 export default function NowPlayingMovies() {
   const { movies, tvshows }: Data = useAppSelector(
@@ -15,28 +16,30 @@ export default function NowPlayingMovies() {
     return () => {};
   }, []);
   return (
-    <div className="text-gray-100 text-center w-[95%] m-auto my-10">
+    <div className="text-gray-100 text-center w-[95%] m-auto mt-10 mb-40">
       <p className="movieTitle">Now Playing </p>
-      <div className="flex gap-6 justify-center py-10">
-        <button
-          className={`movieBtn ${displayMovies && "bg-yellow-500 "}`}
+      <ButtonGroup className="py-10">
+        <Button
+          // className={`movieBtn ${displayMovies && "bg-yellow-500 "}`}
+          sx={{ backgroundColor: displayMovies ? "red" : "transparent" }}
           onClick={() => {
             dispatch(fetchNowPlaying("movie"));
             setDisplayMovies(true);
           }}
         >
           movie
-        </button>
-        <button
-          className={`movieBtn ${!displayMovies && "bg-yellow-500 "}`}
+        </Button>
+        <Button
+          sx={{ backgroundColor: !displayMovies ? "red" : "transparent" }}
+          // className={`movieBtn ${!displayMovies && "bg-yellow-500 "}`}
           onClick={() => {
             dispatch(fetchNowPlaying("tv"));
             setDisplayMovies(false);
           }}
         >
           Tvshows
-        </button>
-      </div>
+        </Button>
+      </ButtonGroup>
       {displayMovies ? (
         <>
           <p className="py-4 text-lg">Now Playing Movies</p>

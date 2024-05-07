@@ -18,14 +18,16 @@ export default function MovieDetail() {
       <Header />
       <Toolbar />
       <Hero homePage={false} pageName="movie" />
-      <div className="mt-20 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
-        {isLoading && <div>Loading......</div>}
-        {error && (
-          <div>
-            Error in fetching movie detial <br /> please refresh the page
-          </div>
-        )}
-      </div>
+      {(isLoading || error) && (
+        <div className="mt-15 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
+          {isLoading && <div>Loading......</div>}
+          {error && (
+            <div>
+              Error in fetching movie detial <br /> please refresh the page
+            </div>
+          )}
+        </div>
+      )}
       {!isLoading && !error && <Details details={details} />}
       <Footer />
     </>
