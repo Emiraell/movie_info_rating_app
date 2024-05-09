@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Params } from "react-router-dom";
 import usefetch from "../../../hooks/useFetch";
 import Header from "../../../components/Header";
 import { Toolbar } from "@mui/material";
@@ -7,7 +7,7 @@ import Footer from "../../../components/Footer";
 import Details from "./Details";
 
 export default function MovieDetail() {
-  const { id } = useParams();
+  const { id }: Readonly<Params<string>> = useParams();
   const { details, isLoading, error } = usefetch({
     url: `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
     detail: true,

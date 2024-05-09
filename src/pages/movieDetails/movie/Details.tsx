@@ -13,6 +13,7 @@ import {
   Genres,
   MovieDetails,
 } from "../../../hooks/useFetch";
+import RatingForm from "../RatingForm";
 
 interface MovieProps {
   details: MovieDetails | undefined;
@@ -20,17 +21,7 @@ interface MovieProps {
 export default function Details({ details }: MovieProps) {
   return (
     <div className="mb-40 mt-20 relative md:w-[90%] m-auto text-gray-100 text-center tracking-wide ">
-      <form
-        action=""
-        className="absolute right-10 -top-12 border border-blue-500 py-1 px-6"
-      >
-        <input
-          type="text"
-          className="w-10 bg-transparent outline-none pl-2"
-          placeholder="0"
-        />
-        <button className="border-l pl-5">Rate</button>
-      </form>
+      <RatingForm id={details?.id} type="movie" name={details?.title} />
       <div className=" border  border-blue-950 shadow-lg">
         {/* <Box sx={{ my: 5 }}> */}
         <Typography

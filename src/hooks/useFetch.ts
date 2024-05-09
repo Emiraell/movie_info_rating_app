@@ -61,6 +61,7 @@ export interface MovieDetails {
   status: string;
   tagline: string;
   type: string;
+  id: string;
 }
 
 const usefetch = ({ url, detail }: fetchProps) => {

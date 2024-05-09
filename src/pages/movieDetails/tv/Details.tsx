@@ -19,6 +19,7 @@ import {
   MovieDetails,
   Seasons,
 } from "../../../hooks/useFetch";
+import RatingForm from "../RatingForm";
 
 interface MovieProps {
   details: MovieDetails | undefined;
@@ -29,6 +30,7 @@ export default function Details({ details }: MovieProps) {
       className="text-gray-100 text-center tracking-wide md:w-[90%] m-auto 
   border mb-48 mt-10 border-blue-950 shadow-lg"
     >
+      <RatingForm id={details?.id} type="tv" name={details?.name} />
       <Box sx={{ my: 5 }}>
         <Typography variant="h4" component="div" sx={{ fontWeight: "bold" }}>
           {details?.name}
