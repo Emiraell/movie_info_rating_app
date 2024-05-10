@@ -17,6 +17,7 @@ export default function Header() {
     { name: "Home", path: "/" },
     { name: "Movies", path: "/movies" },
     { name: "Tv Shows", path: "/tvshows" },
+    { name: "Rated", path: "/rated" },
   ];
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
