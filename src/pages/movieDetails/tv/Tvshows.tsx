@@ -18,7 +18,7 @@ export default function TvshowDetail() {
       <Header />
       <Toolbar />
       <Hero homePage={false} pageName="Tv Show" />
-      <div className="mt-20 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
+      <div className="mt-20 text-center tracking-wider text-gray-100 italic text-lg">
         {isLoading && <div className="">Loading......</div>}
         {error && (
           <div className="">

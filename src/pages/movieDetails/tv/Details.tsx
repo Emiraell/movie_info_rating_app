@@ -27,7 +27,7 @@ interface MovieProps {
 export default function Details({ details }: MovieProps) {
   return (
     <div
-      className="text-gray-100 text-center tracking-wide md:w-[90%] m-auto 
+      className="text-gray-100 relative text-center tracking-wide md:w-[90%] g m-auto 
   border mb-48 mt-10 border-blue-950 shadow-lg"
     >
       <RatingForm id={details?.id} type="tv" name={details?.name} />

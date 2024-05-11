@@ -3,30 +3,39 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 interface User {
   name: string;
   guestId: string | null;
+  expire: string | null;
 }
 
-const storedUser = localStorage.getItem("guest");
-let guestInfo;
+const storedUserId = localStorage.getItem("guestId");
+const storedUserName = localStorage.getItem("name");
+let guestId;
+let guestName;
 try {
-  guestInfo = storedUser && (JSON.parse(storedUser) as User);
+  guestId = storedUserId && JSON.parse(storedUserId);
+  guestName = storedUserName && JSON.parse(storedUserName);
 } catch (err) {
   console.log(err);
 }
 
-const initialState: User = guestInfo || { name: "", guestId: null };
+const initialState: User = {
+  name: guestName || "",
+  guestId: guestId || null,
+  expire: null,
+};
 export const AuthUserSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     LoginUser: (state, action) => {
       state.guestId && (state.name = action.payload);
-      localStorage.setItem("guest", JSON.stringify(state));
+      localStorage.setItem("name", action.payload);
     },
   },
   extraReducers(builder) {
     builder.addCase(getAuth.fulfilled, (state, action) => {
       state.guestId = action.payload.guest_session_id;
-      state.guestId && localStorage.setItem("guest", JSON.stringify(state));
+      state.guestId && localStorage.setItem("guestId", state.guestId);
+      // localStorage.setItem("name", JSON.stringify(state.name));
     });
   },
 });

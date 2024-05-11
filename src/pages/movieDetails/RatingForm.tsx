@@ -10,6 +10,16 @@ export default function RatingForm({ id, type, name }: RatingProps) {
   const [rating, setRating] = useState<string>("0");
   const [addedRating, setAddedRating] = useState<boolean>(false);
   const addRating = () => {
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     accept: "application/json",
+    //     "Content-Type": "application/json;charset=utf-8",
+    //     // Authorization:
+    //     //   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjc1YzEyYjhlYTI4ODFkODRhODA4ZDZiOTgwODA0ZSIsInN1YiI6IjY2MTk5YWZjOTBjZjUxMDE3Y2EyNmYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.A4OG4SnjnTSJY4f6Kiy1HMCN5qxlVn2pa6xJImqLXvc",
+    //   },
+    //   body: `{"value":${rating}`,
+    // };
     const options = {
       method: "POST",
       headers: {
@@ -18,7 +28,7 @@ export default function RatingForm({ id, type, name }: RatingProps) {
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjc1YzEyYjhlYTI4ODFkODRhODA4ZDZiOTgwODA0ZSIsInN1YiI6IjY2MTk5YWZjOTBjZjUxMDE3Y2EyNmYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.A4OG4SnjnTSJY4f6Kiy1HMCN5qxlVn2pa6xJImqLXvc",
       },
-      body: `{"value":${rating}`,
+      body: `{"value": ${rating}}`,
     };
     fetch(
       `https://api.themoviedb.org/3/${type}/${id}/rating?guest_session_id=${localStorage.getItem(
@@ -30,6 +40,7 @@ export default function RatingForm({ id, type, name }: RatingProps) {
         res.json();
       })
       .then((data) => {
+        console.log(data);
         setAddedRating(true);
         setTimeout(() => {
           setAddedRating(false);
