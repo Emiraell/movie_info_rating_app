@@ -48,6 +48,7 @@ export interface MovieDetails {
   production_countries: Countries[];
   revenue: number;
   release_date: string;
+  rating: string;
   runtime: number;
   vote_average: number;
   vote_count: number;
@@ -65,7 +66,7 @@ export interface MovieDetails {
 }
 
 const usefetch = ({ url, detail }: fetchProps) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<MovieDetails[]>([]);
   const [details, setDetails] = useState<MovieDetails>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
