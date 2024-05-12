@@ -4,6 +4,7 @@ import RatedMovies from "./Movies";
 import Footer from "../../components/Footer";
 import { useState } from "react";
 import RatedTvShows from "./TvShows";
+import Hero from "../../components/Hero";
 
 export default function Rated() {
   const [displayMovies, setDisplayMovies] = useState<boolean>(true);
@@ -11,7 +12,8 @@ export default function Rated() {
     <div>
       <Header />
       <Toolbar />
-      <div>
+      <Hero homePage={false} pageName="Rated" />
+      <div className="p-5">
         <Button disableElevation onClick={() => setDisplayMovies(true)}>
           Movies
         </Button>

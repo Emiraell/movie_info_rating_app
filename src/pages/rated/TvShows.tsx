@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import usefetch from "../../hooks/useFetch";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import RatedTemplate from "./RatedTemplate";
 
 export default function RatedTvShows() {
@@ -15,19 +15,28 @@ export default function RatedTvShows() {
   }, []);
   return (
     <Box mx={2}>
-      <div className="mt-15 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
-        {isLoading && <div>Loading......</div>}
-        {error && (
-          <div>
-            Error in fetching movie detial <br /> please refresh the page
-          </div>
-        )}
-      </div>
-      <Grid container gap={2}>
-        {data?.map((movie) => (
-          <RatedTemplate movie={movie} genre="tv" />
-        ))}
-      </Grid>
+      {isLoading && (
+        <div className="mt-15 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
+          Loading......
+        </div>
+      )}
+      {error && (
+        <div className="mt-15 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
+          Error in fetching movie detial <br /> please refresh the page
+        </div>
+      )}
+      {!isLoading && !error && (
+        <Box mb={20}>
+          <Typography variant="h5" component="div" color={"white"} py={2}>
+            Tv Shows
+          </Typography>
+          <Grid container gap={2}>
+            {data?.map((tvshow) => (
+              <RatedTemplate movie={tvshow} genre="tv" key={tvshow.id} />
+            ))}
+          </Grid>
+        </Box>
+      )}
     </Box>
   );
 }
