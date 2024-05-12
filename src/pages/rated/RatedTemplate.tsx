@@ -5,8 +5,31 @@ interface RatedProps {
   movie: MovieDetails;
 }
 import CalendarMonthSharpIcon from "@mui/icons-material/CalendarMonthSharp";
+import { useEffect } from "react";
 
 export default function RatedTemplate({ genre, movie }: RatedProps) {
+  const deleteRating = () => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjc1YzEyYjhlYTI4ODFkODRhODA4ZDZiOTgwODA0ZSIsInN1YiI6IjY2MTk5YWZjOTBjZjUxMDE3Y2EyNmYwNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.A4OG4SnjnTSJY4f6Kiy1HMCN5qxlVn2pa6xJImqLXvc",
+      },
+    };
+
+    fetch(
+      `https://api.themoviedb.org/3/${genre}/${
+        movie.id
+      }/rating?guest_session_id=${localStorage.getItem("guestId")}`,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
+  };
+
   return (
     <Grid key={movie.id} xs={12} sm={4}>
       <Card>
@@ -50,8 +73,16 @@ export default function RatedTemplate({ genre, movie }: RatedProps) {
             <div className="py-1 h-20">
               {movie.overview.substring(0, 105) + "..."}
             </div>
-            <div className="m-3 flex justify-center text-gray-50 py-2 bg-emerald-700 items-center">
-              <p>Your rating: {movie.rating}</p>
+            <div className="m-3 flex justify-center gap-4 text-gray-50 py-2 items-center">
+              <p className=" bg-emerald-700 px-4 py-1">
+                Your rating: {movie.rating}
+              </p>
+              <button
+                className="bg-red-700 py-1 px-3 hover:opacity-80 rounded"
+                onClick={deleteRating}
+              >
+                Delete
+              </button>
             </div>
             {/* </div> */}
           </div>
