@@ -7,24 +7,39 @@ import TopRatedMovies from "./Movies/TopRated";
 import NowPlayingMovies from "./Movies/NowPlaying";
 import Footer from "../../components/Footer";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
+import Searched from "./Movies/Searched";
+import { MovieDetails } from "../../hooks/useFetch";
 
 interface ContextProps {
-  // setShowingSearch: Dispatch<SetStateAction<boolean>>;
-  searchedMovie: string;
-  setSearchMovie: Dispatch<SetStateAction<string>>;
+  setShowingSearch: Dispatch<SetStateAction<boolean>>;
+  movieToSearch: string;
+  setMovieToSearch: Dispatch<SetStateAction<string>>;
+  setSerachedMovies: Dispatch<SetStateAction<MovieDetails[]>>;
+  searchedMovies: MovieDetails[];
 }
 export const MovieContext = createContext<ContextProps>({
-  searchedMovie: "",
-  setSearchMovie: () => "",
-  // setShowingSearch: () => false,
+  movieToSearch: "",
+  setMovieToSearch: () => "",
+  setShowingSearch: () => false,
+  setSerachedMovies: () => [],
+  searchedMovies: [],
 });
 
 export default function Main() {
-  const [searchedMovie, setSearchMovie] = useState<string>("");
-  // const [showingSearched, setShowingSearch] = useState<boolean>(false);
+  const [movieToSearch, setMovieToSearch] = useState<string>("");
+  const [showingSearched, setShowingSearch] = useState<boolean>(false);
+  const [searchedMovies, setSerachedMovies] = useState<MovieDetails[]>([]);
   return (
     <>
-      <MovieContext.Provider value={{ searchedMovie, setSearchMovie }}>
+      <MovieContext.Provider
+        value={{
+          movieToSearch,
+          setMovieToSearch,
+          setShowingSearch,
+          setSerachedMovies,
+          searchedMovies,
+        }}
+      >
         <Box sx={{}}>
           <Header />
           <Toolbar />
@@ -34,7 +49,7 @@ export default function Main() {
             pageName="home"
           />
           <>
-            {searchedMovie === "" ? (
+            {!showingSearched ? (
               <>
                 <PopularMovies />
                 <TrendingMovies />
@@ -42,7 +57,7 @@ export default function Main() {
                 <NowPlayingMovies />
               </>
             ) : (
-              <div>movie</div>
+              <Searched />
             )}
           </>
           <Footer />

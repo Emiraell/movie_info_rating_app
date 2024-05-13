@@ -63,6 +63,7 @@ export interface MovieDetails {
   tagline: string;
   type: string;
   id: string;
+  media_type: string;
 }
 
 const usefetch = ({ url, detail }: fetchProps) => {
@@ -83,8 +84,7 @@ const usefetch = ({ url, detail }: fetchProps) => {
     const res = await fetch(url, options);
     const result = await res.json();
     try {
-      !detail === true ? setData(result.results) : setDetails(result);
-      localStorage.setItem("detail", JSON.stringify(details));
+      detail ? setData(result.results) : setDetails(result);
       setIsLoading(false);
       setError(false);
     } catch (err) {

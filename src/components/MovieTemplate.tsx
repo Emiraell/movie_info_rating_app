@@ -3,10 +3,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CalendarMonthSharpIcon from "@mui/icons-material/CalendarMonthSharp";
 import { Link } from "react-router-dom";
-import { Movie } from "../store/features/movies/Popular";
+import { MovieDetails } from "../hooks/useFetch";
 
 interface IProps {
-  data: Movie;
+  data: MovieDetails;
   genre: string;
 }
 export default function MovieTemplate({ data: movie, genre }: IProps) {
