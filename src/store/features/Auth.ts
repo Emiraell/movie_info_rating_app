@@ -6,20 +6,12 @@ interface User {
   expire: string | null;
 }
 
-const storedUserId = localStorage.getItem("guestId");
-const storedUserName = localStorage.getItem("name");
-let guestId;
-let guestName;
-try {
-  guestId = storedUserId && JSON.parse(storedUserId);
-  guestName = storedUserName && JSON.parse(storedUserName);
-} catch (err) {
-  console.log(err);
-}
+let storedUserId = localStorage.getItem("guestId");
+let storedUserName = localStorage.getItem("name");
 
 const initialState: User = {
-  name: guestName || "",
-  guestId: guestId || null,
+  name: storedUserName || "",
+  guestId: storedUserId || null,
   expire: null,
 };
 export const AuthUserSlice = createSlice({
@@ -35,7 +27,6 @@ export const AuthUserSlice = createSlice({
     builder.addCase(getAuth.fulfilled, (state, action) => {
       state.guestId = action.payload.guest_session_id;
       state.guestId && localStorage.setItem("guestId", state.guestId);
-      // localStorage.setItem("name", JSON.stringify(state.name));
     });
   },
 });

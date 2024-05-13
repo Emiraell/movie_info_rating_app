@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import movie from "../assets/Images/movie_1.jpg";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { MovieContext } from "../pages/Home/Main";
 
 interface HeroProps {
@@ -53,24 +53,29 @@ export default function Hero({ homePage, pageName }: HeroProps) {
           </div>
           <div className="py-10">
             <Typography color="white">Start streaming now</Typography>
-            <input
-              type="text"
-              className=" outline-none bg-gray-300 rounded w-full p-1"
-              value={movieToSearch}
-              onChange={(e) => {
-                e.preventDefault();
-                setMovieToSearch(e.target.value);
-              }}
-            />
-            <button className="p-2 bg-yellow-300" onClick={fetchSearched}>
-              search
-            </button>
+            <div className="flex">
+              <input
+                type="text"
+                className=" outline-none bg-gray-300 rounded-l-md w-full p-1 text-gray-950"
+                value={movieToSearch}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setMovieToSearch(e.target.value);
+                }}
+              />
+              <button
+                className="p-2 bg-yellow-800 rounded-r-md cursor-pointer hover:bg-blue-800 ease-in-out duration-300"
+                onClick={fetchSearched}
+              >
+                search
+              </button>
+            </div>
           </div>
         </div>
       ) : (
         <div className="font-bold text-2xl">
           <span>Home</span> |{" "}
-          <span className=" text-yellow-300 italic">{pageName}</span>
+          <span className=" text-yellow-300 italic ">{pageName}</span>
         </div>
       )}
     </div>

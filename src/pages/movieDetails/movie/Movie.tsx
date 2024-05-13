@@ -5,6 +5,7 @@ import { Toolbar } from "@mui/material";
 import Hero from "../../../components/Hero";
 import Footer from "../../../components/Footer";
 import Details from "./Details";
+import { useEffect } from "react";
 
 export default function MovieDetail() {
   const { id }: Readonly<Params<string>> = useParams();
@@ -13,6 +14,9 @@ export default function MovieDetail() {
     detail: true,
   });
 
+  useEffect(() => {
+    !isLoading && !error && console.log(details);
+  }, [details]);
   return (
     <>
       <Header />

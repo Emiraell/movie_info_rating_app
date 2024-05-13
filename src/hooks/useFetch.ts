@@ -84,9 +84,11 @@ const usefetch = ({ url, detail }: fetchProps) => {
     const res = await fetch(url, options);
     const result = await res.json();
     try {
-      detail ? setData(result.results) : setDetails(result);
+      detail ? setDetails(result) : setData(result.results);
       setIsLoading(false);
       setError(false);
+      console.log(details, "details");
+      console.log(data, "data");
     } catch (err) {
       setError(true);
     }
