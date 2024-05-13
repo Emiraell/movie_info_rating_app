@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+// interface for needed info goten from the request made to fetch movies
 export interface Movie {
   first_air_date: string;
   id: number;
@@ -12,47 +13,67 @@ export interface Movie {
   vote_average: number;
 }
 
+// interface for both the tvshow and movie
 export interface Data {
   movies: Movie[] | null;
   tvshows: Movie[] | null;
 }
 
+// initial state interface
 export interface Popular {
   popular: Data;
+  status: string;
 }
-const storedPopularMovies = localStorage.getItem("popular");
-let popularMovies;
 
+// get popular movies data from the local storage
+const storedPopularMovies = localStorage.getItem("popular");
+
+// check if the movie data in the local storage isn't a falsy value
+let popularMovies;
 try {
   popularMovies =
     storedPopularMovies && (JSON.parse(storedPopularMovies) as Data);
 } catch (err) {
   console.log(err);
 }
+// initial state for popular movies
 const initialState: Popular = {
   popular: popularMovies || { movies: null, tvshows: null },
+  status: "",
 };
 export const PopularSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchPopular.fulfilled, (state, action) => {
-      const data = action.payload;
-      if (data.genre === "movie") {
-        state.popular.movies = data.results;
+    builder
+      .addCase(fetchPopular.fulfilled, (state, action) => {
+        const data = action.payload;
+        // assign returned data to either tvshows or movies based on the type
+        if (data.type === "movie") {
+          state.popular.movies = data.results;
+          localStorage.setItem("popular", JSON.stringify(state.popular));
+        } else {
+          state.popular.tvshows = data.results;
+          localStorage.setItem("popular", JSON.stringify(state.popular));
+        }
+      })
+      .addCase(fetchPopular.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(fetchPopular.rejected, (state) => {
+        state.status = "error";
+        state.popular.movies = state.popular.movies;
+        state.popular.tvshows = state.popular.tvshows;
         localStorage.setItem("popular", JSON.stringify(state.popular));
-      } else {
-        state.popular.tvshows = data.results;
-        localStorage.setItem("popular", JSON.stringify(state.popular));
-      }
-    });
+      });
   },
 });
 
+// A request to fetch popular movies and tvshows
 export const fetchPopular = createAsyncThunk(
   "getPopularMovies",
-  async (genre: string) => {
+  async (type: string) => {
     const options = {
       method: "GET",
       headers: {
@@ -62,14 +83,14 @@ export const fetchPopular = createAsyncThunk(
       },
     };
 
+    // fetch data based on the type i.e either tvshow or movies
     const res = await fetch(
-      `https://api.themoviedb.org/3/${genre}/popular?language=en-US&page=1`,
+      `https://api.themoviedb.org/3/${type}/popular?language=en-US&page=1`,
       options
     );
 
     const data = await res.json();
-    console.log(data);
-    return { ...data, genre };
+    return { ...data, type };
   }
 );
 export default PopularSlice.reducer;
