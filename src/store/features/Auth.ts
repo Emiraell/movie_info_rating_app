@@ -29,6 +29,10 @@ export const AuthUserSlice = createSlice({
       state.guestId = null;
       localStorage.removeItem("guestId");
       localStorage.removeItem("name");
+      localStorage.removeItem("nowPlaying");
+      localStorage.removeItem("popular");
+      localStorage.removeItem("trending");
+      localStorage.removeItem("topRated");
     },
   },
   extraReducers(builder) {

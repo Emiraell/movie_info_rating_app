@@ -1,14 +1,18 @@
 import {
+  Avatar,
   Box,
   Divider,
   Drawer,
   List,
   ListItem,
   ListItemText,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import { logout } from "../store/features/Auth";
 
 // recived props
 interface SideBarProps {
@@ -22,6 +26,8 @@ export default function SideBar({
   setOpenDrawer,
   navItems,
 }: SideBarProps) {
+  const { name } = useAppSelector((state) => state.userAuth);
+  const dispatch = useAppDispatch();
   return (
     <nav>
       {/* A drawer for the side using drawer api material ui */}
@@ -47,8 +53,23 @@ export default function SideBar({
           </Typography>
           <Divider />
 
+          <Tooltip title="logout" onClick={() => dispatch(logout())}>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 3,
+                alignItems: "center",
+                mt: 3,
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
+              <Avatar>{name[0]}</Avatar>
+              <Typography>{name}</Typography>
+            </Box>
+          </Tooltip>
           {/* Link list */}
-          <List sx={{ marginTop: 3 }}>
+          <List sx={{ mt: 1 }}>
             {navItems.map((item) => (
               <ListItem key={item.name} sx={{ textAlign: "center" }}>
                 <Link to={item.path} className=" w-full text-gray-200 ">

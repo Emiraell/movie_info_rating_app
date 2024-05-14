@@ -46,7 +46,9 @@ export default function Header() {
           </Typography>
           {userLoggedIn && (
             // display header links if user is logged in
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Box
+              sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}
+            >
               {navItems.map((item) => (
                 <Button key={item.name} sx={{ color: "red" }}>
                   <Link to={item.path}>{item.name}</Link>
