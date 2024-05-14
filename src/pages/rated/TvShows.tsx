@@ -1,18 +1,16 @@
-import { useEffect } from "react";
 import usefetch from "../../hooks/useFetch";
 import { Box, Grid, Typography } from "@mui/material";
 import RatedTemplate from "./RatedTemplate";
 
 export default function RatedTvShows() {
+  // import usefetch hook and pass the url to fetch rated tv shows by user
+  // by using the user guest session id stored in the local Storage
   const { data, isLoading, error } = usefetch({
     url: `https://api.themoviedb.org/3/guest_session/${localStorage.getItem(
       "guestId"
     )}/rated/tv?language=en-US&page=1&sort_by=created_at.asc&api_key=e275c12b8ea2881d84a808d6b980804e`,
     detail: false,
   });
-  useEffect(() => {
-    console.log(data);
-  }, []);
   return (
     <Box mx={2}>
       {isLoading && (
@@ -25,6 +23,8 @@ export default function RatedTvShows() {
           Error in fetching movie detial <br /> please refresh the page
         </div>
       )}
+
+      {/* display  if no error from the fetch hook */}
       {!isLoading && !error && (
         <Box mb={20}>
           <Typography variant="h5" component="div" color={"white"} py={2}>
@@ -32,7 +32,7 @@ export default function RatedTvShows() {
           </Typography>
           <Grid container gap={2}>
             {data?.map((tvshow) => (
-              <RatedTemplate movie={tvshow} genre="tv" key={tvshow.id} />
+              <RatedTemplate movie={tvshow} type="tv" key={tvshow.id} />
             ))}
           </Grid>
         </Box>

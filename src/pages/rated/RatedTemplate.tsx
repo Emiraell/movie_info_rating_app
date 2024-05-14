@@ -1,13 +1,15 @@
 import { Card, CardActionArea, CardMedia, Grid, Rating } from "@mui/material";
 import { MovieDetails } from "../../hooks/useFetch";
+
+// received props interface
 interface RatedProps {
-  genre: string;
+  type: string;
   movie: MovieDetails;
 }
 import CalendarMonthSharpIcon from "@mui/icons-material/CalendarMonthSharp";
-import { useEffect } from "react";
 
-export default function RatedTemplate({ genre, movie }: RatedProps) {
+export default function RatedTemplate({ type, movie }: RatedProps) {
+  // delete rating functionality by user
   const deleteRating = () => {
     const options = {
       method: "DELETE",
@@ -19,21 +21,23 @@ export default function RatedTemplate({ genre, movie }: RatedProps) {
       },
     };
 
+    // delete if it's either a movie or tv show by using logged in user guest id
     fetch(
-      `https://api.themoviedb.org/3/${genre}/${
+      `https://api.themoviedb.org/3/${type}/${
         movie.id
       }/rating?guest_session_id=${localStorage.getItem("guestId")}`,
       options
     )
       .then((response) => response.json())
-      .then((response) => console.log(response))
       .catch((err) => console.error(err));
   };
 
   return (
+    // display using grid api from material ui
     <Grid key={movie.id} xs={12} sm={4}>
       <Card>
         <CardActionArea>
+          {/* movie image */}
           <CardMedia
             component="img"
             image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
@@ -43,20 +47,19 @@ export default function RatedTemplate({ genre, movie }: RatedProps) {
           <div className="p-2 bg-gray-100 text-lg">
             <div>
               <p className="text-xl font-bold text-center h-12 py-1">
-                {genre === "movie" ? movie.title : movie.name}
+                {/* display name if it's a tv show and title if it's a movie */}
+                {type === "movie" ? movie.title : movie.name}
               </p>
             </div>
-            {/* <div className="py-2"> */}
             <div className=" flex text-sm justify-between py-3 text-start">
               <div className="py-2">
                 <span className="flex items-center">
                   Release Date
                   <CalendarMonthSharpIcon fontSize="inherit" />:
                 </span>
+                {/* display air date if it's a tv show and release if it's a movie */}
                 <p>
-                  {genre === "movie"
-                    ? movie.release_date
-                    : movie.first_air_date}
+                  {type === "movie" ? movie.release_date : movie.first_air_date}
                 </p>
               </div>
 
@@ -77,6 +80,8 @@ export default function RatedTemplate({ genre, movie }: RatedProps) {
               <p className=" bg-emerald-700 px-4 py-1">
                 Your rating: {movie.rating}
               </p>
+
+              {/* delete rating button */}
               <button
                 className="bg-red-700 py-1 px-3 hover:opacity-80 rounded"
                 onClick={deleteRating}
@@ -84,7 +89,6 @@ export default function RatedTemplate({ genre, movie }: RatedProps) {
                 Delete
               </button>
             </div>
-            {/* </div> */}
           </div>
         </CardActionArea>
       </Card>

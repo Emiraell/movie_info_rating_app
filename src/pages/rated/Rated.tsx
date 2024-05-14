@@ -13,14 +13,23 @@ export default function Rated() {
       <Header />
       <Toolbar />
       <Hero homePage={false} pageName="Rated" />
-      <div className="p-5">
-        <Button disableElevation onClick={() => setDisplayMovies(true)}>
+      <ButtonGroup className="p-5">
+        <Button
+          disableElevation
+          onClick={() => setDisplayMovies(true)}
+          sx={{ backgroundColor: displayMovies ? "red" : "transparent" }}
+        >
           Movies
         </Button>
-        <Button disableElevation onClick={() => setDisplayMovies(false)}>
+        <Button
+          disableElevation
+          onClick={() => setDisplayMovies(false)}
+          sx={{ backgroundColor: !displayMovies ? "red" : "transparent" }}
+        >
           Tv shows
         </Button>
-      </div>
+      </ButtonGroup>
+      {/* display rated movies if displaymovies and tv shows if other wise */}
       {displayMovies ? <RatedMovies /> : <RatedTvShows />}
       <Footer />
     </div>
