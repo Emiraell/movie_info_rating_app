@@ -8,6 +8,7 @@ import { NowPlayingSlice } from "./features/movies/NowPlaying";
 
 export const store = configureStore({
   reducer: {
+    // import all redux
     userAuth: AuthUserSlice.reducer,
     popular: PopularSlice.reducer,
     topRated: TopRatedSlice.reducer,
@@ -18,7 +19,9 @@ export const store = configureStore({
     getDefaultMiddleware({ serializableCheck: false }),
 });
 
+// useAppDispatch for dispatching any actions
 export const useAppDispatch: () => typeof store.dispatch = useDispatch;
+// useAppSelector for accessing any state slice state
 export const useAppSelector: TypedUseSelectorHook<
   ReturnType<typeof store.getState>
 > = useSelector;

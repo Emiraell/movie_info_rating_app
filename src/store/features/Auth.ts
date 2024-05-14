@@ -13,6 +13,8 @@ const initialState: User = {
   guestId: localStorage.getItem("name") || null,
   status: "",
 };
+
+// User Auth slice
 export const AuthUserSlice = createSlice({
   name: "auth",
   initialState,
