@@ -21,6 +21,7 @@ import {
 } from "../../../hooks/useFetch";
 import RatingForm from "../RatingForm";
 
+// received props interface
 interface MovieProps {
   details: MovieDetails | undefined;
 }

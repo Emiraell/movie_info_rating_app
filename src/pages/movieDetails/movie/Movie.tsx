@@ -5,18 +5,17 @@ import { Toolbar } from "@mui/material";
 import Hero from "../../../components/Hero";
 import Footer from "../../../components/Footer";
 import Details from "./Details";
-import { useEffect } from "react";
 
 export default function MovieDetail() {
+  // get the movie id from the router param
   const { id }: Readonly<Params<string>> = useParams();
+
+  // import usefetch and pass in the url to fetch the movie
   const { details, isLoading, error } = usefetch({
     url: `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
     detail: true,
   });
 
-  useEffect(() => {
-    !isLoading && !error && console.log(details);
-  }, [details]);
   return (
     <>
       <Header />
@@ -32,6 +31,7 @@ export default function MovieDetail() {
           )}
         </div>
       )}
+      {/* display movie if no error */}
       {!isLoading && !error && <Details details={details} />}
       <Footer />
     </>

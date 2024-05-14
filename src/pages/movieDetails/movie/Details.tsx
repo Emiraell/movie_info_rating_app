@@ -15,6 +15,7 @@ import {
 } from "../../../hooks/useFetch";
 import RatingForm from "../RatingForm";
 
+// received props interface
 interface MovieProps {
   details: MovieDetails | undefined;
 }
@@ -23,7 +24,6 @@ export default function Details({ details }: MovieProps) {
     <div className="mb-40 mt-20 relative md:w-[90%] m-auto text-gray-100 text-center tracking-wide ">
       <RatingForm id={details?.id} type="movie" name={details?.title} />
       <div className=" border  border-blue-950 shadow-lg">
-        {/* <Box sx={{ my: 5 }}> */}
         <Typography
           variant="h4"
           component="div"

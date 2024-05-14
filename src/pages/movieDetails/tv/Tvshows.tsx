@@ -7,7 +7,10 @@ import Footer from "../../../components/Footer";
 import Details from "./Details";
 
 export default function TvshowDetail() {
+  // get the tv shows id from the router param
   const { id } = useParams();
+
+  // import usefetch and pass in the url to fetch the tv shows
   const { details, isLoading, error } = usefetch({
     url: `https://api.themoviedb.org/3/tv/${id}?language=en-US`,
     detail: true,
