@@ -52,10 +52,9 @@ export default function Header() {
                   <Link to={item.path}>{item.name}</Link>
                 </Button>
               ))}
-              <Tooltip
-                title={"logout"}
-                children={<Avatar>{name.substring(0, 1)}</Avatar>}
-              />
+              <Tooltip title={"logout"}>
+                <Avatar>{name.substring(0, 1)}</Avatar>
+              </Tooltip>
             </Box>
           )}
           {userLoggedIn && (

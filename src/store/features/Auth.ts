@@ -7,18 +7,9 @@ interface User {
   status: string;
 }
 
-const storedguestId = localStorage.getItem("guestId");
-let guestUserId;
-try {
-  guestUserId = storedguestId && JSON.parse(storedguestId);
-} catch (err) {
-  console.log(err);
-}
-
-// initial state for authorized user stored in local storage
 const initialState: User = {
   name: localStorage.getItem("guestId") || "",
-  guestId: guestUserId || null,
+  guestId: localStorage.getItem("guestId") || null,
   status: "",
 };
 
@@ -36,8 +27,8 @@ export const AuthUserSlice = createSlice({
     logout: (state) => {
       state.name = "";
       state.guestId = null;
-      localStorage.setItem("guestId", JSON.stringify(state.guestId));
-      localStorage.setItem("name", state.name);
+      localStorage.removeItem("guestId");
+      localStorage.removeItem("name");
     },
   },
   extraReducers(builder) {

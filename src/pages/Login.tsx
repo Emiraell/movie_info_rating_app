@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { useAppDispatch } from "../store/store";
 import { getAuth, loginUser } from "../store/features/Auth";
 import Header from "../components/Header";
 import { motion } from "framer-motion";
@@ -10,7 +10,6 @@ export default function Login() {
   const [name, setName] = useState<string>("");
   // dispatch
   const dispatch = useAppDispatch();
-  const { guestId } = useAppSelector((state) => state.userAuth);
 
   return (
     <>
@@ -54,7 +53,7 @@ export default function Login() {
                 // dispatch getauth function
                 await dispatch(getAuth());
                 // dispatch login function after authorizing user
-                guestId && dispatch(loginUser(name));
+                dispatch(loginUser(name));
               }}
             >
               Login as guest
