@@ -10,6 +10,7 @@ import TvshowDetail from "./pages/movieDetails/tv/Tvshows";
 import Rated from "./pages/rated/Rated";
 
 function App() {
+  // guest id gotten when user is authenticated
   const guestId: string | null = useAppSelector(
     (state) => state.userAuth.guestId
   );
@@ -17,12 +18,19 @@ function App() {
     <>
       <Router>
         <Routes>
+          {/* display content of each page if user is authenticated */}
           <Route path="/" element={guestId ? <Main /> : <Login />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/tvshows" element={<Tvshows />} />
-          <Route path="/movie/:id" element={<MovieDetail />} />
-          <Route path="/tvshows/:id" element={<TvshowDetail />} />
-          <Route path="/rated" element={<Rated />} />
+          <Route path="/movies" element={guestId ? <Movies /> : <Login />} />
+          <Route path="/tvshows" element={guestId ? <Tvshows /> : <Login />} />
+          <Route
+            path="/movie/:id"
+            element={guestId ? <MovieDetail /> : <Login />}
+          />
+          <Route
+            path="/tvshows/:id"
+            element={guestId ? <TvshowDetail /> : <Login />}
+          />
+          <Route path="/rated" element={guestId ? <Rated /> : <Login />} />
         </Routes>
       </Router>
     </>
