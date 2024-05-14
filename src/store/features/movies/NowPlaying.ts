@@ -25,6 +25,8 @@ const initialState: NowPlaying = {
   },
   status: "",
 };
+
+// Now playing slice
 export const NowPlayingSlice = createSlice({
   name: "movies",
   initialState,
