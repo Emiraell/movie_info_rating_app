@@ -10,6 +10,9 @@ export default function Searched() {
   console.log(searchedMovies);
   return (
     <div className="mt-10 mb-44">
+      <p className="pb-5 text-bold text-gray-100 text-center text-lg font-bold">
+        {searchedMovies[0].media_type === "movie" ? "Movie" : "Tv Show"}
+      </p>
       <div className="text-center mx-4">
         {searchedMovies.length === 0 ? (
           // message to display if no movie was found from the search

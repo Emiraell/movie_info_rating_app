@@ -15,7 +15,7 @@ function App() {
     (state) => state.userAuth.guestId
   );
   return (
-    <>
+    <div className="font-roboto">
       <Router>
         <Routes>
           {/* display content of each page if user is authenticated */}
@@ -33,7 +33,7 @@ function App() {
           <Route path="/rated" element={guestId ? <Rated /> : <Login />} />
         </Routes>
       </Router>
-    </>
+    </div>
   );
 }
 

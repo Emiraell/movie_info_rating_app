@@ -60,7 +60,13 @@ export default function Hero({ homePage, pageName }: HeroProps) {
             </Typography>
 
             {/* form to input movie name */}
-            <form className="flex" onSubmit={fetchSearched}>
+            <form
+              className="flex"
+              onSubmit={(e) => {
+                e.preventDefault();
+                fetchSearched();
+              }}
+            >
               <input
                 type="text"
                 className=" outline-none bg-gray-300 rounded-l-md w-full p-1 text-gray-950"
