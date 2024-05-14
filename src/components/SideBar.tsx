@@ -10,7 +10,8 @@ import {
 import { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 
-interface IProps {
+// recived props
+interface SideBarProps {
   openDrawer: boolean;
   setOpenDrawer: Dispatch<SetStateAction<boolean>>;
   navItems: { name: string; path: string }[];
@@ -20,9 +21,10 @@ export default function SideBar({
   openDrawer,
   setOpenDrawer,
   navItems,
-}: IProps) {
+}: SideBarProps) {
   return (
     <nav>
+      {/* A drawer for the side using drawer api material ui */}
       <Drawer
         PaperProps={{ sx: { backgroundColor: "#051124", width: 240 } }}
         variant="temporary"
@@ -45,6 +47,7 @@ export default function SideBar({
           </Typography>
           <Divider />
 
+          {/* Link list */}
           <List sx={{ marginTop: 3 }}>
             {navItems.map((item) => (
               <ListItem key={item.name} sx={{ textAlign: "center" }}>

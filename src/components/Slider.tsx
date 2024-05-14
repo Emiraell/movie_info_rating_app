@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Movie } from "../store/features/movies/Popular";
 
+// slider carousel interface
 interface Settings {
   autoplay: boolean;
   autoplaySpeed: number;
@@ -25,11 +26,12 @@ interface Settings {
   }[];
 }
 
+// interface of props received
 interface IProps {
   data: Movie[] | null;
-  genre: string;
+  type: string;
 }
-export default function SliderCarousel({ data, genre }: IProps) {
+export default function SliderCarousel({ data, type }: IProps) {
   const settings: Settings = {
     autoplay: true,
     autoplaySpeed: 8000,
@@ -63,7 +65,7 @@ export default function SliderCarousel({ data, genre }: IProps) {
     <>
       <Slider {...settings}>
         {data?.map((movie: any) => (
-          <MovieTemplate data={movie} key={movie.id} genre={genre} />
+          <MovieTemplate data={movie} key={movie.id} type={type} />
         ))}
       </Slider>
     </>

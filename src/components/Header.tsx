@@ -13,6 +13,7 @@ import SideBar from "./SideBar";
 import { useAppSelector } from "../store/store";
 
 export default function Header() {
+  // links name and path for both side bar and header
   const navItems: { name: string; path: string }[] = [
     { name: "Home", path: "/" },
     { name: "Movies", path: "/movies" },
@@ -22,14 +23,13 @@ export default function Header() {
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
-  // const toggleDrawer = () => setOpenDrawer(!openDrawer);
-
+  // check if user is logged in
   const userLoggedIn: null | string = useAppSelector(
     (state) => state.userAuth.guestId
   );
 
   return (
-    <Box>
+    <>
       <AppBar
         elevation={0}
         component={"nav"}
@@ -43,6 +43,7 @@ export default function Header() {
             Emifix
           </Typography>
           {userLoggedIn && (
+            // display header links if user is logged in
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               {navItems.map((item) => (
                 <Button key={item.name} sx={{ color: "red" }}>
@@ -64,12 +65,12 @@ export default function Header() {
         </Toolbar>
       </AppBar>
 
+      {/* side bar for small screens */}
       <SideBar
         openDrawer={openDrawer}
-        // toggleDrawer={toggleDrawer}
         setOpenDrawer={setOpenDrawer}
         navItems={navItems}
       />
-    </Box>
+    </>
   );
 }

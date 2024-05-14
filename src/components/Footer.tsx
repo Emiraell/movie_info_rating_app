@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
+// Footer
 export default function Footer() {
   return (
     <div
@@ -14,6 +15,8 @@ export default function Footer() {
       >
         Emifix
       </Typography>
+
+      {/* links */}
       <div className="flex justify-center gap-10 py-2 text-blue-300">
         <Link to="/">Home</Link>
         <Link to="/movies">Movies</Link>
