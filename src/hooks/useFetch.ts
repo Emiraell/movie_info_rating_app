@@ -1,5 +1,7 @@
+//  custom hook to fetch data based on the url passed to it
 import { useEffect, useState } from "react";
 
+// interface of props to receive whenever the hook is called
 export interface fetchProps {
   url: string;
   detail: boolean;
@@ -36,6 +38,7 @@ export interface Languages {
   iso_639_1: string;
   name: string;
 }
+// interface for data gotten from the hook call for both tv shows and movies
 export interface MovieDetails {
   adult: boolean;
   title: string;
@@ -67,6 +70,7 @@ export interface MovieDetails {
 }
 
 const usefetch = ({ url, detail }: fetchProps) => {
+  // state declaration
   const [data, setData] = useState<MovieDetails[]>([]);
   const [details, setDetails] = useState<MovieDetails>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -80,22 +84,27 @@ const usefetch = ({ url, detail }: fetchProps) => {
     },
   };
 
+  // fetch movie or tvshow basted on the url passed
+
   const fetchData = async () => {
     const res = await fetch(url, options);
     const result = await res.json();
     try {
+      // assign result/data gotten from the call call to details
+      // if the details props passed is true
       detail ? setDetails(result) : setData(result.results);
       setIsLoading(false);
       setError(false);
-      console.log(details, "details");
-      console.log(data, "data");
     } catch (err) {
+      setIsLoading(false);
       setError(true);
     }
   };
 
+  // run the fetch function only when the url changes
   useEffect(() => {
     fetchData();
+    return () => console.log("cleanup");
   }, [url]);
   return { data, details, isLoading, error };
 };
