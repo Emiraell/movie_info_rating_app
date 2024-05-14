@@ -81,7 +81,6 @@ export const fetchNowPlaying = createAsyncThunk(
           );
 
     const data = await res.json();
-    console.log(data);
     return { ...data, type };
   }
 );

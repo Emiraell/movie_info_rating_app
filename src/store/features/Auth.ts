@@ -8,7 +8,7 @@ interface User {
 }
 
 const initialState: User = {
-  name: localStorage.getItem("guestId") || "",
+  name: localStorage.getItem("name") || "",
   guestId: localStorage.getItem("guestId") || null,
   status: "",
 };

@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SideBar from "./SideBar";
 import { useAppSelector } from "../store/store";
@@ -22,6 +22,8 @@ export default function Header() {
     { name: "Tv Shows", path: "/tvshows" },
     { name: "Rated", path: "/rated" },
   ];
+  // naviage api to navigate around the webpage
+  const navigate = useNavigate();
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
@@ -41,6 +43,7 @@ export default function Header() {
           <Typography
             component="div"
             sx={{ flexGrow: 1, letterSpacing: 2, color: "yellow" }}
+            onClick={() => navigate("/")}
           >
             Emifix
           </Typography>
@@ -54,8 +57,8 @@ export default function Header() {
                   <Link to={item.path}>{item.name}</Link>
                 </Button>
               ))}
-              <Tooltip title={"logout"}>
-                <Avatar>{name.substring(0, 1)}</Avatar>
+              <Tooltip title={"logout"} sx={{ mx: 2, bgcolor: "green" }}>
+                <Avatar>{name[0].toUpperCase()}</Avatar>
               </Tooltip>
             </Box>
           )}
