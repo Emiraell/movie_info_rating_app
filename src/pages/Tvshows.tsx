@@ -2,15 +2,12 @@ import { Toolbar } from "@mui/material";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { useAppSelector } from "../store/store";
 import SliderCarousel from "../components/Slider";
-import { useEffect } from "react";
-import { fetchNowPlaying } from "../store/features/movies/NowPlaying";
-import { fetchTrending } from "../store/features/movies/Trending";
-import { fetchTopRated } from "../store/features/movies/TopRated";
-import { fetchPopular, Movie } from "../store/features/movies/Popular";
+import { Movie } from "../store/features/movies/Popular";
 
 export default function Tvshows() {
+  // tvshow state from store
   const popularTvshows: Movie[] | null = useAppSelector(
     (state) => state.popular.popular.tvshows
   );
@@ -24,13 +21,6 @@ export default function Tvshows() {
     (state) => state.nowPlaying.nowPlaying.tvshows
   );
 
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    // dispatch(fetchNowPlaying("tv"));
-    // dispatch(fetchTrending("tv"));
-    // dispatch(fetchTopRated("tv"));
-    // dispatch(fetchPopular("tv"));
-  }, []);
   return (
     <>
       <Header />
@@ -42,28 +32,28 @@ export default function Tvshows() {
           <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
             Trending
           </p>
-          <SliderCarousel data={trendingTvshows} genre={"tv"} />
+          <SliderCarousel data={trendingTvshows} type={"tv"} />
         </>
 
         <>
           <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
             Popular
           </p>
-          <SliderCarousel data={popularTvshows} genre={"tv"} />
+          <SliderCarousel data={popularTvshows} type={"tv"} />
         </>
 
         <>
           <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
             Top Rated
           </p>
-          <SliderCarousel data={topRatedTvshows} genre={"tv"} />
+          <SliderCarousel data={topRatedTvshows} type={"tv"} />
         </>
 
         <>
           <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
             Now Playing
           </p>
-          <SliderCarousel data={nowPlayingTvshows} genre={"tv"} />
+          <SliderCarousel data={nowPlayingTvshows} type={"tv"} />
         </>
       </div>
       <Footer />

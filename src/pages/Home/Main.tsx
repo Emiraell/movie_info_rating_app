@@ -10,6 +10,7 @@ import { createContext, Dispatch, SetStateAction, useState } from "react";
 import Searched from "./Movies/Searched";
 import { MovieDetails } from "../../hooks/useFetch";
 
+// context interface
 interface ContextProps {
   setShowingSearch: Dispatch<SetStateAction<boolean>>;
   movieToSearch: string;
@@ -17,6 +18,8 @@ interface ContextProps {
   setSerachedMovies: Dispatch<SetStateAction<MovieDetails[]>>;
   searchedMovies: MovieDetails[];
 }
+
+// context wrapping components in the home page page
 export const MovieContext = createContext<ContextProps>({
   movieToSearch: "",
   setMovieToSearch: () => "",
@@ -26,8 +29,11 @@ export const MovieContext = createContext<ContextProps>({
 });
 
 export default function Main() {
+  // name of movie to search to be provided by user
   const [movieToSearch, setMovieToSearch] = useState<string>("");
+  // to show searched movies
   const [showingSearched, setShowingSearch] = useState<boolean>(false);
+  // store result of searched movies
   const [searchedMovies, setSerachedMovies] = useState<MovieDetails[]>([]);
   return (
     <>
@@ -43,13 +49,10 @@ export default function Main() {
         <Box sx={{}}>
           <Header />
           <Toolbar />
-          <Hero
-            // setShowingSearch={setShowingSearch}
-            homePage={true}
-            pageName="home"
-          />
+          <Hero homePage={true} pageName="Home" />
           <>
             {!showingSearched ? (
+              // display home content movies if user isn't searching for movies
               <>
                 <PopularMovies />
                 <TrendingMovies />
@@ -57,6 +60,7 @@ export default function Main() {
                 <NowPlayingMovies />
               </>
             ) : (
+              // display result of searched movies
               <Searched />
             )}
           </>
