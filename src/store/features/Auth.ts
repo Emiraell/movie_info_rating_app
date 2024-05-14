@@ -7,10 +7,18 @@ interface User {
   status: string;
 }
 
+const storedguestId = localStorage.getItem("guestId");
+let guestUserId;
+try {
+  guestUserId = storedguestId && JSON.parse(storedguestId);
+} catch (err) {
+  console.log(err);
+}
+
 // initial state for authorized user stored in local storage
 const initialState: User = {
   name: localStorage.getItem("guestId") || "",
-  guestId: localStorage.getItem("name") || null,
+  guestId: guestUserId || null,
   status: "",
 };
 
@@ -20,9 +28,16 @@ export const AuthUserSlice = createSlice({
   initialState,
   reducers: {
     // Action to login user
-    LoginUser: (state, action: PayloadAction<string>) => {
+    loginUser: (state, action: PayloadAction<string>) => {
       state.guestId && (state.name = action.payload);
       localStorage.setItem("name", action.payload);
+    },
+    // action to logout user
+    logout: (state) => {
+      state.name = "";
+      state.guestId = null;
+      localStorage.setItem("guestId", JSON.stringify(state.guestId));
+      localStorage.setItem("name", state.name);
     },
   },
   extraReducers(builder) {
@@ -63,5 +78,5 @@ export const getAuth = createAsyncThunk("getAuth", async () => {
 });
 
 // export actions
-export const { LoginUser } = AuthUserSlice.actions;
+export const { loginUser, logout } = AuthUserSlice.actions;
 export default AuthUserSlice.reducer;

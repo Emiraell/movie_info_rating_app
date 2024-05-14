@@ -69,12 +69,19 @@ export const fetchNowPlaying = createAsyncThunk(
     };
 
     // fetch data based on the type i.e either tvshow or movies
-    const res = await fetch(
-      `https://api.themoviedb.org/3/${type}/now_playing?language=en-US&page=1`,
-      options
-    );
+    const res =
+      type === "movie"
+        ? await fetch(
+            `https://api.themoviedb.org/3/${type}/now_playing?language=en-US&page=1`,
+            options
+          )
+        : await fetch(
+            `https://api.themoviedb.org/3/${type}/on_the_air?language=en-US&page=1`,
+            options
+          );
 
     const data = await res.json();
+    console.log(data);
     return { ...data, type };
   }
 );

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/store";
-import { getAuth, LoginUser } from "../store/features/Auth";
+import { getAuth, loginUser } from "../store/features/Auth";
 import Header from "../components/Header";
 import { motion } from "framer-motion";
 
@@ -54,7 +54,7 @@ export default function Login() {
                 // dispatch getauth function
                 await dispatch(getAuth());
                 // dispatch login function after authorizing user
-                guestId && dispatch(LoginUser(name));
+                guestId && dispatch(loginUser(name));
               }}
             >
               Login as guest

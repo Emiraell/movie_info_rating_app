@@ -1,9 +1,11 @@
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   IconButton,
   Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -24,8 +26,8 @@ export default function Header() {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
   // check if user is logged in
-  const userLoggedIn: null | string = useAppSelector(
-    (state) => state.userAuth.guestId
+  const { guestId: userLoggedIn, name } = useAppSelector(
+    (state) => state.userAuth
   );
 
   return (
@@ -50,6 +52,10 @@ export default function Header() {
                   <Link to={item.path}>{item.name}</Link>
                 </Button>
               ))}
+              <Tooltip
+                title={"logout"}
+                children={<Avatar>{name.substring(0, 1)}</Avatar>}
+              />
             </Box>
           )}
           {userLoggedIn && (
