@@ -41,6 +41,8 @@ const initialState: Popular = {
   popular: popularMovies || { movies: null, tvshows: null },
   status: "",
 };
+
+// Popular slice
 export const PopularSlice = createSlice({
   name: "movies",
   initialState,

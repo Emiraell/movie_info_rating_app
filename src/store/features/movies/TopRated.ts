@@ -6,7 +6,7 @@ export interface Rated {
   topRated: Data;
   status: string;
 }
-// get popular movies data from the local storage
+// get top rated movies data from the local storage
 const storedTopRated = localStorage.getItem("topRated");
 
 // check if the movie data in the local storage isn't a falsy value

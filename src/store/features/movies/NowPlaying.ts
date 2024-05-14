@@ -6,7 +6,7 @@ export interface NowPlaying {
   nowPlaying: Data;
   status: string;
 }
-// get popular movies data from the local storage
+// get Now playing movies data from the local storage
 const storedNowData = localStorage.getItem("nowPlaying");
 
 // check if the movie data in the local storage isn't a falsy value
