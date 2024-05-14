@@ -52,11 +52,11 @@ export const PopularSlice = createSlice({
         // assign returned data to either tvshows or movies based on the type
         if (data.type === "movie") {
           state.popular.movies = data.results;
-          localStorage.setItem("popular", JSON.stringify(state.popular));
         } else {
           state.popular.tvshows = data.results;
-          localStorage.setItem("popular", JSON.stringify(state.popular));
         }
+        localStorage.setItem("popular", JSON.stringify(state.popular));
+        state.status = "success";
       })
       .addCase(fetchPopular.pending, (state) => {
         state.status = "pending";
@@ -66,6 +66,7 @@ export const PopularSlice = createSlice({
         state.popular.movies = state.popular.movies;
         state.popular.tvshows = state.popular.tvshows;
         localStorage.setItem("popular", JSON.stringify(state.popular));
+        state.status = "error";
       });
   },
 });
