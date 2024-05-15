@@ -106,7 +106,13 @@ const usefetch = ({ url, detail }: fetchProps) => {
     fetchData();
     return () => console.log("cleanup");
   }, [url]);
-  return { data, details, isLoading, error };
+
+  const refetch = () => {
+    setIsLoading(true);
+    fetchData();
+    console.log("refectched", url);
+  };
+  return { data, details, isLoading, error, refetch };
 };
 
 export default usefetch;

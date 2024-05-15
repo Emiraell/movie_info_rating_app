@@ -12,6 +12,7 @@ export default function Rated() {
     <div>
       <Header />
       <Toolbar />
+
       <Hero homePage={false} pageName="Rated" />
       <ButtonGroup className="p-5">
         <Button

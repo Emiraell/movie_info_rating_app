@@ -5,10 +5,11 @@ import { MovieDetails } from "../../hooks/useFetch";
 interface RatedProps {
   type: string;
   movie: MovieDetails;
+  refetch: () => void;
 }
 import CalendarMonthSharpIcon from "@mui/icons-material/CalendarMonthSharp";
 
-export default function RatedTemplate({ type, movie }: RatedProps) {
+export default function RatedTemplate({ type, movie, refetch }: RatedProps) {
   // delete rating functionality by user
   const deleteRating = () => {
     const options = {
@@ -29,12 +30,16 @@ export default function RatedTemplate({ type, movie }: RatedProps) {
       options
     )
       .then((response) => response.json())
+      .then((res) => {
+        refetch();
+        console.log(res);
+      })
       .catch((err) => console.error(err));
   };
 
   return (
     // display using grid api from material ui
-    <Grid key={movie.id} xs={12} sm={4}>
+    <Grid key={movie.id} xs={12} sm={4} item>
       <Card>
         <CardActionArea>
           {/* movie image */}

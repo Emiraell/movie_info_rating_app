@@ -75,7 +75,7 @@ export default function SideBar({
                 cursor: "pointer",
               }}
             >
-              <Avatar>{name[0].toUpperCase()}</Avatar>
+              <Avatar>{name[0]?.toUpperCase()}</Avatar>
               <Typography
                 className=" text-emerald-500"
                 sx={{ fontSize: 18, letterSpacing: 2 }}

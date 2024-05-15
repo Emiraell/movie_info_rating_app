@@ -58,7 +58,7 @@ export default function Header() {
                 </Button>
               ))}
               <Tooltip title={"logout"} sx={{ mx: 2, bgcolor: "green" }}>
-                <Avatar>{name[0].toUpperCase()}</Avatar>
+                <Avatar>{name[0]?.toUpperCase()}</Avatar>
               </Tooltip>
             </Box>
           )}
