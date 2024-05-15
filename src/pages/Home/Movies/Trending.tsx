@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import SliderCarousel from "../../../components/Slider";
-import { Data } from "../../../store/features/movies/Popular";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { fetchTrending } from "../../../store/features/movies/Trending";
 import { Button, ButtonGroup } from "@mui/material";
 
 export default function TrendingMovies() {
   // get now playing movies from redux store
-  const { movies, tvshows }: Data = useAppSelector(
-    (state) => state.trending.trending
-  );
+  const { trending, status } = useAppSelector((state) => state.trending);
 
   // To determine if to display tvshow or movies
   const [displayMovies, setDisplayMovies] = useState<boolean>(true);
@@ -50,13 +47,37 @@ export default function TrendingMovies() {
         // display trending movies
         <>
           <p className="py-4 text-lg">Trending Movies</p>
-          <SliderCarousel data={movies} type={"movie"} />
+          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+            {status === "pending" && (
+              <p className="py-9">Loading trending movies....</p>
+            )}
+            {status === "error" && (
+              <p className="py-9">
+                Unable to load trending movies, chech your connection <br /> and
+                try again
+              </p>
+            )}
+          </div>
+
+          <SliderCarousel data={trending.movies} type={"movie"} />
         </>
       ) : (
         // display trending tv shows
         <>
           <p className="py-4 text-lg">Trending Tv shows</p>
-          <SliderCarousel data={tvshows} type={"tv"} />
+          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+            {status === "pending" && (
+              <p className="py-9">Loading trending tv shows....</p>
+            )}
+            {status === "error" && (
+              <p className="py-9">
+                Unable to load trending tv shows, chech your connection <br />{" "}
+                and try again
+              </p>
+            )}
+          </div>
+
+          <SliderCarousel data={trending.tvshows} type={"tv"} />
         </>
       )}
     </div>

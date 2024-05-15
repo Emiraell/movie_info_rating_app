@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import SliderCarousel from "../../../components/Slider";
-import { Data } from "../../../store/features/movies/Popular";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { fetchTopRated } from "../../../store/features/movies/TopRated";
 import { Button, ButtonGroup } from "@mui/material";
 
 export default function TopRatedMovies() {
   // get now playing movies from redux store
-  const { movies, tvshows }: Data = useAppSelector(
-    (state) => state.topRated.topRated
-  );
+  const { topRated, status } = useAppSelector((state) => state.topRated);
 
   // To determine if to display tvshow or movies
   const [displayMovies, setDisplayMovies] = useState<boolean>(true);
@@ -50,13 +47,37 @@ export default function TopRatedMovies() {
         // display top rated movies
         <>
           <p className="py-4 text-lg">Top Rated Movies</p>
-          <SliderCarousel data={movies} type={"movie"} />
+          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+            {status === "pending" && (
+              <p className="py-9">Loading top rated movies....</p>
+            )}
+            {status === "error" && (
+              <p className="py-9">
+                Unable to load top rated movies, chech your connection <br />{" "}
+                and try again
+              </p>
+            )}
+          </div>
+
+          <SliderCarousel data={topRated.movies} type={"movie"} />
         </>
       ) : (
         // display top rated tv shows
         <>
           <p className="py-4 text-lg">Top Rated Tv shows</p>
-          <SliderCarousel data={tvshows} type={"tv"} />
+          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+            {status === "pending" && (
+              <p className="py-9">Loading top rated tv shows....</p>
+            )}
+            {status === "error" && (
+              <p className="py-9">
+                Unable to load top rated movies, chech your connection <br />{" "}
+                and try again
+              </p>
+            )}
+          </div>
+
+          <SliderCarousel data={topRated.tvshows} type={"tv"} />
         </>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { MovieDetails } from "../../../hooks/useFetch";
 
 // interface for needed info goten from the request made to fetch movies
 export interface Movie {
@@ -15,8 +16,8 @@ export interface Movie {
 
 // interface for both the tvshow and movie
 export interface Data {
-  movies: Movie[] | null;
-  tvshows: Movie[] | null;
+  movies: MovieDetails[] | null;
+  tvshows: MovieDetails[] | null;
 }
 
 // initial state interface

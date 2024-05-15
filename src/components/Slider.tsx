@@ -2,7 +2,7 @@ import MovieTemplate from "./MovieTemplate";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Movie } from "../store/features/movies/Popular";
+import { MovieDetails } from "../hooks/useFetch";
 
 // slider carousel interface
 interface Settings {
@@ -28,7 +28,7 @@ interface Settings {
 
 // interface of props received
 interface IProps {
-  data: Movie[] | null;
+  data: MovieDetails[] | null;
   type: string;
 }
 export default function SliderCarousel({ data, type }: IProps) {
@@ -62,12 +62,12 @@ export default function SliderCarousel({ data, type }: IProps) {
     ],
   };
   return (
-    <>
+    <div className="mx-4">
       <Slider {...settings}>
-        {data?.map((movie: any) => (
+        {data?.map((movie: MovieDetails) => (
           <MovieTemplate data={movie} key={movie.id} type={type} />
         ))}
       </Slider>
-    </>
+    </div>
   );
 }

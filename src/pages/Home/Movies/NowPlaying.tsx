@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import SliderCarousel from "../../../components/Slider";
-import { Data } from "../../../store/features/movies/Popular";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { fetchNowPlaying } from "../../../store/features/movies/NowPlaying";
 import { Button, ButtonGroup } from "@mui/material";
 
 export default function NowPlayingMovies() {
   // get now playing movies from redux store
-  const { movies, tvshows }: Data = useAppSelector(
-    (state) => state.nowPlaying.nowPlaying
-  );
+  const { nowPlaying, status } = useAppSelector((state) => state.nowPlaying);
 
   // To determine if to display tvshow or movies
   const [displayMovies, setDisplayMovies] = useState<boolean>(true);
@@ -50,13 +47,36 @@ export default function NowPlayingMovies() {
         <>
           {/* display movies  */}
           <p className="py-4 text-lg">Now Playing Movies</p>
-          <SliderCarousel data={movies} type={"movie"} />
+          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+            {status === "pending" && (
+              <p className="py-9">Loading now playing movies....</p>
+            )}
+            {status === "error" && (
+              <p className="py-9">
+                Unable to load now playing movies, chech your connection <br />{" "}
+                and try again
+              </p>
+            )}
+          </div>
+          <SliderCarousel data={nowPlaying.movies} type={"movie"} />
         </>
       ) : (
         <>
           {/* display tv shows */}
           <p className="py-4 text-lg">On the air Tv shows</p>
-          <SliderCarousel data={tvshows} type={"tv"} />
+          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+            {status === "pending" && (
+              <p className="py-9">Loading on the air tv shows....</p>
+            )}
+            {status === "error" && (
+              <p className="py-9">
+                Unable to load on the air tv shows, chech your connection <br />{" "}
+                and try again
+              </p>
+            )}
+          </div>
+
+          <SliderCarousel data={nowPlaying.tvshows} type={"tv"} />
         </>
       )}
     </div>

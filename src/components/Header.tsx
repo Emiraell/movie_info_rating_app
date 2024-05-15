@@ -42,7 +42,12 @@ export default function Header() {
         <Toolbar>
           <Typography
             component="div"
-            sx={{ flexGrow: 1, letterSpacing: 2, color: "yellow" }}
+            sx={{
+              flexGrow: 1,
+              letterSpacing: 2,
+              color: "yellow",
+              cursor: "pointer",
+            }}
             onClick={() => navigate("/")}
           >
             Emifix
@@ -57,7 +62,10 @@ export default function Header() {
                   <Link to={item.path}>{item.name}</Link>
                 </Button>
               ))}
-              <Tooltip title={"logout"} sx={{ mx: 2, bgcolor: "green" }}>
+              <Tooltip
+                title={"logout"}
+                sx={{ mx: 2, bgcolor: "green", cursor: "pointer" }}
+              >
                 <Avatar>{name[0]?.toUpperCase()}</Avatar>
               </Tooltip>
             </Box>
