@@ -39,7 +39,7 @@ export default function RatedTemplate({ type, movie, refetch }: RatedProps) {
 
   return (
     // display using grid api from material ui
-    <Grid key={movie.id} xs={12} sm={4} item>
+    <Grid key={movie.id} xs={12} sm={4} mb={20}>
       <Card>
         <CardActionArea>
           {/* movie image */}

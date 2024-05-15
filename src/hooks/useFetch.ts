@@ -87,17 +87,18 @@ const usefetch = ({ url, detail }: fetchProps) => {
   // fetch movie or tvshow basted on the url passed
 
   const fetchData = async () => {
-    const res = await fetch(url, options);
-    const result = await res.json();
     try {
+      const res = await fetch(url, options);
+      const result = await res.json();
       // assign result/data gotten from the call call to details
       // if the details props passed is true
       detail ? setDetails(result) : setData(result.results);
       setIsLoading(false);
       setError(false);
     } catch (err) {
-      setIsLoading(false);
       setError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 

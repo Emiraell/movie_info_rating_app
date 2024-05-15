@@ -14,12 +14,12 @@ export default function RatedMovies() {
   return (
     <Box mx={2}>
       {isLoading && (
-        <div className="mt-15 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
+        <div className="mt-10 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
           Loading......
         </div>
       )}
       {error && (
-        <div className="mt-15 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
+        <div className="mt-10 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
           Error in fetching movie detial <br /> please refresh the page
         </div>
       )}
