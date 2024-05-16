@@ -73,7 +73,7 @@ export default function Movies() {
               {popular_status === "pending" && (
                 <p className="py-5">Loading popular movies....</p>
               )}
-              {trending_status === "error" && (
+              {popular_status === "error" && (
                 <p className="py-5">
                   Unable to load popular movies, check your connection <br />
                   and try again
@@ -96,7 +96,7 @@ export default function Movies() {
               {topRated_status === "pending" && (
                 <p className="py-5">Loading top rated movies....</p>
               )}
-              {trending_status === "error" && (
+              {topRated_status === "error" && (
                 <p className="py-5">
                   Unable to load top rated movies, check your connection <br />
                   and try again
@@ -118,7 +118,7 @@ export default function Movies() {
               {playing_status === "pending" && (
                 <p className="py-5">Loading now playing movies....</p>
               )}
-              {trending_status === "error" && (
+              {playing_status === "error" && (
                 <p className="py-5">
                   Unable to load now playing movies, check your connection{" "}
                   <br /> and try again
