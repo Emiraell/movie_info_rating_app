@@ -41,6 +41,7 @@ export const NowPlayingSlice = createSlice({
           : (state.nowPlaying.tvshows = data.results);
         // store in local storage
         localStorage.setItem("nowPlaying", JSON.stringify(state.nowPlaying));
+        state.status = "success";
       })
       .addCase(fetchNowPlaying.pending, (state) => {
         state.status = "pending";

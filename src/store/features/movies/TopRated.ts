@@ -40,6 +40,7 @@ export const TopRatedSlice = createSlice({
           ? (state.topRated.movies = data.results)
           : (state.topRated.tvshows = data.results);
         localStorage.setItem("topRated", JSON.stringify(state.topRated));
+        state.status = "success";
       })
       .addCase(fetchTopRated.pending, (state) => {
         state.status = "pending";

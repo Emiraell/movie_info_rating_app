@@ -47,7 +47,7 @@ export default function NowPlayingMovies() {
         <>
           {/* display movies  */}
           <p className="py-4 text-lg">Now Playing Movies</p>
-          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+          <div className=" italic text-lg text-yellow-100 text-center px-2">
             {status === "pending" && (
               <p className="py-9">Loading now playing movies....</p>
             )}
@@ -58,7 +58,9 @@ export default function NowPlayingMovies() {
               </p>
             )}
           </div>
-          <SliderCarousel data={nowPlaying.movies} type={"movie"} />
+          {status === "success" && (
+            <SliderCarousel data={nowPlaying.movies} type={"movie"} />
+          )}
         </>
       ) : (
         <>
@@ -76,7 +78,9 @@ export default function NowPlayingMovies() {
             )}
           </div>
 
-          <SliderCarousel data={nowPlaying.tvshows} type={"tv"} />
+          {status === "success" && (
+            <SliderCarousel data={nowPlaying.tvshows} type={"tv"} />
+          )}
         </>
       )}
     </div>

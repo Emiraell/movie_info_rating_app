@@ -47,7 +47,7 @@ export default function PopularMovies() {
         // display popular movies
         <>
           <p className="py-4 text-lg">Popular Movies</p>
-          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+          <div className=" italic text-lg text-yellow-100 text-center px-2">
             {status === "pending" && (
               <p className="py-9">Loading popular movies....</p>
             )}
@@ -59,7 +59,9 @@ export default function PopularMovies() {
             )}
           </div>
 
-          <SliderCarousel data={popular.movies} type={"movie"} />
+          {status === "success" && (
+            <SliderCarousel data={popular.movies} type={"movie"} />
+          )}
         </>
       ) : (
         // display popular tvshow
@@ -77,7 +79,9 @@ export default function PopularMovies() {
             )}
           </div>
 
-          <SliderCarousel data={popular.tvshows} type={"tv"} />
+          {status === "success" && (
+            <SliderCarousel data={popular.tvshows} type={"tv"} />
+          )}
         </>
       )}
     </div>

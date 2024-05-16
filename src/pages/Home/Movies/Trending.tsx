@@ -47,7 +47,7 @@ export default function TrendingMovies() {
         // display trending movies
         <>
           <p className="py-4 text-lg">Trending Movies</p>
-          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+          <div className=" italic text-lg text-yellow-100 text-center px-2">
             {status === "pending" && (
               <p className="py-9">Loading trending movies....</p>
             )}
@@ -59,7 +59,9 @@ export default function TrendingMovies() {
             )}
           </div>
 
-          <SliderCarousel data={trending.movies} type={"movie"} />
+          {status === "success" && (
+            <SliderCarousel data={trending.movies} type={"movie"} />
+          )}
         </>
       ) : (
         // display trending tv shows
@@ -77,7 +79,9 @@ export default function TrendingMovies() {
             )}
           </div>
 
-          <SliderCarousel data={trending.tvshows} type={"tv"} />
+          {status === "success" && (
+            <SliderCarousel data={trending.tvshows} type={"tv"} />
+          )}
         </>
       )}
     </div>

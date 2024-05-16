@@ -167,7 +167,7 @@ export default function Details({ details }: MovieProps) {
 
             <Box mt={5}>
               <p className="typography">Genres</p>
-              <List sx={{ display: "flex" }}>
+              <List sx={{ display: "flex", overflow: "scroll" }}>
                 {details?.genres.map((genre: Genres) => (
                   <ListItem key={genre.id}>
                     <ListItemText primary={genre.name} sx={{}} />

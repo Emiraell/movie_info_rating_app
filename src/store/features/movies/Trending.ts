@@ -42,6 +42,7 @@ export const TrendingSlice = createSlice({
           : (state.trending.tvshows = data.results);
 
         localStorage.setItem("trending", JSON.stringify(state.trending));
+        state.status = "success";
       })
       .addCase(fetchTrending.pending, (state) => {
         state.status = "pending";

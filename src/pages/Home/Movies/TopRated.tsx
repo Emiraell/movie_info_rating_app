@@ -47,19 +47,21 @@ export default function TopRatedMovies() {
         // display top rated movies
         <>
           <p className="py-4 text-lg">Top Rated Movies</p>
-          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
+          <div className=" italic text-lg text-yellow-100 text-center px-2">
             {status === "pending" && (
-              <p className="py-9">Loading top rated movies....</p>
+              <p className="py-5">Loading top rated movies....</p>
             )}
             {status === "error" && (
-              <p className="py-9">
+              <p className="py-5">
                 Unable to load top rated movies, chech your connection <br />{" "}
                 and try again
               </p>
             )}
           </div>
 
-          <SliderCarousel data={topRated.movies} type={"movie"} />
+          {status === "success" && (
+            <SliderCarousel data={topRated.movies} type={"movie"} />
+          )}
         </>
       ) : (
         // display top rated tv shows
@@ -77,7 +79,9 @@ export default function TopRatedMovies() {
             )}
           </div>
 
-          <SliderCarousel data={topRated.tvshows} type={"tv"} />
+          {status === "success" && (
+            <SliderCarousel data={topRated.tvshows} type={"tv"} />
+          )}
         </>
       )}
     </div>
