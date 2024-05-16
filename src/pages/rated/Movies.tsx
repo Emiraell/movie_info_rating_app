@@ -32,7 +32,7 @@ export default function RatedMovies() {
           <Typography variant="h5" component="div" color={"white"} py={2}>
             Movies
           </Typography>
-          <Grid container gap={2}>
+          <Grid container spacing={4}>
             {data?.map((movie) => (
               <RatedTemplate
                 movie={movie}

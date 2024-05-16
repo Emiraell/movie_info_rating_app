@@ -31,7 +31,7 @@ export default function Rated() {
         </Button>
       </ButtonGroup>
       {/* display rated movies if displaymovies and tv shows if other wise */}
-      {displayMovies ? <RatedMovies /> : <RatedTvShows />}
+      <>{displayMovies ? <RatedMovies /> : <RatedTvShows />}</>
       <Footer />
     </div>
   );

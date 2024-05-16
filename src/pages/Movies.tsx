@@ -40,10 +40,10 @@ export default function Movies() {
       <Toolbar />
       <Hero homePage={false} pageName="Movies" />
 
-      <div className="text-gray-100 text-center w-[95%] m-auto mt-10 mb-28">
+      <div className="text-gray-100 text-center w-[95%] m-auto mt-10 mb-36">
         {/* trending */}
         <>
-          <p className="movieTitle my-14">Trending</p>
+          <p className="movieTitle pt-14 mb-9">Trending</p>
 
           {/* display message status of fetching trending movies*/}
           <div className="status_message">
@@ -66,7 +66,7 @@ export default function Movies() {
 
         {/* popular */}
         <>
-          <p className="movieTitle my-14">Popular</p>
+          <p className="movieTitle pt-20 mb-9">Popular</p>
 
           {/* display message status of fetching popular movies*/}
           <div className="status_message">
@@ -89,7 +89,7 @@ export default function Movies() {
 
         {/* top rated */}
         <>
-          <p className="movieTitle my-14">Top Rated</p>
+          <p className="movieTitle pt-20 mb-9">Top Rated</p>
 
           {/* display message status of fetching top rated movies*/}
           <div className="status_message">
@@ -112,7 +112,7 @@ export default function Movies() {
 
         {/* now playing */}
         <>
-          <p className="movieTitle my-14">Now Playing</p>
+          <p className="movieTitle pt-20 mb-9">Now Playing</p>
           {/* display message status of fetching trending movies*/}
           <div className="status_message">
             {playing_status === "pending" && (

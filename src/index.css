@@ -9,8 +9,8 @@
 
 /* classes and it styles */
 .movieTitle {
-  @apply text-center m-auto text-gray-50 text-lg md:text-2xl mt-5
-    font-bold tracking-wider w-fit border-b-4 pb-2 border-dashed border-yellow-500;
+  @apply mx-auto w-fit text-gray-50 text-lg md:text-2xl mt-5 pb-2
+    font-bold tracking-wider border-b-4 border-dashed border-yellow-500;
 }
 
 .movieBtn {
