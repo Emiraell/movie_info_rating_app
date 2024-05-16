@@ -89,7 +89,7 @@ export default function Hero({ homePage, pageName }: HeroProps) {
         // display if not on home page with the name of the provided homepage
         <div className="font-bold text-2xl">
           <span>Home</span> |
-          <span className=" text-yellow-300 italic ">{pageName}</span>
+          <span className=" text-yellow-300 italic "> {pageName}</span>
         </div>
       )}
     </div>

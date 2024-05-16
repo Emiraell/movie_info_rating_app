@@ -112,9 +112,7 @@ export default function Movies() {
 
         {/* now playing */}
         <>
-          <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
-            Now Playing
-          </p>
+          <p className="movieTitle my-14">Now Playing</p>
           {/* display message status of fetching trending movies*/}
           <div className="status_message">
             {playing_status === "pending" && (

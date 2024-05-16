@@ -15,8 +15,8 @@ interface ContextProps {
   setShowingSearch: Dispatch<SetStateAction<boolean>>;
   movieToSearch: string;
   setMovieToSearch: Dispatch<SetStateAction<string>>;
-  setSerachedMovies: Dispatch<SetStateAction<MovieDetails[]>>;
-  searchedMovies: MovieDetails[];
+  setSerachedMovies: Dispatch<SetStateAction<MovieDetails[] | null>>;
+  searchedMovies: MovieDetails[] | null;
 }
 
 // context wrapping components in the home page page
@@ -24,8 +24,8 @@ export const MovieContext = createContext<ContextProps>({
   movieToSearch: "",
   setMovieToSearch: () => "",
   setShowingSearch: () => false,
-  setSerachedMovies: () => [],
-  searchedMovies: [],
+  setSerachedMovies: () => [] || null,
+  searchedMovies: [] || null,
 });
 
 export default function Main() {
@@ -34,7 +34,9 @@ export default function Main() {
   // to show searched movies
   const [showingSearched, setShowingSearch] = useState<boolean>(false);
   // store result of searched movies
-  const [searchedMovies, setSerachedMovies] = useState<MovieDetails[]>([]);
+  const [searchedMovies, setSerachedMovies] = useState<MovieDetails[] | null>(
+    null
+  );
   return (
     <>
       <MovieContext.Provider

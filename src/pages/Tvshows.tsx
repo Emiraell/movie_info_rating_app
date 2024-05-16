@@ -40,11 +40,9 @@ export default function Tvshows() {
       <Toolbar />
       <Hero homePage={false} pageName="Tv Shows" />
 
-      <div className="text-gray-100 text-center w-[95%] m-auto my-10">
+      <div className="text-gray-100 text-center w-[95%] m-auto mt-10 mb-28">
         <>
-          <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
-            Trending
-          </p>
+          <p className="movieTitle my-14">Trending</p>
           {/* display message status of fetching trending tv shows*/}
           <div className="status_message">
             {trending_status === "pending" && (
@@ -65,9 +63,7 @@ export default function Tvshows() {
         </>
 
         <>
-          <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
-            Popular
-          </p>
+          <p className="movieTitle my-14">Popular</p>
           {/* display message status of fetching popular tv shows*/}
           <div className="status_message">
             {trending_status === "pending" && (
@@ -88,9 +84,7 @@ export default function Tvshows() {
         </>
 
         <>
-          <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
-            Top Rated
-          </p>
+          <p className="movieTitle my-14">Top Rated</p>
 
           {/* display message status of fetching top rated movies*/}
           <div className="status_message">
@@ -112,9 +106,7 @@ export default function Tvshows() {
         </>
 
         <>
-          <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
-            Now Playing
-          </p>
+          <p className="movieTitle my-14">Now Playing</p>
           {/* display message status of fetching trending movies*/}
           <div className="status_message">
             {playing_status === "pending" && (
