@@ -18,7 +18,7 @@ export default function Searched() {
               and try again
             </p>
           )}
-          {searchedMovies?.length === 0 && (
+          {searchedMovies && searchedMovies?.length === 0 && (
             // message to display if no movie was found from the search
             <div className="text-center">
               <p className="status_message">
@@ -29,7 +29,7 @@ export default function Searched() {
             </div>
           )}
 
-          {searchedMovies && (
+          {searchedMovies && searchedMovies.length !== 0 && (
             //  display the first movie on the list if movie(s) was found
             <div className=" md:w-[60vh] m-auto">
               <p className="pb-5 text-bold text-gray-100 text-center text-lg font-bold">
