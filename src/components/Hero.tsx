@@ -49,8 +49,8 @@ export default function Hero({ homePage, pageName }: HeroProps) {
             <p className=" text-yellow-300 py-2 italic">Emiflix</p>
 
             <p className=" text-gray-200">
-              Unlimited <span className=" text-yellow-300">Movies</span> <br />
-              TVs Shows, & More.
+              Unlimited <span className=" text-yellow-300">Movies,</span> <br />
+              TVs Shows Info, & More.
             </p>
           </div>
           <div className="py-10">
@@ -78,7 +78,7 @@ export default function Hero({ homePage, pageName }: HeroProps) {
               />
               <button
                 type="submit"
-                className="p-2 bg-yellow-800 rounded-r-md cursor-pointer hover:bg-blue-800 ease-in-out duration-300"
+                className="p-2 bg-yellow-800 rounded-r-md -ml-3 cursor-pointer hover:bg-blue-800 ease-in-out duration-300"
               >
                 search
               </button>

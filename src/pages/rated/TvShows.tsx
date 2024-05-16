@@ -22,9 +22,8 @@ export default function RatedTvShows() {
       )}
       {error && (
         <div className="mt-10 mb-40 status_message">
-          Error in fetching rated tv shows please succesfully rate a tv show or
-          <br />
-          refresh the page if you already rated a show
+          Error in fetching rated tv shows please refresh <br />
+          the page if you already rated a show
         </div>
       )}
 
@@ -34,6 +33,11 @@ export default function RatedTvShows() {
           <Typography variant="h5" component="div" color={"white"} py={2}>
             Tv Shows
           </Typography>
+          {!data && (
+            <div className="mt-5 mb-20 status_message text-white">
+              you haven't rated a tv show yet
+            </div>
+          )}
           <Grid container gap={2}>
             {data?.map((tvshow) => (
               <RatedTemplate
