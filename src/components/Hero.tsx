@@ -64,6 +64,7 @@ export default function Hero({ homePage, pageName }: HeroProps) {
               onSubmit={(e) => {
                 e.preventDefault();
                 fetchSearched();
+                setMovieToSearch("");
               }}
             >
               <input
