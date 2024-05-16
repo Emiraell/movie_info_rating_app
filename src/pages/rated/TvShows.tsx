@@ -19,8 +19,10 @@ export default function RatedTvShows() {
         </div>
       )}
       {error && (
-        <div className="mt-10 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
-          Error in fetching movie detial <br /> please refresh the page
+        <div className="mt-10 mb-40 status_message">
+          Error in fetching rated tv shows please succesfully rate a tv show or
+          <br />
+          refresh the page if you already rated a show
         </div>
       )}
 
