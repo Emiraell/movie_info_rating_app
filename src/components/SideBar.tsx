@@ -58,7 +58,10 @@ export default function SideBar({
                 key={item.name}
                 sx={{ textAlign: "center", cursor: "pointer" }}
               >
-                <Link to={item.path} className=" w-full text-gray-200 ">
+                <Link
+                  to={`/movie_info_rating_app/${item.path}`}
+                  className=" w-full text-gray-200 "
+                >
                   <ListItemText primary={item.name} />
                 </Link>
               </ListItem>

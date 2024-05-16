@@ -18,9 +18,9 @@ export default function Footer() {
 
       {/* links */}
       <div className="flex justify-center gap-10 py-2 text-blue-300">
-        <Link to="/">Home</Link>
-        <Link to="/movies">Movies</Link>
-        <Link to="/tvshows">Tvshows</Link>
+        <Link to="/movie_info_rating_app">Home</Link>
+        <Link to="/movie_info_rating_app/movies">Movies</Link>
+        <Link to="/movie_info_rating_app/tvshows">Tvshows</Link>
       </div>
       <p className="pb-3">
         coypright 2024 | All right reserved by{" "}

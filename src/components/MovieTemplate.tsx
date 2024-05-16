@@ -18,7 +18,9 @@ export default function MovieTemplate({ data: movie, type }: IProps) {
           <Link
             to={
               // link to page based on the type of movie
-              type === "movie" ? `/movie/${movie.id}` : `/tvshows/${movie.id}`
+              type === "movie"
+                ? `/movie_info_rating_app/movie/${movie.id}`
+                : `/movie_info_rating_app/tvshows/${movie.id}`
             }
           >
             <CardMedia

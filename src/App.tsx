@@ -19,18 +19,30 @@ function App() {
       <Router>
         <Routes>
           {/* display content of each page if user is authenticated */}
-          <Route path="/" element={guestId ? <Main /> : <Login />} />
-          <Route path="/movies" element={guestId ? <Movies /> : <Login />} />
-          <Route path="/tvshows" element={guestId ? <Tvshows /> : <Login />} />
           <Route
-            path="/movie/:id"
+            path="/movie_info_rating_app"
+            element={guestId ? <Main /> : <Login />}
+          />
+          <Route
+            path="/movie_info_rating_app/movies"
+            element={guestId ? <Movies /> : <Login />}
+          />
+          <Route
+            path="/movie_info_rating_app/tvshows"
+            element={guestId ? <Tvshows /> : <Login />}
+          />
+          <Route
+            path="/movie_info_rating_app/movie/:id"
             element={guestId ? <MovieDetail /> : <Login />}
           />
           <Route
-            path="/tvshows/:id"
+            path="/movie_info_rating_app/tvshows/:id"
             element={guestId ? <TvshowDetail /> : <Login />}
           />
-          <Route path="/rated" element={guestId ? <Rated /> : <Login />} />
+          <Route
+            path="/movie_info_rating_app/rated"
+            element={guestId ? <Rated /> : <Login />}
+          />
         </Routes>
       </Router>
     </div>

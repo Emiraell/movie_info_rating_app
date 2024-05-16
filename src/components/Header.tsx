@@ -48,7 +48,7 @@ export default function Header() {
               color: "yellow",
               cursor: "pointer",
             }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/movie_info_rating_app")}
           >
             Emifix
           </Typography>
@@ -59,7 +59,9 @@ export default function Header() {
             >
               {navItems.map((item) => (
                 <Button key={item.name} sx={{ color: "red" }}>
-                  <Link to={item.path}>{item.name}</Link>
+                  <Link to={`movie_info_rating_app/${item.path}`}>
+                    {item.name}
+                  </Link>
                 </Button>
               ))}
               <Tooltip
