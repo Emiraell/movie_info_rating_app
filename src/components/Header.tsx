@@ -17,10 +17,10 @@ import { useAppSelector } from "../store/store";
 export default function Header() {
   // links name and path for both side bar and header
   const navItems: { name: string; path: string }[] = [
-    { name: "Home", path: "/" },
-    { name: "Movies", path: "/movies" },
-    { name: "Tv Shows", path: "/tvshows" },
-    { name: "Rated", path: "/rated" },
+    { name: "Home", path: "" },
+    { name: "Movies", path: "movies" },
+    { name: "Tv Shows", path: "tvshows" },
+    { name: "Rated", path: "rated" },
   ];
   // naviage api to navigate around the webpage
   const navigate = useNavigate();

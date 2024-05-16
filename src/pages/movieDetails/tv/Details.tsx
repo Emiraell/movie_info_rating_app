@@ -74,7 +74,7 @@ export default function Details({ details }: MovieProps) {
                 </Box>
 
                 <Box>
-                  <p className="typography">Vote count</p>
+                  <Typography className="typography">Vote count</Typography>
                   <Typography>{details?.vote_count}</Typography>
                 </Box>
 
@@ -113,7 +113,7 @@ export default function Details({ details }: MovieProps) {
                 </Box>
 
                 <Box>
-                  <p className="typography">Popularity</p>
+                  <Typography className="typography">Popularity</Typography>
                   <Typography>{details?.popularity}</Typography>
                 </Box>
 
@@ -177,7 +177,9 @@ export default function Details({ details }: MovieProps) {
             </Box>
 
             <Box mt={4}>
-              <p className="typography">Production companies</p>
+              <Typography className="typography">
+                Production companies
+              </Typography>
               <List>
                 {details?.production_companies.map((company: Companies) => (
                   <ListItem key={company.id}>
@@ -199,7 +201,9 @@ export default function Details({ details }: MovieProps) {
             </Box>
 
             <Box mt={5}>
-              <p className="typography">Production countries</p>
+              <Typography className="typography">
+                Production countries
+              </Typography>
               <List sx={{ display: "flex" }}>
                 {details?.production_countries.map((country: Countries) => (
                   <ListItem key={country.iso_3166_1}>

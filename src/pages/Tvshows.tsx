@@ -28,10 +28,10 @@ export default function Tvshows() {
   // fetch popular tv shows on page load
   const dispatch = useAppDispatch();
   useEffect(() => {
-    nowPlaying.tvshows && dispatch(fetchNowPlaying("tv"));
-    trending.tvshows && dispatch(fetchTrending("tv"));
-    topRated.tvshows && dispatch(fetchTopRated("tv"));
-    popular.tvshows && dispatch(fetchPopular("tv"));
+    !nowPlaying.tvshows && dispatch(fetchNowPlaying("tv"));
+    !trending.tvshows && dispatch(fetchTrending("tv"));
+    !topRated.tvshows && dispatch(fetchTopRated("tv"));
+    !popular.tvshows && dispatch(fetchPopular("tv"));
   }, []);
 
   return (

@@ -67,19 +67,17 @@ export default function Details({ details }: MovieProps) {
                   }}
                 >
                   <Box>
-                    <Typography variant="h6" className="typography">
-                      Adult
-                    </Typography>
+                    <p className="typography">Adult</p>
                     <Typography>{details?.adult ? "Yes" : "No"}</Typography>
                   </Box>
 
                   <Box>
-                    <Typography className="typography">Release Date</Typography>
+                    <p className="typography">Release Date</p>
                     <Typography>{details?.release_date}</Typography>
                   </Box>
 
                   <Box>
-                    <Typography className="typography">Revenue</Typography>
+                    <p className="typography">Revenue</p>
                     <Typography>{details?.revenue}</Typography>
                   </Box>
                 </Box>
