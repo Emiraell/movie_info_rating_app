@@ -50,7 +50,7 @@ export default function Header() {
             }}
             onClick={() => navigate("/movie_info_rating_app")}
           >
-            Emifix
+            Emiflix
           </Typography>
           {userLoggedIn && (
             // display header links if user is logged in

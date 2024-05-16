@@ -13,7 +13,7 @@ export default function Footer() {
         component="div"
         sx={{ letterSpacing: 2, color: "yellow", fontSize: 20 }}
       >
-        Emifix
+        Emiflix
       </Typography>
 
       {/* links */}

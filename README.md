@@ -1,30 +1,27 @@
-# React + TypeScript + Vite
+Movie Details and Rating App 🎦🍿
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This app is a movie details and rating platform that I built from scratch using React, TypeScript, Tailwind CSS, Redux, custom hooks, Material-UI, and The Movie Database (TMDb) as the API backend.
 
-Currently, two official plugins are available:
+Features:
+👉 Browse Movies: Search a vast library of movies sourced from TMDb.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+👉 Search functionality: Use the search bar to find specific movies.
 
-## Expanding the ESLint configuration
+👉 Movie Details: View detailed information about each film, including synopsis, ratings, release date, and more.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+👉 Rating System: Rate movies and see your ratings.
 
-- Configure the top-level `parserOptions` property like this:
+👉 Custom Hooks: Use custom hooks to efficiently manage states and encapsulate logic.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+👉 Responsive Design: Tailwind CSS and responsive design principles provide a seamless experience across multiple devices.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+👉 Material-UI Integration: Use pre-built Material-UI components to create consistent, visually appealing UI elements.
+
+Technology Used:
+
+- React Js: A frontend library for creating user interfaces.
+- TypeScript: Adds static typing to JavaScript, which improves code quality and developer productivity.
+- Tailwind CSS: A utility-first CSS framework for rapid user interface development.
+- Redux: A state management library for consistent state changes throughout the app.
+- Material-UI: React component library that implements Google's Material Design.
+- The Movie Database (TMDb): A comprehensive movie and TV database that offers rich movie data through an API.
