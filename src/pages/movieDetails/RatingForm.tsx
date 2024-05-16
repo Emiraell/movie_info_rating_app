@@ -26,7 +26,7 @@ export default function RatingForm({ id, type, name }: RatingProps) {
 
     // url with user guest Id
     fetch(
-      `https://api.themoviedb.org/3/${type}/${id}/rating?guest_session_id=${localStorage.getItem(
+      `https://api.themoviedb.org/3/${type}/${id}/rating?guest_session_id=${sessionStorage.getItem(
         "guestId"
       )}`,
       options

@@ -27,7 +27,7 @@ export interface Popular {
 }
 
 // get popular movies data from the local storage
-const storedPopularMovies = localStorage.getItem("popular");
+const storedPopularMovies = sessionStorage.getItem("popular");
 
 // check if the movie data in the local storage isn't a falsy value
 let popularMovies;
@@ -58,7 +58,7 @@ export const PopularSlice = createSlice({
         } else {
           state.popular.tvshows = data.results;
         }
-        localStorage.setItem("popular", JSON.stringify(state.popular));
+        sessionStorage.setItem("popular", JSON.stringify(state.popular));
         state.status = "success";
       })
       .addCase(fetchPopular.pending, (state) => {
@@ -68,7 +68,7 @@ export const PopularSlice = createSlice({
         state.status = "error";
         state.popular.movies = state.popular.movies;
         state.popular.tvshows = state.popular.tvshows;
-        localStorage.setItem("popular", JSON.stringify(state.popular));
+        sessionStorage.setItem("popular", JSON.stringify(state.popular));
         state.status = "error";
       });
   },

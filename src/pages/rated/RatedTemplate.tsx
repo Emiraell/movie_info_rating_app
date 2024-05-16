@@ -25,7 +25,7 @@ export default function RatedTemplate({ type, movie, refetch }: RatedProps) {
     fetch(
       `https://api.themoviedb.org/3/${type}/${
         movie.id
-      }/rating?guest_session_id=${localStorage.getItem("guestId")}`,
+      }/rating?guest_session_id=${sessionStorage.getItem("guestId")}`,
       options
     )
       .then((response) => response.json())

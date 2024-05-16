@@ -104,13 +104,11 @@ const usefetch = ({ url, detail }: fetchProps) => {
   // run the fetch function only when the url changes
   useEffect(() => {
     fetchData();
-    return () => console.log("cleanup");
   }, [url]);
 
   const refetch = () => {
     setIsLoading(true);
     fetchData();
-    console.log("refectched", url);
   };
   return { data, details, isLoading, error, refetch };
 };

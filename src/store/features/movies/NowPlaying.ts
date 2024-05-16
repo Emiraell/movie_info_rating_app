@@ -7,7 +7,7 @@ export interface NowPlaying {
   status: string;
 }
 // get Now playing movies data from the local storage
-const storedNowData = localStorage.getItem("nowPlaying");
+const storedNowData = sessionStorage.getItem("nowPlaying");
 
 // check if the movie data in the local storage isn't a falsy value
 let NowPlayingData;
@@ -40,7 +40,7 @@ export const NowPlayingSlice = createSlice({
           ? (state.nowPlaying.movies = data.results)
           : (state.nowPlaying.tvshows = data.results);
         // store in local storage
-        localStorage.setItem("nowPlaying", JSON.stringify(state.nowPlaying));
+        sessionStorage.setItem("nowPlaying", JSON.stringify(state.nowPlaying));
         state.status = "success";
       })
       .addCase(fetchNowPlaying.pending, (state) => {
@@ -50,7 +50,7 @@ export const NowPlayingSlice = createSlice({
         state.status = "error";
         state.nowPlaying.movies = state.nowPlaying.movies;
         state.nowPlaying.tvshows = state.nowPlaying.tvshows;
-        localStorage.setItem("nowPlaying", JSON.stringify(state.nowPlaying));
+        sessionStorage.setItem("nowPlaying", JSON.stringify(state.nowPlaying));
         state.status = "error";
       });
   },

@@ -7,7 +7,7 @@ export interface State {
   status: string;
 }
 // get top rated movies data from the local storage
-const storedTrendingMovies = localStorage.getItem("trending");
+const storedTrendingMovies = sessionStorage.getItem("trending");
 
 // check if the movie data in the local storage isn't a falsy value
 let trendingMovies;
@@ -41,7 +41,7 @@ export const TrendingSlice = createSlice({
           ? (state.trending.movies = data.results)
           : (state.trending.tvshows = data.results);
 
-        localStorage.setItem("trending", JSON.stringify(state.trending));
+        sessionStorage.setItem("trending", JSON.stringify(state.trending));
         state.status = "success";
       })
       .addCase(fetchTrending.pending, (state) => {
@@ -51,7 +51,7 @@ export const TrendingSlice = createSlice({
         state.status = "error";
         state.trending.movies = state.trending.movies;
         state.trending.tvshows = state.trending.tvshows;
-        localStorage.setItem("trending", JSON.stringify(state.trending));
+        sessionStorage.setItem("trending", JSON.stringify(state.trending));
         state.status = "error";
       });
   },

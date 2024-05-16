@@ -40,7 +40,7 @@ export default function Tvshows() {
       <Toolbar />
       <Hero homePage={false} pageName="Tv Shows" />
 
-      <div className="text-gray-100 text-center w-[95%] m-auto mt-10 mb-28">
+      <div className="text-gray-100 text-center w-[95%] m-auto mt-10 mb-36">
         <>
           <p className="movieTitle pt-14 mb-9">Trending</p>
           {!trending.tvshows ? (

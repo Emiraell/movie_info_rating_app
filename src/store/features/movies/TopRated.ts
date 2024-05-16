@@ -7,7 +7,7 @@ export interface Rated {
   status: string;
 }
 // get top rated movies data from the local storage
-const storedTopRated = localStorage.getItem("topRated");
+const storedTopRated = sessionStorage.getItem("topRated");
 
 // check if the movie data in the local storage isn't a falsy value
 let topRatedMovies;
@@ -39,7 +39,7 @@ export const TopRatedSlice = createSlice({
         data.type === "movie"
           ? (state.topRated.movies = data.results)
           : (state.topRated.tvshows = data.results);
-        localStorage.setItem("topRated", JSON.stringify(state.topRated));
+        sessionStorage.setItem("topRated", JSON.stringify(state.topRated));
         state.status = "success";
       })
       .addCase(fetchTopRated.pending, (state) => {
@@ -49,7 +49,7 @@ export const TopRatedSlice = createSlice({
         state.status = "error";
         state.topRated.movies = state.topRated.movies;
         state.topRated.tvshows = state.topRated.tvshows;
-        localStorage.setItem("topRated", JSON.stringify(state.topRated));
+        sessionStorage.setItem("topRated", JSON.stringify(state.topRated));
         state.status = "error";
       });
   },

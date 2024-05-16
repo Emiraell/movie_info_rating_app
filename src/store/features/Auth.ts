@@ -8,8 +8,8 @@ interface User {
 }
 
 const initialState: User = {
-  name: localStorage.getItem("name") || "",
-  guestId: localStorage.getItem("guestId") || null,
+  name: sessionStorage.getItem("name") || "",
+  guestId: sessionStorage.getItem("guestId") || null,
   status: "",
 };
 
@@ -21,25 +21,25 @@ export const AuthUserSlice = createSlice({
     // Action to login user
     loginUser: (state, action: PayloadAction<string>) => {
       state.guestId && (state.name = action.payload);
-      localStorage.setItem("name", action.payload);
+      sessionStorage.setItem("name", action.payload);
     },
     // action to logout user
     logout: (state) => {
       state.name = "";
       state.guestId = null;
-      localStorage.removeItem("guestId");
-      localStorage.removeItem("name");
-      localStorage.removeItem("nowPlaying");
-      localStorage.removeItem("popular");
-      localStorage.removeItem("trending");
-      localStorage.removeItem("topRated");
+      sessionStorage.removeItem("guestId");
+      sessionStorage.removeItem("name");
+      sessionStorage.removeItem("nowPlaying");
+      sessionStorage.removeItem("popular");
+      sessionStorage.removeItem("trending");
+      sessionStorage.removeItem("topRated");
     },
   },
   extraReducers(builder) {
     builder
       .addCase(getAuth.fulfilled, (state, action) => {
         state.guestId = action.payload.guest_session_id;
-        state.guestId && localStorage.setItem("guestId", state.guestId);
+        state.guestId && sessionStorage.setItem("guestId", state.guestId);
         state.status = "succesful";
       })
       .addCase(getAuth.pending, (state) => {

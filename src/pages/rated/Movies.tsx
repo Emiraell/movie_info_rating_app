@@ -6,7 +6,7 @@ export default function RatedMovies() {
   // import usefetch hook and pass the url to fetch rated movies by user
   // by using the user guest session id stored in the local Storage
   const { data, isLoading, error, refetch } = usefetch({
-    url: `https://api.themoviedb.org/3/guest_session/${localStorage.getItem(
+    url: `https://api.themoviedb.org/3/guest_session/${sessionStorage.getItem(
       "guestId"
     )}/rated/movies?language=en-US&page=1&sort_by=created_at.asc&api_key=${
       import.meta.env.VITE_MY_API_KEY
