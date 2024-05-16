@@ -2,24 +2,37 @@ import { Toolbar } from "@mui/material";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
-import { useAppSelector } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store/store";
 import SliderCarousel from "../components/Slider";
-import { Movie } from "../store/features/movies/Popular";
+import { useEffect } from "react";
+import { fetchNowPlaying } from "../store/features/movies/NowPlaying";
+import { fetchTrending } from "../store/features/movies/Trending";
+import { fetchTopRated } from "../store/features/movies/TopRated";
+import { fetchPopular } from "../store/features/movies/Popular";
 
 export default function Movies() {
   // Movie state from store
-  const popularMovies: Movie[] | null = useAppSelector(
-    (state) => state.popular.popular.movies
+  const { popular, status: popular_status } = useAppSelector(
+    (state) => state.popular
   );
-  const trendingMovies: Movie[] | null = useAppSelector(
-    (state) => state.trending.trending.movies
+  const { trending, status: trending_status } = useAppSelector(
+    (state) => state.trending
   );
-  const topRatedMovies: Movie[] | null = useAppSelector(
-    (state) => state.topRated.topRated.movies
+  const { topRated, status: topRated_status } = useAppSelector(
+    (state) => state.topRated
   );
-  const nowPlayingMovies: Movie[] | null = useAppSelector(
-    (state) => state.nowPlaying.nowPlaying.movies
+  const { nowPlaying, status: playing_status } = useAppSelector(
+    (state) => state.nowPlaying
   );
+
+  // fetch popular movies on page load
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchNowPlaying("movie"));
+    dispatch(fetchTrending("movie"));
+    dispatch(fetchTopRated("movie"));
+    dispatch(fetchPopular("movie"));
+  }, []);
 
   return (
     <>
@@ -27,33 +40,98 @@ export default function Movies() {
       <Toolbar />
       <Hero homePage={false} pageName="Movies" />
 
-      <div className="text-gray-100 text-center w-[95%] m-auto my-10">
+      <div className="text-gray-100 text-center w-[95%] m-auto mt-10 mb-28">
+        {/* trending */}
         <>
-          <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
-            Trending
-          </p>
-          <SliderCarousel data={trendingMovies} type={"movie"} />
+          <p className="movieTitle my-14">Trending</p>
+
+          {/* display message status of fetching trending movies*/}
+          <div className="status_message">
+            {trending_status === "pending" && (
+              <p className="py-5">Loading trending movies....</p>
+            )}
+            {trending_status === "error" && (
+              <p className="py-5">
+                Unable to load trending movies, check your connection <br /> and
+                try again
+              </p>
+            )}
+          </div>
+
+          {/* display trending movies on sucess  */}
+          {trending_status === "success" && (
+            <SliderCarousel data={trending.movies} type={"movie"} />
+          )}
         </>
 
+        {/* popular */}
         <>
-          <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
-            Popular
-          </p>
-          <SliderCarousel data={popularMovies} type={"movie"} />
+          <p className="movieTitle my-14">Popular</p>
+
+          {/* display message status of fetching popular movies*/}
+          <div className="status_message">
+            {trending_status === "pending" && (
+              <p className="py-5">Loading popular movies....</p>
+            )}
+            {popular_status === "error" && (
+              <p className="py-5">
+                Unable to load popular movies, check your connection <br /> and
+                try again
+              </p>
+            )}
+          </div>
+
+          {/* display popular movies on success */}
+          {popular_status === "success" && (
+            <SliderCarousel data={popular.movies} type={"movie"} />
+          )}
         </>
 
+        {/* top rated */}
         <>
-          <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
-            Top Rated
-          </p>
-          <SliderCarousel data={topRatedMovies} type={"movie"} />
+          <p className="movieTitle my-14">Top Rated</p>
+
+          {/* display message status of fetching top rated movies*/}
+          <div className="status_message">
+            {topRated_status === "pending" && (
+              <p className="py-5">Loading top rated movies....</p>
+            )}
+            {topRated_status === "error" && (
+              <p className="py-5">
+                Unable to load top rated movies, check your connection <br />{" "}
+                and try again
+              </p>
+            )}
+          </div>
+
+          {/* display top rated movies on success */}
+          {topRated_status === "success" && (
+            <SliderCarousel data={topRated.movies} type={"movie"} />
+          )}
         </>
 
+        {/* now playing */}
         <>
           <p className="movieTitle" style={{ marginBottom: 23, marginTop: 40 }}>
             Now Playing
           </p>
-          <SliderCarousel data={nowPlayingMovies} type={"movie"} />
+          {/* display message status of fetching trending movies*/}
+          <div className="status_message">
+            {playing_status === "pending" && (
+              <p className="py-5">Loading now playing movies....</p>
+            )}
+            {playing_status === "error" && (
+              <p className="py-5">
+                Unable to load now playing movies, check your connection <br />
+                and try again
+              </p>
+            )}
+          </div>
+
+          {/* display now playing movies on success */}
+          {playing_status === "success" && (
+            <SliderCarousel data={nowPlaying.movies} type={"movie"} />
+          )}
         </>
       </div>
       <Footer />

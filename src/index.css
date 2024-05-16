@@ -20,3 +20,7 @@
 .typography {
   @apply text-yellow-300 text-xl tracking-wide font-semibold;
 }
+
+.status_message {
+  @apply italic text-lg sm:text-xs text-yellow-100 text-center px-2;
+}
