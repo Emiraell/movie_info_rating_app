@@ -28,10 +28,10 @@ export default function Movies() {
   // fetch popular movies on page load
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchNowPlaying("movie"));
-    dispatch(fetchTrending("movie"));
-    dispatch(fetchTopRated("movie"));
-    dispatch(fetchPopular("movie"));
+    !nowPlaying.movies && dispatch(fetchNowPlaying("movie"));
+    !trending.movies && dispatch(fetchTrending("movie"));
+    !topRated.movies && dispatch(fetchTopRated("movie"));
+    !popular.movies && dispatch(fetchPopular("movie"));
   }, []);
 
   return (
@@ -44,22 +44,21 @@ export default function Movies() {
         {/* trending */}
         <>
           <p className="movieTitle pt-14 mb-9">Trending</p>
-
-          {/* display message status of fetching trending movies*/}
-          <div className="status_message">
-            {trending_status === "pending" && (
-              <p className="py-5">Loading trending movies....</p>
-            )}
-            {trending_status === "error" && (
-              <p className="py-5">
-                Unable to load trending movies, check your connection <br /> and
-                try again
-              </p>
-            )}
-          </div>
-
-          {/* display trending movies on sucess  */}
-          {trending_status === "success" && (
+          {!trending.movies ? (
+            /* display message status of fetching trending movies*/
+            <div className="status_message">
+              {trending_status === "pending" && (
+                <p className="py-5">Loading trending movies....</p>
+              )}
+              {trending_status === "error" && (
+                <p className="py-5">
+                  Unable to load trending movies, check your connection <br />{" "}
+                  and try again
+                </p>
+              )}
+            </div>
+          ) : (
+            /* display trending movies on sucess  */
             <SliderCarousel data={trending.movies} type={"movie"} />
           )}
         </>
@@ -68,21 +67,21 @@ export default function Movies() {
         <>
           <p className="movieTitle pt-20 mb-9">Popular</p>
 
-          {/* display message status of fetching popular movies*/}
-          <div className="status_message">
-            {trending_status === "pending" && (
-              <p className="py-5">Loading popular movies....</p>
-            )}
-            {popular_status === "error" && (
-              <p className="py-5">
-                Unable to load popular movies, check your connection <br /> and
-                try again
-              </p>
-            )}
-          </div>
-
-          {/* display popular movies on success */}
-          {popular_status === "success" && (
+          {!popular.movies ? (
+            /* display message status of fetching popular movies*/
+            <div className="status_message">
+              {popular_status === "pending" && (
+                <p className="py-5">Loading popular movies....</p>
+              )}
+              {trending_status === "error" && (
+                <p className="py-5">
+                  Unable to load popular movies, check your connection <br />
+                  and try again
+                </p>
+              )}
+            </div>
+          ) : (
+            /* display popular movies on sucess  */
             <SliderCarousel data={popular.movies} type={"movie"} />
           )}
         </>
@@ -91,21 +90,21 @@ export default function Movies() {
         <>
           <p className="movieTitle pt-20 mb-9">Top Rated</p>
 
-          {/* display message status of fetching top rated movies*/}
-          <div className="status_message">
-            {topRated_status === "pending" && (
-              <p className="py-5">Loading top rated movies....</p>
-            )}
-            {topRated_status === "error" && (
-              <p className="py-5">
-                Unable to load top rated movies, check your connection <br />{" "}
-                and try again
-              </p>
-            )}
-          </div>
-
-          {/* display top rated movies on success */}
-          {topRated_status === "success" && (
+          {!topRated.movies ? (
+            /* display message status of fetching top rated movies*/
+            <div className="status_message">
+              {topRated_status === "pending" && (
+                <p className="py-5">Loading top rated movies....</p>
+              )}
+              {trending_status === "error" && (
+                <p className="py-5">
+                  Unable to load top rated movies, check your connection <br />
+                  and try again
+                </p>
+              )}
+            </div>
+          ) : (
+            /* display top rated movies on sucess  */
             <SliderCarousel data={topRated.movies} type={"movie"} />
           )}
         </>
@@ -113,21 +112,21 @@ export default function Movies() {
         {/* now playing */}
         <>
           <p className="movieTitle pt-20 mb-9">Now Playing</p>
-          {/* display message status of fetching trending movies*/}
-          <div className="status_message">
-            {playing_status === "pending" && (
-              <p className="py-5">Loading now playing movies....</p>
-            )}
-            {playing_status === "error" && (
-              <p className="py-5">
-                Unable to load now playing movies, check your connection <br />
-                and try again
-              </p>
-            )}
-          </div>
-
-          {/* display now playing movies on success */}
-          {playing_status === "success" && (
+          {!nowPlaying.movies ? (
+            /* display message status of fetching now playing movies*/
+            <div className="status_message">
+              {playing_status === "pending" && (
+                <p className="py-5">Loading now playing movies....</p>
+              )}
+              {trending_status === "error" && (
+                <p className="py-5">
+                  Unable to load now playing movies, check your connection{" "}
+                  <br /> and try again
+                </p>
+              )}
+            </div>
+          ) : (
+            /* display now playing movies on sucess  */
             <SliderCarousel data={nowPlaying.movies} type={"movie"} />
           )}
         </>
