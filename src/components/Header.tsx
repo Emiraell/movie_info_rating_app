@@ -37,7 +37,7 @@ export default function Header() {
       <AppBar
         elevation={0}
         component={"nav"}
-        sx={{ backgroundColor: "#051124" }}
+        sx={{ backgroundColor: "#05193a" }}
       >
         <Toolbar>
           <Typography

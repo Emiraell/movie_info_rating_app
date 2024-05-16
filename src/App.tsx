@@ -8,6 +8,7 @@ import Tvshows from "./pages/Tvshows";
 import MovieDetail from "./pages/movieDetails/movie/Movie";
 import TvshowDetail from "./pages/movieDetails/tv/Tvshows";
 import Rated from "./pages/rated/Rated";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   // guest id gotten when user is authenticated
@@ -17,6 +18,7 @@ function App() {
   return (
     <div className="font-roboto">
       <Router>
+        <ScrollToTop />
         <Routes>
           {/* display content of each page if user is authenticated */}
           <Route
