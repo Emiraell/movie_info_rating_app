@@ -7,7 +7,7 @@ import Footer from "../../../components/Footer";
 export default function Searched() {
   // get ssearched movies from the movie context
   const { searchedMovies, setShowingSearch } = useContext(MovieContext);
-  console.log(searchedMovies);
+
   return (
     <div className="mt-10 mb-44">
       <div className="text-center mx-4">

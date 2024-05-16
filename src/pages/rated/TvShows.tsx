@@ -8,7 +8,9 @@ export default function RatedTvShows() {
   const { data, isLoading, error, refetch } = usefetch({
     url: `https://api.themoviedb.org/3/guest_session/${localStorage.getItem(
       "guestId"
-    )}/rated/tv?language=en-US&page=1&sort_by=created_at.asc&api_key=e275c12b8ea2881d84a808d6b980804e`,
+    )}/rated/tv?language=en-US&page=1&sort_by=created_at.asc&api_key=${
+      import.meta.env.VITE_MY_API_KEY
+    }`,
     detail: false,
   });
   return (

@@ -41,7 +41,7 @@ export default function SliderCarousel({ data, type }: IProps) {
     pauseOnFocus: true,
     speed: 1500,
     swipe: true,
-    dots: true,
+    dots: false,
     slidesToShow: 3,
     slidesToScroll: 2,
     responsive: [
