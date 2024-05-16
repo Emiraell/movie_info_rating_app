@@ -21,10 +21,10 @@ export default function TvshowDetail() {
       <Header />
       <Toolbar />
       <Hero homePage={false} pageName="Tv Show" />
-      <div className="mt-20 text-center tracking-wider text-gray-100 italic text-lg">
+      <div className="mt-20 mb-28 status_message">
         {isLoading && <div className="">Loading......</div>}
         {error && (
-          <div className="">
+          <div className="status_message">
             Error in fetching movie detail <br /> please refresh the page
           </div>
         )}

@@ -14,7 +14,7 @@ export default function NowPlayingMovies() {
 
   // dispatch fetchNowplaying on page load
   useEffect(() => {
-    dispatch(fetchNowPlaying("movie"));
+    !nowPlaying.movies && dispatch(fetchNowPlaying("movie"));
     return () => {};
   }, []);
 
@@ -26,7 +26,7 @@ export default function NowPlayingMovies() {
           sx={{ backgroundColor: displayMovies ? "red" : "transparent" }}
           onClick={() => {
             //  fetch movies when button is clicked
-            dispatch(fetchNowPlaying("movie"));
+            !nowPlaying.movies && dispatch(fetchNowPlaying("movie"));
             setDisplayMovies(true);
           }}
         >
@@ -36,7 +36,7 @@ export default function NowPlayingMovies() {
           sx={{ backgroundColor: !displayMovies ? "red" : "transparent" }}
           onClick={() => {
             // fetch tvshows when button is clicked
-            dispatch(fetchNowPlaying("tv"));
+            !nowPlaying.tvshows && dispatch(fetchNowPlaying("tv"));
             setDisplayMovies(false);
           }}
         >
@@ -44,43 +44,48 @@ export default function NowPlayingMovies() {
         </Button>
       </ButtonGroup>
       {displayMovies ? (
+        !nowPlaying.movies ? (
+          <>
+            <p className="py-4 text-lg">Now Playing Movies</p>
+            <div className=" italic text-lg text-yellow-100 text-center px-2">
+              {status === "pending" && (
+                <p className="py-9">Loading now playing movies....</p>
+              )}
+              {status === "error" && (
+                <p className="py-9">
+                  Unable to load now playing movies, check your connection
+                  <br /> and try again
+                </p>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            {/* display movies  */}
+            <p className="py-4 text-lg">Now Playing Movies</p>
+            <SliderCarousel data={nowPlaying.movies} type={"movie"} />
+          </>
+        )
+      ) : !nowPlaying.tvshows ? (
         <>
-          {/* display movies  */}
-          <p className="py-4 text-lg">Now Playing Movies</p>
+          <p className="py-4 text-lg">On the air tv shows</p>
           <div className=" italic text-lg text-yellow-100 text-center px-2">
             {status === "pending" && (
-              <p className="py-9">Loading now playing movies....</p>
+              <p className="py-4">Loading on the air tv shows....</p>
             )}
             {status === "error" && (
-              <p className="py-9">
-                Unable to load now playing movies, chech your connection <br />{" "}
-                and try again
+              <p className="py-4">
+                Unable to load on the air tv shows, check your connection
+                <br /> and try again
               </p>
             )}
           </div>
-          {status === "success" && (
-            <SliderCarousel data={nowPlaying.movies} type={"movie"} />
-          )}
         </>
       ) : (
         <>
-          {/* display tv shows */}
-          <p className="py-4 text-lg">On the air Tv shows</p>
-          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
-            {status === "pending" && (
-              <p className="py-9">Loading on the air tv shows....</p>
-            )}
-            {status === "error" && (
-              <p className="py-9">
-                Unable to load on the air tv shows, chech your connection <br />{" "}
-                and try again
-              </p>
-            )}
-          </div>
-
-          {status === "success" && (
-            <SliderCarousel data={nowPlaying.tvshows} type={"tv"} />
-          )}
+          {/* display movies  */}
+          <p className="pb-3 text-lg">On the air tv shows</p>
+          <SliderCarousel data={nowPlaying.tvshows} type={"tv"} />
         </>
       )}
     </div>

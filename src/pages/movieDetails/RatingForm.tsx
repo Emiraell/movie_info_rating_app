@@ -9,7 +9,7 @@ interface RatingProps {
 }
 export default function RatingForm({ id, type, name }: RatingProps) {
   // rating state
-  const [rating, setRating] = useState<string>("0");
+  const [rating, setRating] = useState<string>("");
   const [addedRating, setAddedRating] = useState<boolean>(false);
 
   // add rating function with post method
@@ -39,6 +39,7 @@ export default function RatingForm({ id, type, name }: RatingProps) {
         setAddedRating(true);
         setTimeout(() => {
           setAddedRating(false);
+          setRating("");
         }, 3000);
         return data;
       })
@@ -77,6 +78,7 @@ export default function RatingForm({ id, type, name }: RatingProps) {
             e.preventDefault();
             setRating(e.target.value);
           }}
+          placeholder="0"
         />
         <button className="border-l pl-5" type="submit">
           Rate

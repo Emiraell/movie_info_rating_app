@@ -22,7 +22,7 @@ export default function MovieDetail() {
       <Toolbar />
       <Hero homePage={false} pageName="movie" />
       {(isLoading || error) && (
-        <div className="mt-15 mb-40 text-center tracking-wider text-gray-100 italic text-lg">
+        <div className="mt-20 mb-40 status_message">
           {isLoading && <div>Loading......</div>}
           {error && (
             <div>

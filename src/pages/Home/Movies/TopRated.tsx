@@ -15,7 +15,7 @@ export default function TopRatedMovies() {
 
   // dispatch fetchTopRated on page load
   useEffect(() => {
-    dispatch(fetchTopRated("movie"));
+    !topRated.movies && dispatch(fetchTopRated("movie"));
     return () => {};
   }, []);
   return (
@@ -26,7 +26,7 @@ export default function TopRatedMovies() {
           sx={{ backgroundColor: displayMovies ? "red" : "transparent" }}
           onClick={() => {
             //  fetch movies when button is clicked
-            dispatch(fetchTopRated("movie"));
+            !topRated.movies && dispatch(fetchTopRated("movie"));
             setDisplayMovies(true);
           }}
         >
@@ -36,7 +36,7 @@ export default function TopRatedMovies() {
           sx={{ backgroundColor: !displayMovies ? "red" : "transparent" }}
           onClick={() => {
             // fetch tvshows when button is clicked
-            dispatch(fetchTopRated("tv"));
+            !topRated.tvshows && dispatch(fetchTopRated("tv"));
             setDisplayMovies(false);
           }}
         >
@@ -44,44 +44,48 @@ export default function TopRatedMovies() {
         </Button>
       </ButtonGroup>
       {displayMovies ? (
-        // display top rated movies
+        !topRated.movies ? (
+          <>
+            <p className="py-4 text-lg">Top RatedMovies</p>
+            <div className=" italic text-lg text-yellow-100 text-center px-2">
+              {status === "pending" && (
+                <p className="py-9">Loading top rated movies....</p>
+              )}
+              {status === "error" && (
+                <p className="py-9">
+                  Unable to load top rated movies, check your connection
+                  <br /> and try again
+                </p>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            {/* display movies  */}
+            <p className="py-4 text-lg">Top Rated Movies</p>
+            <SliderCarousel data={topRated.movies} type={"movie"} />
+          </>
+        )
+      ) : !topRated.tvshows ? (
         <>
-          <p className="py-4 text-lg">Top Rated Movies</p>
+          <p className="py-4 text-lg">On the air tv shows</p>
           <div className=" italic text-lg text-yellow-100 text-center px-2">
             {status === "pending" && (
-              <p className="py-5">Loading top rated movies....</p>
+              <p className="py-4">Loading top rated tv shows....</p>
             )}
             {status === "error" && (
-              <p className="py-5">
-                Unable to load top rated movies, chech your connection <br />{" "}
-                and try again
+              <p className="py-4">
+                Unable to load top rated tv shows, check your connection
+                <br /> and try again
               </p>
             )}
           </div>
-
-          {status === "success" && (
-            <SliderCarousel data={topRated.movies} type={"movie"} />
-          )}
         </>
       ) : (
-        // display top rated tv shows
         <>
-          <p className="py-4 text-lg">Top Rated Tv shows</p>
-          <div className=" italic text-lg text-yellow-100 text-center px-2 py-9">
-            {status === "pending" && (
-              <p className="py-9">Loading top rated tv shows....</p>
-            )}
-            {status === "error" && (
-              <p className="py-9">
-                Unable to load top rated movies, chech your connection <br />{" "}
-                and try again
-              </p>
-            )}
-          </div>
-
-          {status === "success" && (
-            <SliderCarousel data={topRated.tvshows} type={"tv"} />
-          )}
+          {/* display Tvshows  */}
+          <p className="pb-3 text-lg">Top rated tv shows</p>
+          <SliderCarousel data={topRated.tvshows} type={"tv"} />
         </>
       )}
     </div>
